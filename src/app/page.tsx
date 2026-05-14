@@ -13,6 +13,7 @@ import StoreLocatorSection from '@/components/landing/StoreLocatorSection';
 import PromotionSection from '@/components/landing/PromotionSection';
 import FAQSection from '@/components/landing/FAQSection';
 import CTASection from '@/components/landing/CTASection';
+import UsageManualSection from '@/components/landing/UsageManualSection';
 
 export default function HomePage() {
   return (
@@ -27,6 +28,9 @@ export default function HomePage() {
           <FeaturesSection />
           <DeviceSection />
         </div>
+
+        {/* Device usage manual — care protocols */}
+        <UsageManualSection />
 
         {/* QR Session flow (store → customer) */}
         <QRProcessSection />

@@ -89,14 +89,23 @@ export async function getUserQRHistory(userId: string): Promise<QRCode[]> {
   }
 }
 
-/* ─── Store Session (매장 운영자 → 고객 1회 사용 QR) ─────── */
+/* ─── Store Session (매장 운영자 → 고객 1회 사용 QR) ─────────────────
+   Flow:
+   1. Generate a unique session token
+   2. Call /api/qr/generate which proxies the Adjust QR Code API
+      (falls back to api.qrserver.com if Adjust is not configured)
+   3. Save session to Firestore with Adjust short URL for attribution
+   4. Return image data URL + metadata to the caller
+──────────────────────────────────────────────────────────────────── */
 
 export async function createStoreSession(storeId = 'default'): Promise<{
   token: string;
   qrImageUrl: string;
   verifyUrl: string;
   expiredAt: string;
+  adjustShortUrl: string;
 }> {
+  /* ── 1. Build token + verify URL ── */
   const rand = Math.random().toString(36).substring(2, 11).toUpperCase();
   const token = `UC${Date.now()}${rand}`;
   const expiredAt = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString(); // 8 h
@@ -108,21 +117,56 @@ export async function createStoreSession(storeId = 'default'): Promise<{
 
   const verifyUrl = `${baseUrl}/verify?code=${token}`;
 
+  /* ── 2. Generate QR via server-side route (Adjust → fallback) ── */
+  let qrImageUrl: string;
+  let adjustShortUrl: string = verifyUrl;
+
+  try {
+    const res = await fetch('/api/qr/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ verifyUrl, token }),
+    });
+
+    if (res.ok) {
+      const data = (await res.json()) as {
+        qrImageUrl: string;
+        adjustShortUrl: string;
+      };
+      qrImageUrl    = data.qrImageUrl;
+      adjustShortUrl = data.adjustShortUrl ?? verifyUrl;
+    } else {
+      throw new Error(`QR API ${res.status}`);
+    }
+  } catch (err) {
+    console.warn('QR API unavailable, using direct fallback:', err);
+    /* Direct fallback in case the API route itself is unreachable */
+    qrImageUrl = [
+      'https://api.qrserver.com/v1/create-qr-code/',
+      `?size=300x300`,
+      `&data=${encodeURIComponent(verifyUrl)}`,
+      `&format=png`,
+      `&margin=12`,
+      `&color=07070a`,
+      `&bgcolor=f8f8f6`,
+    ].join('');
+  }
+
+  /* ── 3. Persist to Firestore ── */
   await setDoc(doc(db, 'qr_codes', token), {
-    status: 'unused',
-    type: 'store_session',
+    status:          'unused',
+    type:            'store_session',
     storeId,
-    deviceId: 'dermahome-10',
-    createdAt: new Date().toISOString(),
+    deviceId:        'dermahome-10',
+    createdAt:       new Date().toISOString(),
     expiredAt,
-    usedBy: null,
-    usedAt: null,
-    couponId: null,
+    usedBy:          null,
+    usedAt:          null,
+    couponId:        null,
+    adjustShortUrl:  adjustShortUrl !== verifyUrl ? adjustShortUrl : null,
   });
 
-  const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(verifyUrl)}&format=png&margin=12&color=07070a&bgcolor=f8f8f6`;
-
-  return { token, qrImageUrl, verifyUrl, expiredAt };
+  return { token, qrImageUrl, verifyUrl, expiredAt, adjustShortUrl };
 }
 
 export async function getUserCoupons(userId: string): Promise<Promotion[]> {

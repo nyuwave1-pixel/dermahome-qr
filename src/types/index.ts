@@ -9,6 +9,10 @@ export interface QRCode {
   expiredAt: string;
   createdAt: string;
   couponId: string | null;
+  // Store session fields
+  type?: 'store_session' | 'product_auth';
+  storeId?: string;
+  adjustShortUrl?: string | null;
 }
 
 export interface User {

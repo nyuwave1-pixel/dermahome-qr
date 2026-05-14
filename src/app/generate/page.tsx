@@ -12,6 +12,7 @@ interface Session {
   qrImageUrl: string;
   verifyUrl: string;
   expiredAt: string;
+  adjustShortUrl: string;
   status: 'unused' | 'used' | 'expired' | 'checking';
 }
 
@@ -61,7 +62,7 @@ export default function GeneratePage() {
     setError(null);
     try {
       const result = await createStoreSession('default');
-      setSession({ ...result, status: 'unused' });
+      setSession({ ...result, status: 'unused', adjustShortUrl: result.adjustShortUrl ?? result.verifyUrl });
     } catch {
       setError('QR 생성에 실패했습니다. Firebase 연결을 확인해주세요.');
     } finally {
@@ -249,7 +250,7 @@ export default function GeneratePage() {
                     </div>
                   )}
 
-                  {/* Countdown + token */}
+                  {/* Countdown + token + short URL */}
                   {session.status === 'unused' && (
                     <div className="space-y-2 mb-2">
                       <div
@@ -262,6 +263,23 @@ export default function GeneratePage() {
                       <div className="text-xs" style={{ color: 'var(--t-7)' }}>
                         코드: {session.token.slice(0, 18)}…
                       </div>
+                      {/* Show Adjust short URL if it differs from the raw verify URL */}
+                      {session.adjustShortUrl && session.adjustShortUrl !== session.verifyUrl && (
+                        <div
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium mx-auto"
+                          style={{
+                            background: 'rgba(92,138,60,0.10)',
+                            border: '1px solid rgba(92,138,60,0.25)',
+                            color: '#9dd470',
+                          }}
+                        >
+                          <span
+                            className="w-1.5 h-1.5 rounded-full"
+                            style={{ display: 'inline-block', background: '#5c8a3c' }}
+                          />
+                          Adjust 딥링크 활성
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>

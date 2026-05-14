@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { QrCode, MapPin, Globe } from 'lucide-react';
+import { QrCode, MapPin, Globe, Store, Play } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -22,14 +22,21 @@ export default function Footer() {
 
             {/* Brand */}
             <div className="md:col-span-1">
-              <div className="mb-4">
+              <div className="flex items-center gap-3 mb-4">
+                <Image
+                  src="/images/logo_vertical.png"
+                  alt="UNI&CORE"
+                  width={28}
+                  height={28}
+                  className="h-7 w-7 object-contain"
+                />
                 <Image
                   src="/images/logo_horizontal_mono.png"
                   alt="UNI&CORE"
-                  width={140}
-                  height={24}
-                  className="h-6 w-auto object-contain"
-                  style={{ filter: 'invert(1) brightness(0.75)' }}
+                  width={120}
+                  height={22}
+                  className="h-5 w-auto object-contain"
+                  style={{ filter: 'invert(1) brightness(0.65)' }}
                 />
               </div>
               <p className="text-sm leading-relaxed mb-4 italic" style={{ color: 'rgba(248,248,246,0.30)' }}>
@@ -67,11 +74,15 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2.5">
                 {[
-                  { href: '/verify', label: 'QR 정품 인증', icon: QrCode },
+                  { href: '/generate', label: 'QR 세션 생성 (매장용)', icon: Store },
+                  { href: '/verify', label: 'QR 스캔 (고객용)', icon: QrCode },
+                  { href: 'https://www.youtube.com/@unincore.official/videos', label: '공식 YouTube', icon: Play, ext: true },
                 ].map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
+                      target={'ext' in item && item.ext ? '_blank' : undefined}
+                      rel={'ext' in item && item.ext ? 'noopener noreferrer' : undefined}
                       className="flex items-center gap-2 text-sm transition-colors"
                       style={{ color: 'rgba(248,248,246,0.48)' }}
                       onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#9dd470')}

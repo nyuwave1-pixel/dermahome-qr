@@ -1,212 +1,357 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, QrCode, Shield, AlertCircle, ArrowLeft } from 'lucide-react';
+import { useState, useCallback, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { QrCode, Shield, AlertCircle, ArrowLeft, CheckCircle2, Clock, RefreshCw } from 'lucide-react';
+import Link from 'next/link';
 import Header from '@/components/layout/Header';
-import Button from '@/components/ui/Button';
-import GlassCard from '@/components/ui/GlassCard';
-import ScanBeam from '@/components/ui/ScanBeam';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { useQRStore } from '@/store/useQRStore';
+import { verifyQRCode, getQRCodeInfo } from '@/services/qrService';
 
-export default function VerifyPage() {
+/* ── Inner component that reads searchParams ── */
+function VerifyInner() {
   const router = useRouter();
-  const { isScanning, isVerifying, setScanning, setVerifying, setVerifyResult } = useQRStore();
+  const searchParams = useSearchParams();
+  const codeParam = searchParams.get('code');
+
+  const [state, setState] = useState<'idle' | 'verifying' | 'success' | 'used' | 'expired' | 'invalid' | 'error'>(
+    codeParam ? 'verifying' : 'idle'
+  );
   const [manualCode, setManualCode] = useState('');
-  const [cameraError, setCameraError] = useState<string | null>(null);
-  const [showManual, setShowManual] = useState(false);
+  const [manualOpen, setManualOpen] = useState(false);
+  const [deviceModel, setDeviceModel] = useState('더마10 PRO');
 
-  const handleScan = useCallback(async (code: string) => {
-    if (isVerifying) return;
-    setScanning(false);
-    setVerifying(true);
+  // Auto-verify if ?code= is in the URL
+  useEffect(() => {
+    if (!codeParam) return;
+    const run = async () => {
+      setState('verifying');
+      // small UX delay
+      await new Promise((r) => setTimeout(r, 1200));
 
-    const qrCode = code.includes('code=') ? new URL(code).searchParams.get('code') : code;
-    if (!qrCode) {
-      setVerifyResult({ success: false, message: '유효하지 않은 QR 코드입니다.', errorType: 'invalid' });
-      router.push('/verify/failed?type=invalid');
-      return;
-    }
+      const info = await getQRCodeInfo(codeParam);
+      if (!info) { setState('invalid'); return; }
+      if (info.status === 'used') { setState('used'); return; }
+      if (info.status === 'expired' || new Date(info.expiredAt) < new Date()) {
+        setState('expired'); return;
+      }
 
-    await new Promise((r) => setTimeout(r, 2000));
+      // Mark as used
+      const result = await verifyQRCode(codeParam, 'customer');
+      if (result.success) {
+        setState('success');
+      } else if (result.errorType === 'used') {
+        setState('used');
+      } else if (result.errorType === 'expired') {
+        setState('expired');
+      } else {
+        setState('invalid');
+      }
+    };
+    run();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    if (qrCode === 'UNINCORE-A1B2C') {
-      router.push('/verify/used?code=' + qrCode);
-    } else if (qrCode === 'UNINCORE-G5H6I') {
-      router.push('/verify/failed?type=expired');
-    } else {
-      setVerifyResult({
-        success: true,
-        message: '정품 인증이 완료되었습니다.',
-        coupon: {
-          couponId: 'new-coupon',
-          userId: 'demo-user',
-          couponCode: 'DH-' + Math.random().toString(36).substring(2, 10).toUpperCase(),
-          discountPercent: 15,
-          description: '더마홈 정품 인증 프로모션 쿠폰',
-          expiredAt: new Date(Date.now() + 30 * 86400000).toISOString(),
-          usedAt: null,
-          createdAt: new Date().toISOString(),
-        },
-      });
-      router.push('/verify/success');
-    }
-  }, [isVerifying, setScanning, setVerifying, setVerifyResult, router]);
+  const handleManual = useCallback(async () => {
+    const code = manualCode.trim();
+    if (!code) return;
+    router.push(`/verify?code=${encodeURIComponent(code)}`);
+  }, [manualCode, router]);
 
-  const startCamera = useCallback(async () => {
-    setScanning(true);
-    setCameraError(null);
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-      stream.getTracks().forEach((t) => t.stop());
-    } catch {
-      setCameraError('카메라 접근 권한이 필요합니다. 브라우저 설정에서 카메라를 허용해주세요.');
-      setScanning(false);
-    }
-  }, [setScanning]);
+  /* ── States ── */
+  if (state === 'verifying') {
+    return (
+      <div className="text-center">
+        <div
+          className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6"
+          style={{ background: 'rgba(92,138,60,0.12)', border: '1px solid rgba(92,138,60,0.30)' }}
+        >
+          <RefreshCw className="w-10 h-10 animate-spin" style={{ color: '#7bae52' }} />
+        </div>
+        <h2 className="text-xl font-bold mb-2" style={{ color: '#f8f8f6' }}>
+          QR 인증 처리 중
+        </h2>
+        <p className="text-sm" style={{ color: 'rgba(248,248,246,0.5)' }}>
+          잠시만 기다려주세요...
+        </p>
+        <div className="mt-6 space-y-2">
+          {['QR 코드 검증 중', '기기 사용 권한 확인 중', '세션 활성화 중'].map((step, i) => (
+            <div
+              key={step}
+              className="flex items-center gap-2 text-xs transition-all duration-500"
+              style={{
+                color: 'rgba(248,248,246,0.42)',
+                opacity: 1,
+                transitionDelay: `${i * 400}ms`,
+              }}
+            >
+              <div
+                className="w-1.5 h-1.5 rounded-full"
+                style={{
+                  background: '#5c8a3c',
+                  animation: 'glowPulse 1.5s ease-in-out infinite',
+                  animationDelay: `${i * 0.3}s`,
+                }}
+              />
+              {step}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
-  const handleManualSubmit = () => {
-    if (manualCode.trim()) handleScan(manualCode.trim());
-  };
+  if (state === 'success') {
+    return (
+      <div className="text-center">
+        <div
+          className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
+          style={{ background: 'rgba(92,138,60,0.15)', border: '2px solid rgba(92,138,60,0.45)' }}
+        >
+          <CheckCircle2 className="w-10 h-10" style={{ color: '#9dd470' }} />
+        </div>
+        <div
+          className="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase mb-4"
+          style={{ background: 'rgba(92,138,60,0.15)', color: '#9dd470', border: '1px solid rgba(92,138,60,0.35)' }}
+        >
+          인증 완료
+        </div>
+        <h2 className="text-2xl font-black mb-2" style={{ color: '#f8f8f6' }}>
+          기기 사용 권한이<br />부여되었습니다
+        </h2>
+        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'rgba(248,248,246,0.55)' }}>
+          <span className="font-semibold" style={{ color: '#9dd470' }}>{deviceModel}</span>
+          을(를) 사용하실 수 있습니다.
+          <br />이 QR은 1회 사용으로 만료되었습니다.
+        </p>
 
+        {/* Usage guide chips */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {['페이스 RF', '울트라소닉', '이온토포레시스', '고주파'].map((h) => (
+            <span
+              key={h}
+              className="text-xs px-3 py-1.5 rounded-lg font-medium"
+              style={{ background: 'rgba(92,138,60,0.10)', color: 'rgba(248,248,246,0.7)', border: '1px solid rgba(92,138,60,0.20)' }}
+            >
+              {h}
+            </span>
+          ))}
+        </div>
+
+        <Link
+          href="/#guide"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:scale-[1.03]"
+          style={{ background: '#5c8a3c', color: '#fff', boxShadow: '0 0 20px rgba(92,138,60,0.25)' }}
+        >
+          케어 가이드 보기
+        </Link>
+      </div>
+    );
+  }
+
+  if (state === 'used') {
+    return (
+      <div className="text-center">
+        <div
+          className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
+          style={{ background: 'rgba(244,114,182,0.10)', border: '2px solid rgba(244,114,182,0.30)' }}
+        >
+          <Clock className="w-10 h-10" style={{ color: '#f472b6' }} />
+        </div>
+        <div
+          className="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase mb-4"
+          style={{ background: 'rgba(244,114,182,0.10)', color: '#f472b6', border: '1px solid rgba(244,114,182,0.28)' }}
+        >
+          이미 사용됨
+        </div>
+        <h2 className="text-2xl font-black mb-2" style={{ color: '#f8f8f6' }}>
+          만료된 QR 코드입니다
+        </h2>
+        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'rgba(248,248,246,0.55)' }}>
+          이 QR 코드는 이미 사용되었습니다.
+          <br />매장 운영자에게 새 QR을 요청하세요.
+        </p>
+        <p className="text-xs" style={{ color: 'rgba(248,248,246,0.30)' }}>
+          재 스캔 시 만료 · 새 QR은 매장 운영자가 발급합니다
+        </p>
+      </div>
+    );
+  }
+
+  if (state === 'expired') {
+    return (
+      <div className="text-center">
+        <div
+          className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
+          style={{ background: 'rgba(251,146,60,0.10)', border: '2px solid rgba(251,146,60,0.30)' }}
+        >
+          <Clock className="w-10 h-10" style={{ color: '#fb923c' }} />
+        </div>
+        <div
+          className="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase mb-4"
+          style={{ background: 'rgba(251,146,60,0.10)', color: '#fb923c', border: '1px solid rgba(251,146,60,0.28)' }}
+        >
+          만료됨
+        </div>
+        <h2 className="text-2xl font-black mb-2" style={{ color: '#f8f8f6' }}>
+          유효 시간이 만료되었습니다
+        </h2>
+        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'rgba(248,248,246,0.55)' }}>
+          이 QR 코드의 유효 시간이 지났습니다.
+          <br />매장 운영자에게 새 QR을 요청하세요.
+        </p>
+      </div>
+    );
+  }
+
+  if (state === 'invalid' || state === 'error') {
+    return (
+      <div className="text-center">
+        <div
+          className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
+          style={{ background: 'rgba(244,114,182,0.10)', border: '2px solid rgba(244,114,182,0.30)' }}
+        >
+          <AlertCircle className="w-10 h-10" style={{ color: '#f472b6' }} />
+        </div>
+        <h2 className="text-2xl font-black mb-2" style={{ color: '#f8f8f6' }}>
+          유효하지 않은 QR입니다
+        </h2>
+        <p className="text-sm mb-6" style={{ color: 'rgba(248,248,246,0.55)' }}>
+          QR 코드를 다시 확인하거나 새 QR을 요청하세요.
+        </p>
+        <button
+          onClick={() => { setState('idle'); setManualCode(''); }}
+          className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200"
+          style={{ background: 'rgba(255,255,255,0.06)', color: '#f8f8f6', border: '1px solid rgba(255,255,255,0.10)' }}
+        >
+          다시 시도
+        </button>
+      </div>
+    );
+  }
+
+  /* Idle state — show manual entry */
+  return (
+    <div>
+      {/* Icon */}
+      <div className="text-center mb-8">
+        <div
+          className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
+          style={{ background: 'rgba(92,138,60,0.12)', border: '1px solid rgba(92,138,60,0.30)' }}
+        >
+          <QrCode className="w-8 h-8" style={{ color: '#7bae52' }} />
+        </div>
+        <h1 className="text-xl font-black mb-1" style={{ color: '#f8f8f6' }}>
+          QR 세션 스캔
+        </h1>
+        <p className="text-sm" style={{ color: 'rgba(248,248,246,0.48)' }}>
+          매장에서 받은 QR 코드를 스캔해주세요
+        </p>
+      </div>
+
+      {/* Camera scan notice */}
+      <div
+        className="p-4 rounded-xl mb-4 text-sm"
+        style={{ background: 'rgba(92,138,60,0.07)', border: '1px solid rgba(92,138,60,0.20)' }}
+      >
+        <p style={{ color: 'rgba(248,248,246,0.65)' }}>
+          스마트폰 기본 카메라 앱으로 QR 코드를 스캔하면 자동으로 이 페이지로 연결됩니다.
+        </p>
+      </div>
+
+      {/* Manual code entry */}
+      <div
+        className="rounded-xl overflow-hidden"
+        style={{ border: '1px solid rgba(255,255,255,0.08)' }}
+      >
+        <button
+          className="w-full flex items-center justify-between p-4"
+          onClick={() => setManualOpen(!manualOpen)}
+        >
+          <div className="flex items-center gap-3">
+            <Shield className="w-5 h-5" style={{ color: '#7bae52' }} />
+            <span className="text-sm font-medium" style={{ color: 'rgba(248,248,246,0.72)' }}>
+              코드 직접 입력
+            </span>
+          </div>
+          <span
+            className="text-xs transition-transform duration-300"
+            style={{
+              color: 'rgba(248,248,246,0.3)',
+              transform: manualOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+              display: 'inline-block',
+            }}
+          >
+            ▾
+          </span>
+        </button>
+        {manualOpen && (
+          <div className="px-4 pb-4 space-y-3">
+            <input
+              type="text"
+              placeholder="QR 코드 입력..."
+              value={manualCode}
+              onChange={(e) => setManualCode(e.target.value.toUpperCase())}
+              className="w-full px-4 py-3 rounded-xl text-center font-mono text-sm tracking-wider focus:outline-none"
+              style={{
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                color: '#f8f8f6',
+              }}
+            />
+            <button
+              onClick={handleManual}
+              disabled={!manualCode.trim()}
+              className="w-full py-3 rounded-xl text-sm font-semibold text-white transition-all disabled:opacity-50"
+              style={{ background: '#5c8a3c' }}
+            >
+              인증하기
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ── Page wrapper with Suspense (required for useSearchParams) ── */
+export default function VerifyPage() {
   return (
     <>
       <Header />
-      <main className="flex-1 pt-24 pb-12 px-4 safe-top safe-bottom">
-        <div className="max-w-lg mx-auto">
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-sky-500/25">
-              <QrCode className="w-8 h-8 text-white" />
-            </div>
-            <h1 className="text-2xl font-bold mb-2" style={{ color: '#1e293b' }}>QR 정품 인증</h1>
-            <p className="text-sm" style={{ color: '#64748b' }}>더마홈 기기의 QR 코드를 스캔해주세요</p>
+      <main
+        className="min-h-screen flex items-center justify-center px-4 py-24"
+        style={{ background: '#07070a' }}
+      >
+        <div className="w-full max-w-sm">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-sm mb-6 transition-colors"
+            style={{ color: 'rgba(248,248,246,0.38)' }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#7bae52'; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.38)'; }}
+          >
+            <ArrowLeft className="w-4 h-4" />
+            홈으로
+          </Link>
+
+          <div
+            className="p-6 rounded-2xl"
+            style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.09)',
+            }}
+          >
+            <Suspense
+              fallback={
+                <div className="text-center py-8">
+                  <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-3" style={{ color: '#7bae52' }} />
+                  <p className="text-sm" style={{ color: 'rgba(248,248,246,0.5)' }}>로딩 중...</p>
+                </div>
+              }
+            >
+              <VerifyInner />
+            </Suspense>
           </div>
-
-          <AnimatePresence mode="wait">
-            {isVerifying ? (
-              <motion.div key="verifying" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <GlassCard className="p-8">
-                  <LoadingSpinner text="피부 분석 디바이스 인증 중..." />
-                  <div className="mt-4 space-y-2">
-                    {['QR 코드 검증 중', '기기 정보 확인 중', '정품 데이터베이스 조회 중'].map((step, i) => (
-                      <motion.div
-                        key={step}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.6 }}
-                        className="flex items-center gap-2 text-sm text-slate-500"
-                      >
-                        <motion.div
-                          className="w-2 h-2 rounded-full bg-sky-400"
-                          animate={{ opacity: [0.3, 1, 0.3] }}
-                          transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
-                        />
-                        {step}
-                      </motion.div>
-                    ))}
-                  </div>
-                </GlassCard>
-              </motion.div>
-            ) : isScanning ? (
-              <motion.div key="scanning" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <GlassCard className="p-0 overflow-hidden">
-                  <div className="relative aspect-square bg-slate-900 rounded-2xl flex items-center justify-center">
-                    <ScanBeam active />
-                    <div className="text-center z-10">
-                      <Camera className="w-12 h-12 text-sky-400 mx-auto mb-3" />
-                      <p className="text-sky-200 text-sm">QR 코드를 화면에 맞춰주세요</p>
-                    </div>
-                  </div>
-                  <div className="p-4 flex gap-3">
-                    <Button variant="ghost" onClick={() => setScanning(false)} className="flex-1">
-                      취소
-                    </Button>
-                    <Button onClick={() => handleScan('UNINCORE-D3E4F')} className="flex-1">
-                      데모 인증
-                    </Button>
-                  </div>
-                </GlassCard>
-              </motion.div>
-            ) : (
-              <motion.div key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
-                <GlassCard className="p-6" hover onClick={startCamera}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center shadow-lg shadow-sky-500/20">
-                      <Camera className="w-7 h-7 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-bold text-slate-800">카메라로 스캔</h3>
-                      <p className="text-sm text-slate-500">QR 코드를 카메라로 촬영합니다</p>
-                    </div>
-                  </div>
-                </GlassCard>
-
-                {cameraError && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-start gap-3 p-4 rounded-xl bg-red-50 border border-red-100"
-                  >
-                    <AlertCircle className="w-5 h-5 text-red-500 mt-0.5" />
-                    <p className="text-sm text-red-600">{cameraError}</p>
-                  </motion.div>
-                )}
-
-                <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-slate-200" />
-                  </div>
-                  <div className="relative flex justify-center">
-                    <span className="bg-white px-4 text-sm text-slate-400">또는</span>
-                  </div>
-                </div>
-
-                <GlassCard className="p-6">
-                  <button
-                    className="w-full flex items-center justify-between mb-4"
-                    onClick={() => setShowManual(!showManual)}
-                  >
-                    <div className="flex items-center gap-3">
-                      <Shield className="w-5 h-5 text-sky-500" />
-                      <span className="font-medium text-slate-700">코드 직접 입력</span>
-                    </div>
-                  </button>
-                  <AnimatePresence>
-                    {showManual && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="space-y-3">
-                          <input
-                            type="text"
-                            placeholder="UNINCORE-XXXXX"
-                            value={manualCode}
-                            onChange={(e) => setManualCode(e.target.value.toUpperCase())}
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-center font-mono text-lg tracking-wider focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent"
-                          />
-                          <Button fullWidth onClick={handleManualSubmit} disabled={!manualCode.trim()}>
-                            인증하기
-                          </Button>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </GlassCard>
-
-                <div className="text-center">
-                  <button onClick={() => router.push('/')} className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-sky-500 transition-colors">
-                    <ArrowLeft className="w-4 h-4" />
-                    메인으로 돌아가기
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </main>
     </>

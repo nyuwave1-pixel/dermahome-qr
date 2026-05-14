@@ -3,12 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, QrCode, Home, Cpu, Building2 } from 'lucide-react';
+import { Menu, X, QrCode, Home, Cpu, Building2, BookOpen, MapPin } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: '홈', icon: Home },
-  { href: '/verify', label: 'QR 인증', icon: QrCode },
   { href: '#device', label: '기기 소개', icon: Cpu },
+  { href: '#guide', label: '케어 가이드', icon: BookOpen },
+  { href: '#stores', label: '매장 찾기', icon: MapPin },
   { href: '#about', label: '회사 소개', icon: Building2 },
 ];
 
@@ -55,27 +56,38 @@ export default function Header() {
           }}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="relative h-7 w-auto">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl transition-all duration-200"
+              style={{ background: 'rgba(240,240,236,0.10)', border: '1px solid rgba(255,255,255,0.10)' }}
+            >
+              <Image
+                src="/images/logo_vertical.png"
+                alt="UNI&CORE"
+                width={28}
+                height={28}
+                className="h-7 w-7 object-contain"
+                priority
+              />
               <Image
                 src="/images/logo_horizontal_mono.png"
                 alt="UNI&CORE"
-                width={160}
-                height={28}
-                className="h-7 w-auto object-contain"
-                style={{ filter: 'invert(1) brightness(0.9)' }}
+                width={100}
+                height={20}
+                className="h-5 w-auto object-contain hidden sm:block"
+                style={{ filter: 'invert(1) brightness(0.85)' }}
                 priority
               />
             </div>
             <div
               className="hidden sm:block h-4 w-px"
-              style={{ background: 'rgba(255,255,255,0.15)' }}
+              style={{ background: 'rgba(255,255,255,0.12)' }}
             />
             <span
-              className="hidden sm:block text-xs font-medium tracking-widest uppercase"
-              style={{ color: 'rgba(248,248,246,0.40)', letterSpacing: '0.15em' }}
+              className="hidden lg:block text-xs font-medium tracking-widest uppercase"
+              style={{ color: 'rgba(248,248,246,0.36)', letterSpacing: '0.15em' }}
             >
-              DermaHome
+              DermaHome 10
             </span>
           </Link>
 
@@ -104,14 +116,24 @@ export default function Header() {
           </nav>
 
           {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2">
             <Link
               href="/verify"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200"
+              style={{ color: 'rgba(248,248,246,0.55)', border: '1px solid rgba(255,255,255,0.10)' }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#f8f8f6'; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.55)'; }}
+            >
+              <QrCode className="w-4 h-4" />
+              QR 스캔
+            </Link>
+            <Link
+              href="/generate"
               className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-white"
               style={{ background: '#5c8a3c', boxShadow: '0 0 16px rgba(92,138,60,0.30)' }}
             >
               <QrCode className="w-4 h-4" />
-              QR 인증
+              QR 세션 생성
             </Link>
           </div>
 
@@ -168,13 +190,22 @@ export default function Header() {
             ))}
             <div className="h-px mx-2 mt-1 mb-2" style={{ background: 'rgba(255,255,255,0.07)' }} />
             <Link
-              href="/verify"
+              href="/generate"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-white transition-all"
               style={{ background: '#5c8a3c' }}
             >
               <QrCode className="w-5 h-5" />
-              QR 정품 인증하기
+              매장 QR 세션 생성
+            </Link>
+            <Link
+              href="/verify"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-center gap-2 py-3 rounded-xl font-medium transition-all"
+              style={{ color: 'rgba(248,248,246,0.6)', border: '1px solid rgba(255,255,255,0.10)' }}
+            >
+              <QrCode className="w-5 h-5" />
+              QR 스캔 (고객용)
             </Link>
           </nav>
         </div>

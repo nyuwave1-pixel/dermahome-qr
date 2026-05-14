@@ -1,7 +1,7 @@
 import { db } from '@/firebase/config';
 import {
-  doc, getDoc, updateDoc, collection, addDoc,
-  query, where, getDocs, orderBy, Timestamp,
+  doc, getDoc, setDoc, updateDoc, collection, addDoc,
+  query, where, getDocs, orderBy,
 } from 'firebase/firestore';
 import type { QRCode, VerifyResult, Promotion } from '@/types';
 
@@ -87,6 +87,42 @@ export async function getUserQRHistory(userId: string): Promise<QRCode[]> {
   } catch {
     return [];
   }
+}
+
+/* ─── Store Session (매장 운영자 → 고객 1회 사용 QR) ─────── */
+
+export async function createStoreSession(storeId = 'default'): Promise<{
+  token: string;
+  qrImageUrl: string;
+  verifyUrl: string;
+  expiredAt: string;
+}> {
+  const rand = Math.random().toString(36).substring(2, 11).toUpperCase();
+  const token = `UC${Date.now()}${rand}`;
+  const expiredAt = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString(); // 8 h
+
+  const baseUrl =
+    typeof window !== 'undefined'
+      ? window.location.origin
+      : 'https://dermahome.unincore.com';
+
+  const verifyUrl = `${baseUrl}/verify?code=${token}`;
+
+  await setDoc(doc(db, 'qr_codes', token), {
+    status: 'unused',
+    type: 'store_session',
+    storeId,
+    deviceId: 'dermahome-10',
+    createdAt: new Date().toISOString(),
+    expiredAt,
+    usedBy: null,
+    usedAt: null,
+    couponId: null,
+  });
+
+  const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(verifyUrl)}&format=png&margin=12&color=07070a&bgcolor=f8f8f6`;
+
+  return { token, qrImageUrl, verifyUrl, expiredAt };
 }
 
 export async function getUserCoupons(userId: string): Promise<Promotion[]> {

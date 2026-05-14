@@ -29,34 +29,23 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
 
-      {/* ── YouTube Video Background ──────────────────── */}
+      {/* ── Hero Background Image ──────────────────────── */}
       <div className="absolute inset-0 overflow-hidden bg-black">
-        <div
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 'max(100%, 177.78vh)',
-            height: 'max(100vh, 56.25vw)',
-            pointerEvents: 'none',
-          }}
-        >
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/sICDg5vYvPk?autoplay=1&muted=1&loop=1&playlist=sICDg5vYvPk&controls=0&rel=0&modestbranding=1&playsinline=1&cc_load_policy=0&iv_load_policy=3&disablekb=1"
-            title="UNI&CORE DermaHome"
-            frameBorder="0"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
-          />
-        </div>
+        <Image
+          src="/images/hero_bg.png"
+          alt="DermaHome hero background"
+          fill
+          className="object-cover object-center"
+          priority
+          quality={90}
+        />
 
         {/* Layered dark overlays */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(7,7,10,0.55) 0%, rgba(7,7,10,0.45) 40%, rgba(7,7,10,0.65) 75%, rgba(7,7,10,0.92) 100%)',
+              'linear-gradient(to bottom, rgba(7,7,10,0.50) 0%, rgba(7,7,10,0.38) 40%, rgba(7,7,10,0.62) 75%, rgba(7,7,10,0.92) 100%)',
           }}
         />
         {/* Green tint */}
@@ -72,7 +61,7 @@ export default function HeroSection() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 120% 100% at 50% 50%, transparent 50%, rgba(7,7,10,0.5) 100%)',
+              'radial-gradient(ellipse 120% 100% at 50% 50%, transparent 50%, rgba(7,7,10,0.45) 100%)',
           }}
         />
       </div>

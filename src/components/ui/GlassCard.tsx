@@ -32,7 +32,7 @@ export default function GlassCard({
       {/* Subtle top-edge highlight */}
       <div
         className="absolute inset-x-0 top-0 h-px pointer-events-none"
-        style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent)' }}
+        style={{ background: 'linear-gradient(to right, transparent, var(--border-bright), transparent)' }}
       />
       <div className="relative z-10">{children}</div>
     </div>

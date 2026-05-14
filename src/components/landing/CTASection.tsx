@@ -55,7 +55,7 @@ export default function CTASection() {
             style={{
               background: 'linear-gradient(160deg, #f0f0ec 0%, #e4e4e0 100%)',
               padding: '10px 24px',
-              boxShadow: '0 0 0 1px rgba(255,255,255,0.06), 0 16px 48px rgba(0,0,0,0.4), 0 0 60px rgba(92,138,60,0.10)',
+              boxShadow: '0 0 0 1px var(--su-1), 0 16px 48px rgba(0,0,0,0.4), 0 0 60px rgba(92,138,60,0.10)',
             }}
           >
             <Image
@@ -74,13 +74,13 @@ export default function CTASection() {
           style={{ opacity: inView ? 1 : 0, transform: inView ? 'translateY(0)' : 'translateY(24px)' }}
         >
           <h2 className="text-3xl md:text-5xl font-black mb-4 leading-tight">
-            <span style={{ color: '#f8f8f6' }}>지금 바로 </span>
+            <span style={{ color: 'var(--t-1)' }}>지금 바로 </span>
             <span className="text-gradient-green">정품 인증</span>
-            <span style={{ color: '#f8f8f6' }}>하고<br />프리미엄 케어를 시작하세요</span>
+            <span style={{ color: 'var(--t-1)' }}>하고<br />프리미엄 케어를 시작하세요</span>
           </h2>
           <p
             className="text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed"
-            style={{ color: 'rgba(248,248,246,0.52)' }}
+            style={{ color: 'var(--t-4)' }}
           >
             더마10 기기의 QR 코드를 스캔하는 것만으로
             정품 인증과 모든 혜택이 시작됩니다.
@@ -124,7 +124,7 @@ export default function CTASection() {
             <div
               key={badge}
               className="flex items-center gap-1.5 text-xs"
-              style={{ color: 'rgba(248,248,246,0.45)' }}
+              style={{ color: 'var(--t-5)' }}
             >
               <span
                 className="w-1 h-1 rounded-full"

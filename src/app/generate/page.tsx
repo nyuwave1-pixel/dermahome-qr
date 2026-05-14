@@ -88,7 +88,7 @@ export default function GeneratePage() {
       <Header />
       <main
         className="min-h-screen flex items-center justify-center px-4 py-24"
-        style={{ background: '#07070a' }}
+        style={{ background: 'var(--t-bg)' }}
       >
         <div className="w-full max-w-md">
 
@@ -96,9 +96,9 @@ export default function GeneratePage() {
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 text-sm mb-6 transition-colors"
-            style={{ color: 'rgba(248,248,246,0.38)' }}
+            style={{ color: 'var(--t-5)' }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#7bae52'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.38)'; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-5)'; }}
           >
             <ArrowLeft className="w-4 h-4" />
             홈으로
@@ -120,10 +120,10 @@ export default function GeneratePage() {
                 <Store className="w-5 h-5" style={{ color: '#9dd470' }} />
               </div>
               <div>
-                <h1 className="text-base font-bold" style={{ color: '#f8f8f6' }}>
+                <h1 className="text-base font-bold" style={{ color: 'var(--t-1)' }}>
                   매장 QR 세션 생성
                 </h1>
-                <p className="text-xs" style={{ color: 'rgba(248,248,246,0.45)' }}>
+                <p className="text-xs" style={{ color: 'var(--t-5)' }}>
                   고객용 1회성 더마10 기기 사용 QR
                 </p>
               </div>
@@ -134,8 +134,8 @@ export default function GeneratePage() {
           <div
             className="rounded-2xl overflow-hidden"
             style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.09)',
+              background: 'var(--su-2)',
+              border: '1px solid var(--bd-2)',
             }}
           >
             {/* QR display area */}
@@ -151,10 +151,10 @@ export default function GeneratePage() {
                   >
                     <QrCode className="w-10 h-10" style={{ color: '#7bae52' }} />
                   </div>
-                  <p className="text-sm font-semibold mb-1.5" style={{ color: '#f8f8f6' }}>
+                  <p className="text-sm font-semibold mb-1.5" style={{ color: 'var(--t-1)' }}>
                     새 QR 세션을 생성하세요
                   </p>
-                  <p className="text-xs leading-relaxed" style={{ color: 'rgba(248,248,246,0.42)' }}>
+                  <p className="text-xs leading-relaxed" style={{ color: 'var(--t-5)' }}>
                     생성된 QR을 고객에게 보여주면<br />고객이 스캔해 기기 사용 권한을 받습니다.
                   </p>
                 </div>
@@ -171,7 +171,7 @@ export default function GeneratePage() {
                       style={{ color: '#7bae52' }}
                     />
                   </div>
-                  <p className="text-sm" style={{ color: 'rgba(248,248,246,0.55)' }}>
+                  <p className="text-sm" style={{ color: 'var(--t-4)' }}>
                     QR 생성 중...
                   </p>
                 </div>
@@ -226,10 +226,10 @@ export default function GeneratePage() {
                       >
                         <CheckCircle2 className="w-8 h-8" style={{ color: '#38bdf8' }} />
                       </div>
-                      <p className="text-base font-bold" style={{ color: '#f8f8f6' }}>
+                      <p className="text-base font-bold" style={{ color: 'var(--t-1)' }}>
                         고객이 성공적으로 스캔했습니다
                       </p>
-                      <p className="text-xs" style={{ color: 'rgba(248,248,246,0.45)' }}>
+                      <p className="text-xs" style={{ color: 'var(--t-5)' }}>
                         이 QR은 만료되었습니다. 다음 고객을 위해 새 QR을 생성하세요.
                       </p>
                     </div>
@@ -243,7 +243,7 @@ export default function GeneratePage() {
                       >
                         <Clock className="w-8 h-8" style={{ color: '#f472b6' }} />
                       </div>
-                      <p className="text-base font-bold" style={{ color: '#f8f8f6' }}>
+                      <p className="text-base font-bold" style={{ color: 'var(--t-1)' }}>
                         QR 유효 시간이 만료되었습니다
                       </p>
                     </div>
@@ -254,12 +254,12 @@ export default function GeneratePage() {
                     <div className="space-y-2 mb-2">
                       <div
                         className="flex items-center justify-center gap-2 text-xs"
-                        style={{ color: 'rgba(248,248,246,0.42)' }}
+                        style={{ color: 'var(--t-5)' }}
                       >
                         <Clock className="w-3.5 h-3.5" />
                         유효 시간: {countdown}
                       </div>
-                      <div className="text-xs" style={{ color: 'rgba(248,248,246,0.22)' }}>
+                      <div className="text-xs" style={{ color: 'var(--t-7)' }}>
                         코드: {session.token.slice(0, 18)}…
                       </div>
                     </div>
@@ -275,7 +275,7 @@ export default function GeneratePage() {
                 style={{ background: 'rgba(244,114,182,0.08)', border: '1px solid rgba(244,114,182,0.25)' }}
               >
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" style={{ color: '#f472b6' }} />
-                <p style={{ color: 'rgba(248,248,246,0.7)' }}>{error}</p>
+                <p style={{ color: 'var(--t-2)' }}>{error}</p>
               </div>
             )}
 
@@ -298,7 +298,7 @@ export default function GeneratePage() {
               {session?.status === 'unused' && (
                 <p
                   className="text-center text-xs"
-                  style={{ color: 'rgba(248,248,246,0.30)' }}
+                  style={{ color: 'var(--t-6)' }}
                 >
                   새 QR 생성 시 현재 QR은 즉시 만료됩니다
                 </p>
@@ -309,11 +309,11 @@ export default function GeneratePage() {
           {/* Instructions */}
           <div
             className="mt-5 p-4 rounded-2xl space-y-2.5"
-            style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}
+            style={{ background: 'var(--su-3)', border: '1px solid var(--bd-3)' }}
           >
             <p
               className="text-xs font-semibold uppercase tracking-widest"
-              style={{ color: 'rgba(248,248,246,0.30)' }}
+              style={{ color: 'var(--t-6)' }}
             >
               사용 방법
             </p>
@@ -323,7 +323,7 @@ export default function GeneratePage() {
               '③ 고객 스캔 완료 시 기기 사용 권한이 자동 부여됩니다',
               '④ 다음 고객을 위해 새 QR을 다시 생성하세요',
             ].map((step) => (
-              <p key={step} className="text-xs leading-relaxed" style={{ color: 'rgba(248,248,246,0.40)' }}>
+              <p key={step} className="text-xs leading-relaxed" style={{ color: 'var(--t-5)' }}>
                 {step}
               </p>
             ))}

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
   title: {
@@ -15,21 +16,37 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   viewportFit: 'cover',
-  themeColor: '#07070a',
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)',  color: '#07070a' },
+    { media: '(prefers-color-scheme: light)', color: '#f4f4f0' },
+  ],
 };
+
+// Inline script — runs before React hydrates to prevent flash
+const themeScript = `
+(function(){
+  try {
+    var t = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  } catch(e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+`;
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ko" className="h-full">
-      <body
-        className="min-h-full flex flex-col"
-        style={{ background: '#07070a', color: '#f8f8f6' }}
-      >
-        {children}
+      {/* Flash-prevention: must execute synchronously before paint */}
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

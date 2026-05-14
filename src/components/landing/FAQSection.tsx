@@ -72,10 +72,10 @@ export default function FAQSection() {
             Company
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: '#f8f8f6' }}>㈜ 유니앤코어 </span>
+            <span style={{ color: 'var(--t-1)' }}>㈜ 유니앤코어 </span>
             <span className="text-gradient-green">회사 소개</span>
           </h2>
-          <p className="max-w-lg mx-auto text-sm leading-relaxed" style={{ color: 'rgba(248,248,246,0.5)' }}>
+          <p className="max-w-lg mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
             2022년 설립 후 3년 만에 연매출 ₩120억, 7개국 진출을 달성한
             구독 플랫폼 기반 글로벌 뷰티 &amp; 헬스케어 기업
           </p>
@@ -94,19 +94,19 @@ export default function FAQSection() {
               <Target className="w-4 h-4" style={{ color: '#7bae52' }} />
               <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#7bae52' }}>Vision</span>
             </div>
-            <p className="text-lg font-bold leading-snug" style={{ color: '#f8f8f6' }}>
+            <p className="text-lg font-bold leading-snug" style={{ color: 'var(--t-1)' }}>
               구독 플랫폼을 기반으로한<br />세계 최고의 직접 판매 회사
             </p>
           </div>
           <div
             className="p-6 rounded-2xl"
-            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}
+            style={{ background: 'var(--su-1)', border: '1px solid var(--bd-2)' }}
           >
             <div className="flex items-center gap-2 mb-3">
               <Heart className="w-4 h-4" style={{ color: '#38bdf8' }} />
               <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#38bdf8' }}>Mission</span>
             </div>
-            <p className="text-lg font-bold leading-snug italic" style={{ color: '#f8f8f6' }}>
+            <p className="text-lg font-bold leading-snug italic" style={{ color: 'var(--t-1)' }}>
               &ldquo;United power of uni&amp;core<br />to the global&rdquo;
             </p>
           </div>
@@ -119,8 +119,8 @@ export default function FAQSection() {
               key={s.label}
               className="p-4 rounded-2xl text-center transition-all duration-500"
               style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.07)',
+                background: 'var(--su-1)',
+                border: '1px solid var(--bd-3)',
                 opacity: inView ? 1 : 0,
                 transitionDelay: `${150 + i * 60}ms`,
               }}
@@ -128,8 +128,8 @@ export default function FAQSection() {
               <div className="text-2xl md:text-3xl font-black mb-1" style={{ color: s.color }}>
                 {s.value}
               </div>
-              <div className="text-xs font-semibold mb-0.5" style={{ color: '#f8f8f6' }}>{s.label}</div>
-              <div className="text-[10px]" style={{ color: 'rgba(248,248,246,0.38)' }}>{s.sub}</div>
+              <div className="text-xs font-semibold mb-0.5" style={{ color: 'var(--t-1)' }}>{s.label}</div>
+              <div className="text-[10px]" style={{ color: 'var(--t-7)' }}>{s.sub}</div>
             </div>
           ))}
         </div>
@@ -141,8 +141,8 @@ export default function FAQSection() {
               key={v.title}
               className="p-5 rounded-2xl text-center transition-all duration-500"
               style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.07)',
+                background: 'var(--su-1)',
+                border: '1px solid var(--bd-3)',
                 opacity: inView ? 1 : 0,
                 transform: inView ? 'translateY(0)' : 'translateY(20px)',
                 transitionDelay: `${300 + i * 80}ms`,
@@ -154,8 +154,8 @@ export default function FAQSection() {
               >
                 <v.icon className="w-5 h-5" style={{ color: v.color }} />
               </div>
-              <h3 className="text-sm font-bold mb-1.5" style={{ color: '#f8f8f6' }}>{v.title}</h3>
-              <p className="text-xs leading-relaxed" style={{ color: 'rgba(248,248,246,0.45)' }}>{v.desc}</p>
+              <h3 className="text-sm font-bold mb-1.5" style={{ color: 'var(--t-1)' }}>{v.title}</h3>
+              <p className="text-xs leading-relaxed" style={{ color: 'var(--t-5)' }}>{v.desc}</p>
             </div>
           ))}
         </div>
@@ -164,14 +164,14 @@ export default function FAQSection() {
         <div
           className="p-5 rounded-2xl mb-8 transition-all duration-700 delay-400"
           style={{
-            background: 'rgba(255,255,255,0.025)',
-            border: '1px solid rgba(255,255,255,0.07)',
+            background: 'var(--su-2)',
+            border: '1px solid var(--bd-3)',
             opacity: inView ? 1 : 0,
           }}
         >
           <div className="flex items-center gap-2 mb-4">
             <TrendingUp className="w-4 h-4" style={{ color: '#7bae52' }} />
-            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: 'rgba(248,248,246,0.30)' }}>
+            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: 'var(--t-6)' }}>
               성장 연혁
             </span>
           </div>
@@ -185,12 +185,12 @@ export default function FAQSection() {
               <div
                 key={m.year}
                 className="p-3 rounded-xl relative overflow-hidden"
-                style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+                style={{ background: 'var(--su-3)', border: '1px solid var(--bd-3)' }}
               >
                 <div className="text-2xl font-black mb-1" style={{ color: m.color }}>
                   {m.year}
                 </div>
-                <div className="text-xs leading-relaxed" style={{ color: 'rgba(248,248,246,0.48)' }}>
+                <div className="text-xs leading-relaxed" style={{ color: 'var(--t-4)' }}>
                   {m.event}
                 </div>
                 <div
@@ -219,7 +219,7 @@ export default function FAQSection() {
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-sm font-bold" style={{ color: '#f8f8f6' }}>더마10 PRO</span>
+                <span className="text-sm font-bold" style={{ color: 'var(--t-1)' }}>더마10 PRO</span>
                 <span
                   className="text-[9px] font-bold px-1.5 py-0.5 rounded"
                   style={{ background: 'rgba(92,138,60,0.20)', color: '#9dd470' }}
@@ -227,7 +227,7 @@ export default function FAQSection() {
                   FLAGSHIP
                 </span>
               </div>
-              <div className="text-xs mb-0.5" style={{ color: 'rgba(248,248,246,0.45)' }}>
+              <div className="text-xs mb-0.5" style={{ color: 'var(--t-5)' }}>
                 8종 헤드 올인원 피부 미용 기기
               </div>
               <div className="text-sm font-bold" style={{ color: '#9dd470' }}>₩6,700,000</div>
@@ -236,7 +236,7 @@ export default function FAQSection() {
 
           <div
             className="p-5 rounded-2xl flex items-center gap-4"
-            style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)' }}
+            style={{ background: 'var(--su-2)', border: '1px solid var(--bd-3)' }}
           >
             <div
               className="shrink-0 overflow-hidden rounded-xl"
@@ -251,10 +251,10 @@ export default function FAQSection() {
               />
             </div>
             <div>
-              <div className="text-sm font-bold mb-1" style={{ color: '#f8f8f6' }}>
+              <div className="text-sm font-bold mb-1" style={{ color: 'var(--t-1)' }}>
                 전국 120여 개 라운지
               </div>
-              <div className="text-xs leading-relaxed" style={{ color: 'rgba(248,248,246,0.42)' }}>
+              <div className="text-xs leading-relaxed" style={{ color: 'var(--t-5)' }}>
                 더마10 기기를 직접 체험할 수 있는<br />전문 케어 라운지
               </div>
             </div>

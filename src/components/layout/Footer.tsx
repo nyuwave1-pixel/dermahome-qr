@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer
       className="relative mt-auto"
-      style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
+      style={{ borderTop: '1px solid var(--bd-3)' }}
     >
       {/* Top accent line */}
       <div
@@ -16,7 +16,7 @@ export default function Footer() {
         style={{ background: 'linear-gradient(to right, transparent, rgba(92,138,60,0.5), transparent)' }}
       />
 
-      <div style={{ background: 'rgba(7,7,10,0.98)' }}>
+      <div style={{ background: 'var(--t-bg-dp)' }}>
         <div className="max-w-6xl mx-auto px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
 
@@ -36,28 +36,28 @@ export default function Footer() {
                   width={120}
                   height={22}
                   className="h-5 w-auto object-contain"
-                  style={{ filter: 'invert(1) brightness(0.65)' }}
+                  style={{ filter: 'var(--logo-filter)' }}
                 />
               </div>
-              <p className="text-sm leading-relaxed mb-4 italic" style={{ color: 'rgba(248,248,246,0.30)' }}>
+              <p className="text-sm leading-relaxed mb-4 italic" style={{ color: 'var(--t-6)' }}>
                 &ldquo;United power of uni&core to the global&rdquo;
               </p>
               <div className="flex items-start gap-2 mb-2">
-                <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: 'rgba(248,248,246,0.28)' }} />
-                <span className="text-xs leading-relaxed" style={{ color: 'rgba(248,248,246,0.28)' }}>
+                <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: 'var(--t-6)' }} />
+                <span className="text-xs leading-relaxed" style={{ color: 'var(--t-6)' }}>
                   서울시 서초구 양재대로2길 100-30, 2층
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Globe className="w-3.5 h-3.5 shrink-0" style={{ color: 'rgba(248,248,246,0.28)' }} />
+                <Globe className="w-3.5 h-3.5 shrink-0" style={{ color: 'var(--t-6)' }} />
                 <a
                   href="https://www.unincore.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs transition-colors"
-                  style={{ color: 'rgba(248,248,246,0.28)' }}
+                  style={{ color: 'var(--t-6)' }}
                   onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#7bae52')}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.28)')}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--t-6)')}
                 >
                   www.unincore.com
                 </a>
@@ -68,7 +68,7 @@ export default function Footer() {
             <div>
               <h4
                 className="text-xs font-semibold tracking-widest uppercase mb-4"
-                style={{ color: 'rgba(248,248,246,0.30)' }}
+                style={{ color: 'var(--t-6)' }}
               >
                 바로가기
               </h4>
@@ -84,9 +84,9 @@ export default function Footer() {
                       target={'ext' in item && item.ext ? '_blank' : undefined}
                       rel={'ext' in item && item.ext ? 'noopener noreferrer' : undefined}
                       className="flex items-center gap-2 text-sm transition-colors"
-                      style={{ color: 'rgba(248,248,246,0.48)' }}
+                      style={{ color: 'var(--t-4)' }}
                       onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#9dd470')}
-                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.48)')}
+                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--t-4)')}
                     >
                       <item.icon className="w-3.5 h-3.5" />
                       {item.label}
@@ -100,7 +100,7 @@ export default function Footer() {
             <div>
               <h4
                 className="text-xs font-semibold tracking-widest uppercase mb-4"
-                style={{ color: 'rgba(248,248,246,0.30)' }}
+                style={{ color: 'var(--t-6)' }}
               >
                 회사 정보
               </h4>
@@ -112,8 +112,8 @@ export default function Footer() {
                   { term: '등록번호', desc: '서울 제935호' },
                 ].map(({ term, desc }) => (
                   <div key={term} className="flex gap-3 text-sm">
-                    <dt className="shrink-0 w-20" style={{ color: 'rgba(248,248,246,0.26)' }}>{term}</dt>
-                    <dd style={{ color: 'rgba(248,248,246,0.52)' }}>{desc}</dd>
+                    <dt className="shrink-0 w-20" style={{ color: 'var(--t-7)' }}>{term}</dt>
+                    <dd style={{ color: 'var(--t-4)' }}>{desc}</dd>
                   </div>
                 ))}
               </dl>
@@ -123,9 +123,9 @@ export default function Footer() {
           {/* Bottom bar */}
           <div
             className="mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
-            style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+            style={{ borderTop: '1px solid var(--bd-3)' }}
           >
-            <p className="text-xs" style={{ color: 'rgba(248,248,246,0.22)' }}>
+            <p className="text-xs" style={{ color: 'var(--t-7)' }}>
               © 2025 ㈜ 유니앤코어. All rights reserved.
             </p>
             <div className="flex items-center gap-1.5">
@@ -133,7 +133,7 @@ export default function Footer() {
                 className="w-1.5 h-1.5 rounded-full animate-glow-fast"
                 style={{ display: 'inline-block', background: '#5c8a3c' }}
               />
-              <span className="text-xs" style={{ color: 'rgba(248,248,246,0.22)' }}>
+              <span className="text-xs" style={{ color: 'var(--t-7)' }}>
                 더마10 QR 시스템 운영 중
               </span>
             </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, CSSProperties } from 'react';
 
 interface ButtonProps {
   children: ReactNode;
@@ -13,15 +13,48 @@ interface ButtonProps {
   fullWidth?: boolean;
 }
 
-const variants: Record<string, string> = {
-  primary:
-    'bg-[#5c8a3c] text-white border border-[#7bae52]/40 hover:bg-[#6a9f47] hover:border-[#9dd470]/50 active:bg-[#4f7a34]',
-  secondary:
-    'bg-white/[0.06] text-[#f8f8f6] border border-white/[0.12] hover:bg-white/[0.10] hover:border-white/20 active:bg-white/[0.04]',
-  outline:
-    'bg-transparent text-[#7bae52] border border-[#5c8a3c]/60 hover:bg-[#5c8a3c]/10 hover:border-[#7bae52] active:bg-[#5c8a3c]/20',
-  ghost:
-    'bg-transparent text-[rgba(248,248,246,0.7)] border border-transparent hover:bg-white/[0.06] hover:text-[#f8f8f6]',
+const variantStyles: Record<string, CSSProperties> = {
+  primary: {
+    background: '#5c8a3c',
+    color: '#ffffff',
+    border: '1px solid rgba(123,174,82,0.40)',
+    boxShadow: '0 0 24px rgba(92,138,60,0.25), 0 4px 12px rgba(0,0,0,0.20)',
+  },
+  secondary: {
+    background: 'var(--su-1)',
+    color: 'var(--t-1)',
+    border: '1px solid var(--bd-1)',
+  },
+  outline: {
+    background: 'transparent',
+    color: '#7bae52',
+    border: '1px solid rgba(92,138,60,0.60)',
+  },
+  ghost: {
+    background: 'transparent',
+    color: 'var(--t-3)',
+    border: '1px solid transparent',
+  },
+};
+
+const hoverStyles: Record<string, CSSProperties> = {
+  primary: {
+    background: '#6a9f47',
+    border: '1px solid rgba(157,212,112,0.50)',
+  },
+  secondary: {
+    background: 'var(--su-hover)',
+    border: '1px solid var(--bd-1)',
+  },
+  outline: {
+    background: 'rgba(92,138,60,0.10)',
+    color: '#9dd470',
+    border: '1px solid #7bae52',
+  },
+  ghost: {
+    background: 'var(--su-1)',
+    color: 'var(--t-1)',
+  },
 };
 
 const sizes: Record<string, string> = {
@@ -50,14 +83,25 @@ export default function Button({
         transition-all duration-200
         disabled:opacity-40 disabled:cursor-not-allowed
         active:scale-[0.97]
-        ${variants[variant]}
         ${sizes[size]}
         ${fullWidth ? 'w-full' : ''}
         ${className}
       `}
-      style={variant === 'primary' ? {
-        boxShadow: '0 0 24px rgba(92,138,60,0.25), 0 4px 12px rgba(0,0,0,0.3)',
-      } : undefined}
+      style={variantStyles[variant]}
+      onMouseEnter={(e) => {
+        if (disabled) return;
+        const el = e.currentTarget as HTMLElement;
+        const hover = hoverStyles[variant];
+        Object.assign(el.style, hover);
+      }}
+      onMouseLeave={(e) => {
+        const el = e.currentTarget as HTMLElement;
+        const base = variantStyles[variant];
+        // Reset all hover-touched properties back to base
+        el.style.background = (base.background as string) ?? '';
+        el.style.color = (base.color as string) ?? '';
+        el.style.border = (base.border as string) ?? '';
+      }}
     >
       {children}
     </button>

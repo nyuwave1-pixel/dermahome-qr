@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, QrCode, Home, Cpu, Building2, BookOpen, MapPin } from 'lucide-react';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 const navItems = [
   { href: '/', label: '홈', icon: Home },
@@ -48,18 +49,18 @@ export default function Header() {
         <div
           className="flex items-center justify-between h-16 px-5 rounded-2xl transition-all duration-300"
           style={{
-            background: scrolled ? 'rgba(7,7,10,0.94)' : 'rgba(7,7,10,0.65)',
+            background: scrolled ? 'var(--t-bg-dp)' : 'var(--t-bg-gl)',
             backdropFilter: 'blur(24px)',
             WebkitBackdropFilter: 'blur(24px)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.4)' : 'none',
+            border: '1px solid var(--bd-2)',
+            boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.18)' : 'none',
           }}
         >
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div
               className="flex items-center gap-2 px-3 py-1.5 rounded-xl transition-all duration-200"
-              style={{ background: 'rgba(240,240,236,0.10)', border: '1px solid rgba(255,255,255,0.10)' }}
+              style={{ background: 'var(--su-1)', border: '1px solid var(--bd-2)' }}
             >
               <Image
                 src="/images/logo_vertical.png"
@@ -75,17 +76,14 @@ export default function Header() {
                 width={100}
                 height={20}
                 className="h-5 w-auto object-contain hidden sm:block"
-                style={{ filter: 'invert(1) brightness(0.85)' }}
+                style={{ filter: 'var(--logo-filter, invert(1) brightness(0.85))' }}
                 priority
               />
             </div>
-            <div
-              className="hidden sm:block h-4 w-px"
-              style={{ background: 'rgba(255,255,255,0.12)' }}
-            />
+            <div className="hidden sm:block h-4 w-px" style={{ background: 'var(--bd-1)' }} />
             <span
               className="hidden lg:block text-xs font-medium tracking-widest uppercase"
-              style={{ color: 'rgba(248,248,246,0.36)', letterSpacing: '0.15em' }}
+              style={{ color: 'var(--t-7)', letterSpacing: '0.15em' }}
             >
               DermaHome 10
             </span>
@@ -99,13 +97,13 @@ export default function Header() {
                 href={item.href}
                 onClick={(e) => handleAnchorClick(e, item.href)}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200"
-                style={{ color: 'rgba(248,248,246,0.58)' }}
+                style={{ color: 'var(--t-4)' }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.color = '#f8f8f6';
+                  (e.currentTarget as HTMLElement).style.color = 'var(--t-1)';
                   (e.currentTarget as HTMLElement).style.background = 'rgba(92,138,60,0.12)';
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.58)';
+                  (e.currentTarget as HTMLElement).style.color = 'var(--t-4)';
                   (e.currentTarget as HTMLElement).style.background = 'transparent';
                 }}
               >
@@ -115,14 +113,15 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* CTA */}
+          {/* Right actions */}
           <div className="hidden md:flex items-center gap-2">
+            <ThemeToggle />
             <Link
               href="/verify"
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200"
-              style={{ color: 'rgba(248,248,246,0.55)', border: '1px solid rgba(255,255,255,0.10)' }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#f8f8f6'; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.55)'; }}
+              style={{ color: 'var(--t-4)', border: '1px solid var(--bd-2)' }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-1)'; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-4)'; }}
             >
               <QrCode className="w-4 h-4" />
               QR 스캔
@@ -137,15 +136,18 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden p-2 rounded-xl transition-colors"
-            style={{ color: 'rgba(248,248,246,0.8)' }}
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="메뉴"
-          >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          {/* Mobile: theme toggle + hamburger */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              className="p-2 rounded-xl transition-colors"
+              style={{ color: 'var(--t-3)' }}
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="메뉴"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -161,11 +163,11 @@ export default function Header() {
           <nav
             className="flex flex-col gap-1 p-3 rounded-2xl"
             style={{
-              background: 'rgba(7,7,10,0.96)',
+              background: 'var(--t-bg-dp)',
               backdropFilter: 'blur(24px)',
               WebkitBackdropFilter: 'blur(24px)',
-              border: '1px solid rgba(255,255,255,0.10)',
-              boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
+              border: '1px solid var(--bd-2)',
+              boxShadow: '0 16px 48px rgba(0,0,0,0.18)',
             }}
           >
             {navItems.map((item) => (
@@ -174,13 +176,13 @@ export default function Header() {
                 href={item.href}
                 onClick={(e) => handleAnchorClick(e, item.href)}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200"
-                style={{ color: 'rgba(248,248,246,0.7)' }}
+                style={{ color: 'var(--t-3)' }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.color = '#f8f8f6';
+                  (e.currentTarget as HTMLElement).style.color = 'var(--t-1)';
                   (e.currentTarget as HTMLElement).style.background = 'rgba(92,138,60,0.10)';
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.7)';
+                  (e.currentTarget as HTMLElement).style.color = 'var(--t-3)';
                   (e.currentTarget as HTMLElement).style.background = 'transparent';
                 }}
               >
@@ -188,7 +190,7 @@ export default function Header() {
                 <span className="font-medium">{item.label}</span>
               </Link>
             ))}
-            <div className="h-px mx-2 mt-1 mb-2" style={{ background: 'rgba(255,255,255,0.07)' }} />
+            <div className="h-px mx-2 mt-1 mb-2" style={{ background: 'var(--bd-3)' }} />
             <Link
               href="/generate"
               onClick={() => setIsOpen(false)}
@@ -202,7 +204,7 @@ export default function Header() {
               href="/verify"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-center gap-2 py-3 rounded-xl font-medium transition-all"
-              style={{ color: 'rgba(248,248,246,0.6)', border: '1px solid rgba(255,255,255,0.10)' }}
+              style={{ color: 'var(--t-4)', border: '1px solid var(--bd-2)' }}
             >
               <QrCode className="w-5 h-5" />
               QR 스캔 (고객용)

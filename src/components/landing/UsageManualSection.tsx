@@ -292,8 +292,8 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
     <div
       className="rounded-2xl overflow-hidden transition-all duration-300"
       style={{
-        background: 'rgba(255,255,255,0.025)',
-        border: `1px solid ${isOpen ? `${catColor}30` : 'rgba(255,255,255,0.07)'}`,
+        background: 'var(--su-2)',
+        border: `1px solid ${isOpen ? `${catColor}30` : 'var(--bd-3)'}`,
       }}
     >
       {/* Header */}
@@ -311,20 +311,20 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
             </span>
             <span
               className="text-[10px]"
-              style={{ color: 'rgba(248,248,246,0.30)' }}
+              style={{ color: 'var(--t-6)' }}
             >
               {routine.concern}
             </span>
           </div>
-          <h4 className="text-base font-black" style={{ color: '#f8f8f6' }}>
+          <h4 className="text-base font-black" style={{ color: 'var(--t-1)' }}>
             {routine.title}
           </h4>
         </div>
         <div
           className="shrink-0 w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200"
           style={{
-            background: isOpen ? `${catColor}18` : 'rgba(255,255,255,0.05)',
-            color: isOpen ? catColor : 'rgba(248,248,246,0.35)',
+            background: isOpen ? `${catColor}18` : 'var(--su-1)',
+            color: isOpen ? catColor : 'var(--t-6)',
             transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
           }}
         >
@@ -343,7 +343,7 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
           <div>
             <div
               className="text-[10px] font-bold tracking-widest uppercase mb-3"
-              style={{ color: 'rgba(248,248,246,0.25)' }}
+              style={{ color: 'var(--t-7)' }}
             >
               케어 프로토콜
             </div>
@@ -361,7 +361,7 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
                       <div className="flex items-center gap-2 ml-auto shrink-0">
                         <span
                           className="text-[10px] px-2 py-0.5 rounded font-medium"
-                          style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(248,248,246,0.55)' }}
+                          style={{ background: 'var(--bd-3)', color: 'var(--t-4)' }}
                         >
                           {step.time}
                         </span>
@@ -369,13 +369,13 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
                     </div>
                     <div
                       className="text-xs font-semibold mb-1"
-                      style={{ color: 'rgba(248,248,246,0.80)' }}
+                      style={{ color: 'var(--t-2)' }}
                     >
                       {step.product}
                     </div>
                     <div
                       className="text-xs leading-relaxed"
-                      style={{ color: 'rgba(248,248,246,0.48)' }}
+                      style={{ color: 'var(--t-4)' }}
                     >
                       {step.purpose}
                     </div>
@@ -389,21 +389,21 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
           <div>
             <div
               className="text-[10px] font-bold tracking-widest uppercase mb-3"
-              style={{ color: 'rgba(248,248,246,0.25)' }}
+              style={{ color: 'var(--t-7)' }}
             >
               부위별 방향 가이드
             </div>
             <div
               className="rounded-xl overflow-hidden"
-              style={{ border: '1px solid rgba(255,255,255,0.07)' }}
+              style={{ border: '1px solid var(--bd-3)' }}
             >
               {routine.directions.map(({ zone, guide }, i) => (
                 <div
                   key={i}
                   className="flex gap-3 px-4 py-2.5 text-xs"
                   style={{
-                    borderBottom: i < routine.directions.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
-                    background: i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent',
+                    borderBottom: i < routine.directions.length - 1 ? '1px solid var(--bd-3)' : 'none',
+                    background: i % 2 === 0 ? 'var(--su-3)' : 'transparent',
                   }}
                 >
                   <span
@@ -412,7 +412,7 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
                   >
                     {zone}
                   </span>
-                  <span style={{ color: 'rgba(248,248,246,0.65)' }}>{guide}</span>
+                  <span style={{ color: 'var(--t-3)' }}>{guide}</span>
                 </div>
               ))}
             </div>
@@ -437,13 +437,13 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
             <div>
               <div
                 className="text-[10px] font-bold tracking-widest uppercase mb-2"
-                style={{ color: 'rgba(248,248,246,0.22)' }}
+                style={{ color: 'var(--t-7)' }}
               >
                 트레이닝 자료
               </div>
               <div
                 className="rounded-xl overflow-hidden"
-                style={{ border: '1px solid rgba(255,255,255,0.06)' }}
+                style={{ border: '1px solid var(--bd-3)' }}
               >
                 <Image
                   src={routine.slideImg}
@@ -496,12 +496,12 @@ export default function UsageManualSection() {
             Usage Manual
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: '#f8f8f6' }}>더마10 </span>
+            <span style={{ color: 'var(--t-1)' }}>더마10 </span>
             <span className="text-gradient-green">사용 가이드</span>
           </h2>
           <p
             className="max-w-lg mx-auto text-sm leading-relaxed"
-            style={{ color: 'rgba(248,248,246,0.5)' }}
+            style={{ color: 'var(--t-4)' }}
           >
             공식 트레이닝 매뉴얼 기반 케어 프로토콜.
             RF 고주파 · 울트라소닉 · 이온토포레시스 3단계 조합으로 최대 효과를 경험하세요.
@@ -519,17 +519,17 @@ export default function UsageManualSection() {
               onClick={() => { setActiveCat(c.id); setOpenRoutine(c.routines[0].id); }}
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200"
               style={{
-                background: activeCat === c.id ? `${c.color}18` : 'rgba(255,255,255,0.04)',
-                border: `1px solid ${activeCat === c.id ? `${c.color}50` : 'rgba(255,255,255,0.08)'}`,
-                color: activeCat === c.id ? c.color : 'rgba(248,248,246,0.45)',
+                background: activeCat === c.id ? `${c.color}18` : 'var(--su-1)',
+                border: `1px solid ${activeCat === c.id ? `${c.color}50` : 'var(--bd-2)'}`,
+                color: activeCat === c.id ? c.color : 'var(--t-5)',
               }}
             >
               {c.label}
               <span
                 className="text-[10px] font-semibold px-1.5 py-0.5 rounded"
                 style={{
-                  background: activeCat === c.id ? `${c.color}20` : 'rgba(255,255,255,0.06)',
-                  color: activeCat === c.id ? c.color : 'rgba(248,248,246,0.28)',
+                  background: activeCat === c.id ? `${c.color}20` : 'var(--bd-3)',
+                  color: activeCat === c.id ? c.color : 'var(--t-7)',
                 }}
               >
                 {c.routines.length}
@@ -558,27 +558,27 @@ export default function UsageManualSection() {
         <div
           className="mt-10 p-5 rounded-2xl flex flex-wrap gap-4 items-center justify-center transition-all duration-700"
           style={{
-            background: 'rgba(255,255,255,0.02)',
-            border: '1px solid rgba(255,255,255,0.06)',
+            background: 'var(--su-3)',
+            border: '1px solid var(--bd-3)',
             opacity: inView ? 1 : 0,
             transitionDelay: '200ms',
           }}
         >
           <span
             className="text-[10px] font-bold tracking-widest uppercase"
-            style={{ color: 'rgba(248,248,246,0.25)' }}
+            style={{ color: 'var(--t-7)' }}
           >
             헤드 색상 범례
           </span>
           {Object.entries(STEP_COLORS).map(([label, color]) => (
             <div key={label} className="flex items-center gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full" style={{ background: color }} />
-              <span className="text-xs font-medium" style={{ color: 'rgba(248,248,246,0.55)' }}>{label}</span>
+              <span className="text-xs font-medium" style={{ color: 'var(--t-4)' }}>{label}</span>
             </div>
           ))}
           <div className="flex items-center gap-1.5 ml-auto">
             <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#9dd470' }} />
-            <span className="text-xs font-medium" style={{ color: 'rgba(248,248,246,0.55)' }}>기타 헤드</span>
+            <span className="text-xs font-medium" style={{ color: 'var(--t-4)' }}>기타 헤드</span>
           </div>
         </div>
       </div>

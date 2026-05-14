@@ -78,12 +78,12 @@ export default function PromotionSection() {
             Company
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: '#f8f8f6' }}>유니앤코어, </span>
+            <span style={{ color: 'var(--t-1)' }}>유니앤코어, </span>
             <span className="text-gradient-green">글로벌 성장</span>
           </h2>
           <p
             className="max-w-md mx-auto text-sm leading-relaxed"
-            style={{ color: 'rgba(248,248,246,0.5)' }}
+            style={{ color: 'var(--t-4)' }}
           >
             2022년 설립 후 빠른 성장으로 전국 120여 라운지,
             7개국 진출의 뷰티 테크 기업입니다
@@ -105,8 +105,8 @@ export default function PromotionSection() {
               <div
                 className="p-5 rounded-2xl text-center h-full"
                 style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  background: 'var(--su-1)',
+                  border: '1px solid var(--bd-2)',
                 }}
               >
                 <div
@@ -118,10 +118,10 @@ export default function PromotionSection() {
                 <div className="text-2xl font-black mb-0.5" style={{ color: s.color }}>
                   {s.value}
                 </div>
-                <div className="text-sm font-semibold mb-1" style={{ color: '#f8f8f6' }}>
+                <div className="text-sm font-semibold mb-1" style={{ color: 'var(--t-1)' }}>
                   {s.label}
                 </div>
-                <div className="text-xs" style={{ color: 'rgba(248,248,246,0.38)' }}>
+                <div className="text-xs" style={{ color: 'var(--t-7)' }}>
                   {s.sub}
                 </div>
               </div>
@@ -157,11 +157,11 @@ export default function PromotionSection() {
           </div>
           <blockquote
             className="text-xl md:text-2xl font-bold italic mb-3"
-            style={{ color: '#f8f8f6' }}
+            style={{ color: 'var(--t-1)' }}
           >
             &ldquo;구독 플랫폼을 기반으로한 세계 최고의 직접 판매 회사&rdquo;
           </blockquote>
-          <p className="text-sm" style={{ color: 'rgba(248,248,246,0.45)' }}>
+          <p className="text-sm" style={{ color: 'var(--t-5)' }}>
             ㈜ 유니앤코어 &nbsp;|&nbsp; 대표이사 김성현 &nbsp;|&nbsp; 2022년 10월 설립
           </p>
         </div>

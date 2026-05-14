@@ -90,16 +90,16 @@ function MetricBar({ label, before, after, color }: { label: string; before: num
   return (
     <div ref={ref} className="mb-3">
       <div className="flex justify-between items-center mb-1">
-        <span className="text-xs" style={{ color: 'rgba(248,248,246,0.45)' }}>{label}</span>
+        <span className="text-xs" style={{ color: 'var(--t-5)' }}>{label}</span>
         <span className="text-xs font-bold" style={{ color }}>
           +{gain}%
-          <span className="ml-1 font-normal" style={{ color: 'rgba(248,248,246,0.3)' }}>
+          <span className="ml-1 font-normal" style={{ color: 'var(--t-6)' }}>
             ({before}→{after})
           </span>
         </span>
       </div>
       {/* Before bar */}
-      <div className="relative h-1.5 rounded-full mb-1 overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
+      <div className="relative h-1.5 rounded-full mb-1 overflow-hidden" style={{ background: 'var(--su-1)' }}>
         <div
           className="absolute left-0 top-0 h-full rounded-full transition-all duration-1000"
           style={{
@@ -109,7 +109,7 @@ function MetricBar({ label, before, after, color }: { label: string; before: num
         />
       </div>
       {/* After bar */}
-      <div className="relative h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
+      <div className="relative h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--su-1)' }}>
         <div
           className="absolute left-0 top-0 h-full rounded-full transition-all duration-1000 delay-300"
           style={{
@@ -150,10 +150,10 @@ export default function ReviewSection() {
             Reviews
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: '#f8f8f6' }}>실제 사용자 </span>
+            <span style={{ color: 'var(--t-1)' }}>실제 사용자 </span>
             <span className="text-gradient-green">피부 변화</span>
           </h2>
-          <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'rgba(248,248,246,0.5)' }}>
+          <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
             더마10을 사용한 유니앤코어 라운지 회원들의 실제 피부 데이터와 후기
           </p>
         </div>
@@ -173,8 +173,8 @@ export default function ReviewSection() {
               <div
                 className="p-5 rounded-2xl h-full flex flex-col"
                 style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  background: 'var(--su-1)',
+                  border: '1px solid var(--bd-2)',
                 }}
               >
                 {/* Profile */}
@@ -188,10 +188,10 @@ export default function ReviewSection() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold truncate" style={{ color: '#f8f8f6' }}>{r.name}</span>
-                      <span className="text-xs" style={{ color: 'rgba(248,248,246,0.35)' }}>{r.age}세</span>
+                      <span className="text-sm font-bold truncate" style={{ color: 'var(--t-1)' }}>{r.name}</span>
+                      <span className="text-xs" style={{ color: 'var(--t-6)' }}>{r.age}세</span>
                     </div>
-                    <div className="text-xs" style={{ color: 'rgba(248,248,246,0.35)' }}>{r.handle}</div>
+                    <div className="text-xs" style={{ color: 'var(--t-6)' }}>{r.handle}</div>
                   </div>
                   {/* Tag */}
                   <div
@@ -216,7 +216,7 @@ export default function ReviewSection() {
                 {/* Quote */}
                 <p
                   className="text-sm leading-relaxed mb-4 flex-1"
-                  style={{ color: 'rgba(248,248,246,0.70)' }}
+                  style={{ color: 'var(--t-3)' }}
                 >
                   &ldquo;{r.quote}&rdquo;
                 </p>
@@ -224,7 +224,7 @@ export default function ReviewSection() {
                 {/* Metrics */}
                 <div
                   className="p-4 rounded-xl mb-3"
-                  style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}
+                  style={{ background: 'var(--su-2)', border: '1px solid var(--bd-3)' }}
                 >
                   <MetricBar label="수분도" before={r.before.moisture} after={r.after.moisture} color={r.gradient[0]} />
                   <MetricBar label="탄력도" before={r.before.elasticity} after={r.after.elasticity} color={r.gradient[1]} />
@@ -232,11 +232,11 @@ export default function ReviewSection() {
 
                 {/* Footer */}
                 <div className="flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-1" style={{ color: 'rgba(248,248,246,0.38)' }}>
+                  <div className="flex items-center gap-1" style={{ color: 'var(--t-7)' }}>
                     <TrendingUp className="w-3 h-3" />
                     {r.weeks}주 사용
                   </div>
-                  <div style={{ color: 'rgba(248,248,246,0.38)' }}>
+                  <div style={{ color: 'var(--t-7)' }}>
                     헤드: <span style={{ color: '#9dd470' }}>{r.head}</span>
                   </div>
                 </div>
@@ -249,8 +249,8 @@ export default function ReviewSection() {
         <div
           className="mt-10 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 transition-all duration-700 delay-400"
           style={{
-            background: 'rgba(255,255,255,0.025)',
-            border: '1px solid rgba(255,255,255,0.07)',
+            background: 'var(--su-2)',
+            border: '1px solid var(--bd-3)',
             opacity: inView ? 1 : 0,
           }}
         >
@@ -262,24 +262,24 @@ export default function ReviewSection() {
                   <Star key={i} className="w-4 h-4 fill-current" style={{ color: '#f59e0b' }} />
                 ))}
               </div>
-              <div className="text-xs" style={{ color: 'rgba(248,248,246,0.38)' }}>전국 라운지 회원 평균 평점</div>
+              <div className="text-xs" style={{ color: 'var(--t-7)' }}>전국 라운지 회원 평균 평점</div>
             </div>
           </div>
           <div
             className="h-px sm:h-10 w-full sm:w-px"
-            style={{ background: 'rgba(255,255,255,0.08)' }}
+            style={{ background: 'var(--bd-2)' }}
           />
           <div className="text-center sm:text-right">
             <div className="text-2xl font-black mb-0.5" style={{ color: '#7bae52' }}>+43%</div>
-            <div className="text-xs" style={{ color: 'rgba(248,248,246,0.38)' }}>평균 수분도 개선율 (4주 기준)</div>
+            <div className="text-xs" style={{ color: 'var(--t-7)' }}>평균 수분도 개선율 (4주 기준)</div>
           </div>
           <div
             className="h-px sm:h-10 w-full sm:w-px"
-            style={{ background: 'rgba(255,255,255,0.08)' }}
+            style={{ background: 'var(--bd-2)' }}
           />
           <div className="text-center sm:text-right">
             <div className="text-2xl font-black mb-0.5" style={{ color: '#38bdf8' }}>120+</div>
-            <div className="text-xs" style={{ color: 'rgba(248,248,246,0.38)' }}>유니앤코어 라운지에서 체험 가능</div>
+            <div className="text-xs" style={{ color: 'var(--t-7)' }}>유니앤코어 라운지에서 체험 가능</div>
           </div>
         </div>
       </div>

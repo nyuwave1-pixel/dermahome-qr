@@ -90,11 +90,11 @@ export default function QRProcessSection() {
             QR Session System
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: '#f8f8f6' }}>1회성 QR로 </span>
+            <span style={{ color: 'var(--t-1)' }}>1회성 QR로 </span>
             <span className="text-gradient-green">기기 사용 권한</span>
-            <span style={{ color: '#f8f8f6' }}> 관리</span>
+            <span style={{ color: 'var(--t-1)' }}> 관리</span>
           </h2>
-          <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'rgba(248,248,246,0.5)' }}>
+          <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
             매장 운영자가 QR 세션을 생성하고, 고객이 스캔하면 기기 사용 권한이 자동 부여됩니다.
             한 번 사용된 QR은 즉시 만료되어 재사용이 불가합니다.
           </p>
@@ -124,16 +124,16 @@ export default function QRProcessSection() {
               <div
                 className="p-5 rounded-2xl h-full transition-all duration-300 hover:scale-[1.02]"
                 style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  background: 'var(--su-2)',
+                  border: '1px solid var(--bd-2)',
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor = `${s.accent}35`;
                   (e.currentTarget as HTMLElement).style.background = `${s.accent}06`;
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.08)';
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.03)';
+                  (e.currentTarget as HTMLElement).style.borderColor = 'var(--bd-2)';
+                  (e.currentTarget as HTMLElement).style.background = 'var(--su-2)';
                 }}
               >
                 {/* Icon */}
@@ -155,15 +155,15 @@ export default function QRProcessSection() {
                 {/* Step number */}
                 <div
                   className="text-4xl font-black mb-2 leading-none"
-                  style={{ color: 'rgba(255,255,255,0.06)' }}
+                  style={{ color: 'var(--bd-3)' }}
                 >
                   {s.step}
                 </div>
 
-                <h3 className="text-sm font-bold mb-2" style={{ color: '#f8f8f6' }}>
+                <h3 className="text-sm font-bold mb-2" style={{ color: 'var(--t-1)' }}>
                   {s.title}
                 </h3>
-                <p className="text-xs leading-relaxed" style={{ color: 'rgba(248,248,246,0.45)' }}>
+                <p className="text-xs leading-relaxed" style={{ color: 'var(--t-5)' }}>
                   {s.desc}
                 </p>
 
@@ -186,10 +186,10 @@ export default function QRProcessSection() {
           }}
         >
           <div>
-            <p className="text-sm font-semibold mb-1" style={{ color: '#f8f8f6' }}>
+            <p className="text-sm font-semibold mb-1" style={{ color: 'var(--t-1)' }}>
               매장 운영자이신가요?
             </p>
-            <p className="text-xs" style={{ color: 'rgba(248,248,246,0.5)' }}>
+            <p className="text-xs" style={{ color: 'var(--t-4)' }}>
               지금 바로 고객용 1회성 QR 세션을 생성하세요. 무료, 즉시 생성.
             </p>
           </div>

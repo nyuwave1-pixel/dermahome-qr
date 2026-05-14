@@ -62,11 +62,11 @@ export default function StoreLocatorSection() {
             Store Locator
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: '#f8f8f6' }}>가까운 </span>
+            <span style={{ color: 'var(--t-1)' }}>가까운 </span>
             <span className="text-gradient-green">유니앤코어 라운지</span>
-            <span style={{ color: '#f8f8f6' }}> 찾기</span>
+            <span style={{ color: 'var(--t-1)' }}> 찾기</span>
           </h2>
-          <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'rgba(248,248,246,0.5)' }}>
+          <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
             전국 120여 개 유니앤코어 라운지에서 더마10 기기를 직접 체험하고
             전문가 케어를 받아보세요.
           </p>
@@ -94,7 +94,7 @@ export default function StoreLocatorSection() {
                 </span>
               </div>
               <div className="text-5xl font-black mb-1" style={{ color: '#9dd470' }}>120+</div>
-              <div className="text-sm" style={{ color: 'rgba(248,248,246,0.52)' }}>
+              <div className="text-sm" style={{ color: 'var(--t-4)' }}>
                 유니앤코어 공식 라운지
               </div>
             </div>
@@ -106,14 +106,14 @@ export default function StoreLocatorSection() {
                   key={r.name}
                   className="p-3.5 rounded-xl transition-all duration-500"
                   style={{
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid rgba(255,255,255,0.07)',
+                    background: 'var(--su-1)',
+                    border: '1px solid var(--bd-3)',
                     opacity: inView ? 1 : 0,
                     transitionDelay: `${200 + i * 50}ms`,
                   }}
                 >
                   <div className="text-xl mb-1">{r.icon}</div>
-                  <div className="text-xs font-semibold mb-0.5" style={{ color: '#f8f8f6' }}>
+                  <div className="text-xs font-semibold mb-0.5" style={{ color: 'var(--t-1)' }}>
                     {r.name}
                   </div>
                   <div className="text-xs font-bold" style={{ color: '#9dd470' }}>
@@ -152,8 +152,8 @@ export default function StoreLocatorSection() {
               className="relative rounded-2xl overflow-hidden"
               style={{
                 height: '420px',
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.08)',
+                background: 'var(--su-1)',
+                border: '1px solid var(--bd-2)',
               }}
             >
               {!showMap ? (
@@ -181,10 +181,10 @@ export default function StoreLocatorSection() {
                     <MapPin className="w-8 h-8" style={{ color: '#4dc870' }} />
                   </div>
                   <div className="text-center">
-                    <p className="text-sm font-semibold mb-1" style={{ color: '#f8f8f6' }}>
+                    <p className="text-sm font-semibold mb-1" style={{ color: 'var(--t-1)' }}>
                       네이버 지도 열기
                     </p>
-                    <p className="text-xs" style={{ color: 'rgba(248,248,246,0.42)' }}>
+                    <p className="text-xs" style={{ color: 'var(--t-5)' }}>
                       클릭하면 전국 유니앤코어 라운지를 지도에서 확인합니다
                     </p>
                   </div>
@@ -239,8 +239,8 @@ export default function StoreLocatorSection() {
             <div
               className="mt-3 flex items-center justify-between px-4 py-3 rounded-xl"
               style={{
-                background: 'rgba(255,255,255,0.025)',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: 'var(--su-2)',
+                border: '1px solid var(--bd-3)',
               }}
             >
               <div className="flex items-center gap-2">
@@ -248,7 +248,7 @@ export default function StoreLocatorSection() {
                   className="w-2 h-2 rounded-full animate-glow-fast"
                   style={{ background: '#5c8a3c' }}
                 />
-                <span className="text-xs" style={{ color: 'rgba(248,248,246,0.45)' }}>
+                <span className="text-xs" style={{ color: 'var(--t-5)' }}>
                   전국 120+ 라운지 운영 중
                 </span>
               </div>
@@ -257,9 +257,9 @@ export default function StoreLocatorSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1 text-xs transition-colors"
-                style={{ color: 'rgba(248,248,246,0.38)' }}
+                style={{ color: 'var(--t-7)' }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#7bae52'; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.38)'; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-7)'; }}
               >
                 지도 앱으로 열기
                 <ExternalLink className="w-3 h-3" />

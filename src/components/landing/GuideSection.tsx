@@ -276,8 +276,8 @@ function ProtocolCard({ protocol, index, inView }: { protocol: Protocol; index: 
       <div
         className="rounded-2xl overflow-hidden"
         style={{
-          background: 'rgba(255,255,255,0.03)',
-          border: '1px solid rgba(255,255,255,0.08)',
+          background: 'var(--su-1)',
+          border: '1px solid var(--bd-2)',
         }}
       >
         {/* Card header */}
@@ -299,7 +299,7 @@ function ProtocolCard({ protocol, index, inView }: { protocol: Protocol; index: 
               </span>
               <span
                 className="text-xs"
-                style={{ color: 'rgba(248,248,246,0.35)' }}
+                style={{ color: 'var(--t-6)' }}
               >
                 {protocol.subtitle}
               </span>
@@ -307,7 +307,7 @@ function ProtocolCard({ protocol, index, inView }: { protocol: Protocol; index: 
             <span
               className="text-xs transition-transform duration-300 shrink-0 mt-0.5"
               style={{
-                color: 'rgba(248,248,246,0.28)',
+                color: 'var(--t-7)',
                 transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
                 display: 'inline-block',
               }}
@@ -315,10 +315,10 @@ function ProtocolCard({ protocol, index, inView }: { protocol: Protocol; index: 
               ▾
             </span>
           </div>
-          <h3 className="text-base font-bold mb-1.5" style={{ color: '#f8f8f6' }}>
+          <h3 className="text-base font-bold mb-1.5" style={{ color: 'var(--t-1)' }}>
             {protocol.title}
           </h3>
-          <p className="text-xs leading-relaxed" style={{ color: 'rgba(248,248,246,0.45)' }}>
+          <p className="text-xs leading-relaxed" style={{ color: 'var(--t-5)' }}>
             {protocol.desc}
           </p>
 
@@ -337,7 +337,7 @@ function ProtocolCard({ protocol, index, inView }: { protocol: Protocol; index: 
                   {si + 1}. {s.head}
                 </span>
                 {si < protocol.steps.length - 1 && (
-                  <ArrowRight className="w-3 h-3 shrink-0" style={{ color: 'rgba(248,248,246,0.2)' }} />
+                  <ArrowRight className="w-3 h-3 shrink-0" style={{ color: 'var(--t-7)' }} />
                 )}
               </div>
             ))}
@@ -351,7 +351,7 @@ function ProtocolCard({ protocol, index, inView }: { protocol: Protocol; index: 
         >
           <div
             className="mx-5 mb-5 pt-4"
-            style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
+            style={{ borderTop: '1px solid var(--bd-3)' }}
           >
             {/* Detailed steps */}
             <div className="space-y-3 mb-4">
@@ -374,23 +374,23 @@ function ProtocolCard({ protocol, index, inView }: { protocol: Protocol; index: 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <span className="text-sm font-bold" style={{ color: s.color }}>{s.head}</span>
-                      <span className="text-[10px]" style={{ color: 'rgba(248,248,246,0.32)' }}>
+                      <span className="text-[10px]" style={{ color: 'var(--t-6)' }}>
                         {s.headEn}
                       </span>
                     </div>
                     <div className="flex flex-wrap gap-3 text-xs">
-                      <span className="flex items-center gap-1" style={{ color: 'rgba(248,248,246,0.6)' }}>
+                      <span className="flex items-center gap-1" style={{ color: 'var(--t-3)' }}>
                         <Clock className="w-3 h-3" />
                         {s.time}
                       </span>
-                      <span className="flex items-center gap-1" style={{ color: 'rgba(248,248,246,0.6)' }}>
+                      <span className="flex items-center gap-1" style={{ color: 'var(--t-3)' }}>
                         <Target className="w-3 h-3" />
                         {s.goal}
                       </span>
                     </div>
                     <div
                       className="mt-1.5 text-[10px] leading-relaxed"
-                      style={{ color: 'rgba(248,248,246,0.35)' }}
+                      style={{ color: 'var(--t-6)' }}
                     >
                       제품: {s.product}
                     </div>
@@ -423,7 +423,7 @@ function ProtocolCard({ protocol, index, inView }: { protocol: Protocol; index: 
                       >
                         {d.area}
                       </span>
-                      <span style={{ color: 'rgba(248,248,246,0.6)' }}>{d.instruction}</span>
+                      <span style={{ color: 'var(--t-3)' }}>{d.instruction}</span>
                     </div>
                   ))}
                 </div>
@@ -439,7 +439,7 @@ function ProtocolCard({ protocol, index, inView }: { protocol: Protocol; index: 
                       className="mt-1 w-1 h-1 rounded-full shrink-0"
                       style={{ background: '#5c8a3c' }}
                     />
-                    <span style={{ color: 'rgba(248,248,246,0.42)' }}>{tip}</span>
+                    <span style={{ color: 'var(--t-5)' }}>{tip}</span>
                   </div>
                 ))}
               </div>
@@ -490,10 +490,10 @@ export default function GuideSection() {
             Care Protocol
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: '#f8f8f6' }}>피부 고민별 </span>
+            <span style={{ color: 'var(--t-1)' }}>피부 고민별 </span>
             <span className="text-gradient-green">케어 프로그램</span>
           </h2>
-          <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'rgba(248,248,246,0.5)' }}>
+          <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
             더마10 전문 케어 가이드에서 제공하는 맞춤 케어 프로토콜.
             3단계 헤드 조합으로 피부 고민을 집중 케어합니다.
           </p>
@@ -507,8 +507,8 @@ export default function GuideSection() {
           <div
             className="inline-flex rounded-xl p-1"
             style={{
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              background: 'var(--su-1)',
+              border: '1px solid var(--bd-2)',
             }}
           >
             {([
@@ -521,7 +521,7 @@ export default function GuideSection() {
                 className="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
                 style={{
                   background: tab === t.id ? 'rgba(92,138,60,0.22)' : 'transparent',
-                  color: tab === t.id ? '#9dd470' : 'rgba(248,248,246,0.45)',
+                  color: tab === t.id ? '#9dd470' : 'var(--t-5)',
                   border: tab === t.id ? '1px solid rgba(92,138,60,0.35)' : '1px solid transparent',
                 }}
               >
@@ -554,7 +554,7 @@ export default function GuideSection() {
             opacity: inView ? 1 : 0,
           }}
         >
-          <p className="text-sm" style={{ color: 'rgba(248,248,246,0.55)' }}>
+          <p className="text-sm" style={{ color: 'var(--t-4)' }}>
             <span className="font-semibold" style={{ color: '#9dd470' }}>전문가 팁</span>
             {' '}— 각 케어 프로그램은 1회 30분 기준입니다.
             처음 사용 시 강도를 1단계부터 시작하고, 피부 반응에 따라 단계별로 조절하세요.

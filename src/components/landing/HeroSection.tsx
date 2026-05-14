@@ -44,8 +44,7 @@ export default function HeroSection() {
         <div
           className="absolute inset-0"
           style={{
-            background:
-              'linear-gradient(to bottom, rgba(7,7,10,0.50) 0%, rgba(7,7,10,0.38) 40%, rgba(7,7,10,0.62) 75%, rgba(7,7,10,0.92) 100%)',
+            background: 'var(--hero-grad)',
           }}
         />
         {/* Green tint */}
@@ -61,7 +60,7 @@ export default function HeroSection() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 120% 100% at 50% 50%, transparent 50%, rgba(7,7,10,0.45) 100%)',
+              'radial-gradient(ellipse 120% 100% at 50% 50%, transparent 50%, var(--t-bg-gl) 100%)',
           }}
         />
       </div>
@@ -97,16 +96,16 @@ export default function HeroSection() {
 
             {/* Main headline */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.08] mb-6">
-              <span style={{ color: '#f8f8f6' }}>클리닉 기술을</span>
+              <span style={{ color: 'var(--t-1)' }}>클리닉 기술을</span>
               <br />
-              <span style={{ color: '#f8f8f6' }}>집으로 가져오다</span>
+              <span style={{ color: 'var(--t-1)' }}>집으로 가져오다</span>
               <br />
               <span className="text-gradient-green">더마10 PRO</span>
             </h1>
 
             <p
               className="text-base md:text-lg mb-8 leading-relaxed max-w-md"
-              style={{ color: 'rgba(248,248,246,0.65)' }}
+              style={{ color: 'var(--t-3)' }}
             >
               페이스 RF·갈바닉·초음파·고주파 8가지 메디컬 에스테틱 기술.
               전국 120개 라운지에서 직접 체험하고,
@@ -120,9 +119,9 @@ export default function HeroSection() {
                   key={b}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium"
                   style={{
-                    background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.12)',
-                    color: 'rgba(248,248,246,0.75)',
+                    background: 'var(--su-1)',
+                    border: '1px solid var(--bd-1)',
+                    color: 'var(--t-2)',
                     backdropFilter: 'blur(4px)',
                   }}
                 >
@@ -151,7 +150,7 @@ export default function HeroSection() {
             {/* Stats */}
             <div
               className="flex items-center gap-6 pt-6"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.10)' }}
+              style={{ borderTop: '1px solid var(--bd-2)' }}
             >
               {stats.map(({ value, label }, i) => (
                 <div
@@ -166,7 +165,7 @@ export default function HeroSection() {
                   <div className="text-2xl font-black" style={{ color: '#9dd470' }}>
                     {value}
                   </div>
-                  <div className="text-xs mt-0.5" style={{ color: 'rgba(248,248,246,0.42)' }}>
+                  <div className="text-xs mt-0.5" style={{ color: 'var(--t-5)' }}>
                     {label}
                   </div>
                 </div>
@@ -194,7 +193,7 @@ export default function HeroSection() {
                 style={{
                   background: 'linear-gradient(160deg, #f4f4f0 0%, #e8e8e4 100%)',
                   boxShadow:
-                    '0 0 0 1px rgba(255,255,255,0.08), 0 32px 80px rgba(0,0,0,0.6), 0 0 120px rgba(92,138,60,0.12)',
+                    '0 0 0 1px var(--bd-2), 0 32px 80px rgba(0,0,0,0.6), 0 0 120px rgba(92,138,60,0.12)',
                 }}
               >
                 <Image
@@ -211,7 +210,7 @@ export default function HeroSection() {
               <div
                 className="absolute -left-6 top-16 px-3 py-2 rounded-xl text-xs font-semibold"
                 style={{
-                  background: 'rgba(7,7,10,0.92)',
+                  background: 'var(--t-bg-dp)',
                   border: '1px solid rgba(92,138,60,0.40)',
                   backdropFilter: 'blur(16px)',
                   color: '#9dd470',
@@ -219,32 +218,32 @@ export default function HeroSection() {
                 }}
               >
                 <div className="text-base font-black">8종</div>
-                <div style={{ color: 'rgba(248,248,246,0.5)' }}>헤드 시스템</div>
+                <div style={{ color: 'var(--t-4)' }}>헤드 시스템</div>
               </div>
 
               {/* Chip: price */}
               <div
                 className="absolute -right-6 bottom-20 px-3 py-2 rounded-xl text-xs font-semibold"
                 style={{
-                  background: 'rgba(7,7,10,0.92)',
-                  border: '1px solid rgba(255,255,255,0.12)',
+                  background: 'var(--t-bg-dp)',
+                  border: '1px solid var(--bd-1)',
                   backdropFilter: 'blur(16px)',
-                  color: '#f8f8f6',
+                  color: 'var(--t-1)',
                   boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
                 }}
               >
                 <div className="text-base font-black" style={{ color: '#9dd470' }}>₩670만</div>
-                <div style={{ color: 'rgba(248,248,246,0.5)' }}>플래그십 기기</div>
+                <div style={{ color: 'var(--t-4)' }}>플래그십 기기</div>
               </div>
 
               {/* Chip: session */}
               <div
                 className="absolute -right-4 top-8 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs"
                 style={{
-                  background: 'rgba(7,7,10,0.92)',
-                  border: '1px solid rgba(255,255,255,0.12)',
+                  background: 'var(--t-bg-dp)',
+                  border: '1px solid var(--bd-1)',
                   backdropFilter: 'blur(16px)',
-                  color: 'rgba(248,248,246,0.8)',
+                  color: 'var(--t-2)',
                   boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
                 }}
               >
@@ -264,12 +263,12 @@ export default function HeroSection() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-all duration-700 delay-700"
         style={{ opacity: mounted ? 0.5 : 0 }}
       >
-        <span className="text-xs tracking-widest uppercase" style={{ color: 'rgba(248,248,246,0.4)' }}>
+        <span className="text-xs tracking-widest uppercase" style={{ color: 'var(--t-5)' }}>
           Scroll
         </span>
         <div
           className="w-px h-10 relative overflow-hidden"
-          style={{ background: 'rgba(255,255,255,0.08)' }}
+          style={{ background: 'var(--bd-3)' }}
         >
           <div
             className="absolute w-full"

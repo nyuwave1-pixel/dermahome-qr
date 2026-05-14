@@ -157,10 +157,10 @@ export default function FeaturesSection() {
             8 Head System
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: '#f8f8f6' }}>더마10 — </span>
+            <span style={{ color: 'var(--t-1)' }}>더마10 — </span>
             <span className="text-gradient-green">8종 헤드 시스템</span>
           </h2>
-          <p className="max-w-lg mx-auto text-sm leading-relaxed" style={{ color: 'rgba(248,248,246,0.5)' }}>
+          <p className="max-w-lg mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
             헤드를 선택해 작용 원리와 케어 효과를 확인하세요.
           </p>
         </div>
@@ -176,9 +176,9 @@ export default function FeaturesSection() {
               onClick={() => switchHead(i)}
               className="shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold transition-all duration-200"
               style={{
-                background: active === i ? `${h.color}18` : 'rgba(255,255,255,0.04)',
-                border: `1px solid ${active === i ? `${h.color}50` : 'rgba(255,255,255,0.08)'}`,
-                color: active === i ? h.color : 'rgba(248,248,246,0.40)',
+                background: active === i ? `${h.color}18` : 'var(--su-1)',
+                border: `1px solid ${active === i ? `${h.color}50` : 'var(--bd-2)'}`,
+                color: active === i ? h.color : 'var(--t-5)',
               }}
             >
               <span className="font-black" style={{ opacity: 0.7 }}>{h.num}</span>
@@ -207,20 +207,20 @@ export default function FeaturesSection() {
               >
                 <span
                   className="text-xs font-black w-7 transition-all duration-200"
-                  style={{ color: active === i ? h.color : 'rgba(248,248,246,0.22)' }}
+                  style={{ color: active === i ? h.color : 'var(--t-7)' }}
                 >
                   {h.num}
                 </span>
                 <div>
                   <div
                     className="text-sm font-bold leading-tight transition-all duration-200"
-                    style={{ color: active === i ? '#f8f8f6' : 'rgba(248,248,246,0.45)' }}
+                    style={{ color: active === i ? 'var(--t-1)' : 'var(--t-5)' }}
                   >
                     {h.name}
                   </div>
                   <div
                     className="text-[10px] font-semibold tracking-wider uppercase transition-all duration-200"
-                    style={{ color: active === i ? h.color : 'rgba(248,248,246,0.18)' }}
+                    style={{ color: active === i ? h.color : 'var(--t-7)' }}
                   >
                     {h.tag}
                   </div>
@@ -236,8 +236,8 @@ export default function FeaturesSection() {
           <div
             className="flex-1 rounded-3xl overflow-hidden relative"
             style={{
-              background: 'rgba(255,255,255,0.025)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              background: 'var(--su-2)',
+              border: '1px solid var(--bd-2)',
               minHeight: '500px',
             }}
           >
@@ -301,7 +301,7 @@ export default function FeaturesSection() {
                   {/* Number chip */}
                   <div
                     className="absolute bottom-3 right-3 w-9 h-9 rounded-lg flex items-center justify-center font-black text-sm"
-                    style={{ background: 'rgba(7,7,10,0.85)', color: head.color, backdropFilter: 'blur(8px)' }}
+                    style={{ background: 'var(--t-bg-gl)', color: head.color, backdropFilter: 'blur(8px)' }}
                   >
                     {head.num}
                   </div>
@@ -310,7 +310,7 @@ export default function FeaturesSection() {
                 {/* Spec table */}
                 <div
                   className="w-full rounded-2xl overflow-hidden"
-                  style={{ border: '1px solid rgba(255,255,255,0.07)' }}
+                  style={{ border: '1px solid var(--bd-3)' }}
                 >
                   {[
                     { label: '기술', val: head.tech },
@@ -321,8 +321,8 @@ export default function FeaturesSection() {
                       key={label}
                       className="flex items-start gap-3 px-4 py-2.5 text-xs"
                       style={{
-                        borderBottom: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                        background: i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent',
+                        borderBottom: i < 2 ? '1px solid var(--bd-3)' : 'none',
+                        background: i % 2 === 0 ? 'var(--su-3)' : 'transparent',
                       }}
                     >
                       <span
@@ -331,7 +331,7 @@ export default function FeaturesSection() {
                       >
                         {label}
                       </span>
-                      <span style={{ color: 'rgba(248,248,246,0.70)' }}>{val}</span>
+                      <span style={{ color: 'var(--t-2)' }}>{val}</span>
                     </div>
                   ))}
                 </div>
@@ -362,7 +362,7 @@ export default function FeaturesSection() {
                   </div>
                   <h3
                     className="text-2xl md:text-3xl font-black leading-tight"
-                    style={{ color: '#f8f8f6' }}
+                    style={{ color: 'var(--t-1)' }}
                   >
                     {head.name}
                   </h3>
@@ -388,7 +388,7 @@ export default function FeaturesSection() {
                   </div>
                   <p
                     className="text-sm leading-relaxed"
-                    style={{ color: 'rgba(248,248,246,0.75)' }}
+                    style={{ color: 'var(--t-2)' }}
                   >
                     {head.mechanism}
                   </p>
@@ -398,7 +398,7 @@ export default function FeaturesSection() {
                 <div>
                   <div
                     className="text-[10px] font-bold tracking-widest uppercase mb-2.5"
-                    style={{ color: 'rgba(248,248,246,0.25)' }}
+                    style={{ color: 'var(--t-7)' }}
                   >
                     케어 효과
                   </div>
@@ -408,8 +408,8 @@ export default function FeaturesSection() {
                         key={i}
                         className="flex gap-3 items-start p-3.5 rounded-xl"
                         style={{
-                          background: 'rgba(255,255,255,0.025)',
-                          border: '1px solid rgba(255,255,255,0.06)',
+                          background: 'var(--su-2)',
+                          border: '1px solid var(--bd-3)',
                         }}
                       >
                         <div
@@ -421,13 +421,13 @@ export default function FeaturesSection() {
                         <div>
                           <div
                             className="text-xs font-bold mb-0.5"
-                            style={{ color: '#f8f8f6' }}
+                            style={{ color: 'var(--t-1)' }}
                           >
                             {part.label}
                           </div>
                           <div
                             className="text-xs leading-relaxed"
-                            style={{ color: 'rgba(248,248,246,0.50)' }}
+                            style={{ color: 'var(--t-4)' }}
                           >
                             {part.body}
                           </div>
@@ -447,7 +447,7 @@ export default function FeaturesSection() {
                       style={{
                         width: active === i ? '24px' : '6px',
                         height: '6px',
-                        background: active === i ? h.color : 'rgba(255,255,255,0.15)',
+                        background: active === i ? h.color : 'var(--bd-1)',
                       }}
                       aria-label={h.name}
                     />
@@ -470,8 +470,8 @@ export default function FeaturesSection() {
               onClick={() => switchHead(i)}
               className="flex flex-col items-center gap-1.5 p-3 rounded-xl transition-all duration-200"
               style={{
-                background: active === i ? `${h.color}10` : 'rgba(255,255,255,0.025)',
-                border: `1px solid ${active === i ? `${h.color}40` : 'rgba(255,255,255,0.06)'}`,
+                background: active === i ? `${h.color}10` : 'var(--su-2)',
+                border: `1px solid ${active === i ? `${h.color}40` : 'var(--bd-3)'}`,
               }}
             >
               <div
@@ -482,7 +482,7 @@ export default function FeaturesSection() {
               </div>
               <div
                 className="text-[10px] font-bold leading-tight text-center"
-                style={{ color: active === i ? h.color : 'rgba(248,248,246,0.38)' }}
+                style={{ color: active === i ? h.color : 'var(--t-7)' }}
               >
                 {h.name}
               </div>

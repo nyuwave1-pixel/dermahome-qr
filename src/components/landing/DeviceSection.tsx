@@ -62,11 +62,11 @@ export default function DeviceSection() {
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
             <span className="text-gradient-green">더마10</span>
-            <span style={{ color: '#f8f8f6' }}> 프리미엄 피부 관리 시스템</span>
+            <span style={{ color: 'var(--t-1)' }}> 프리미엄 피부 관리 시스템</span>
           </h2>
           <p
             className="max-w-lg mx-auto text-sm leading-relaxed"
-            style={{ color: 'rgba(248,248,246,0.5)' }}
+            style={{ color: 'var(--t-4)' }}
           >
             메디컬 에스테틱 기술을 담은 올인원 피부 미용 기기.
             8종 헤드로 전신을 케어하는 전문가급 홈 뷰티 솔루션.
@@ -88,7 +88,7 @@ export default function DeviceSection() {
               className="rounded-3xl overflow-hidden mb-3"
               style={{
                 background: 'linear-gradient(160deg, #f4f4f0 0%, #e8e8e4 100%)',
-                boxShadow: '0 0 0 1px rgba(255,255,255,0.06), 0 32px 80px rgba(0,0,0,0.55), 0 0 100px rgba(92,138,60,0.08)',
+                boxShadow: '0 0 0 1px var(--bd-3), 0 32px 80px rgba(0,0,0,0.55), 0 0 100px rgba(92,138,60,0.08)',
                 aspectRatio: '3/4',
                 position: 'relative',
               }}
@@ -113,7 +113,7 @@ export default function DeviceSection() {
                     aspectRatio: '1',
                     outline: activeImg === i
                       ? '2px solid #5c8a3c'
-                      : '1px solid rgba(255,255,255,0.06)',
+                      : '1px solid var(--bd-3)',
                     opacity: activeImg === i ? 1 : 0.65,
                   }}
                   aria-label={img.label}
@@ -147,8 +147,8 @@ export default function DeviceSection() {
                 10
               </div>
               <div>
-                <div className="font-bold" style={{ color: '#f8f8f6' }}>더마10 PRO</div>
-                <div className="text-xs" style={{ color: 'rgba(248,248,246,0.45)' }}>
+                <div className="font-bold" style={{ color: 'var(--t-1)' }}>더마10 PRO</div>
+                <div className="text-xs" style={{ color: 'var(--t-5)' }}>
                   UNI&CORE 플래그십 미용 기기
                 </div>
               </div>
@@ -157,24 +157,24 @@ export default function DeviceSection() {
             {/* Spec table */}
             <div
               className="rounded-2xl overflow-hidden mb-8"
-              style={{ border: '1px solid rgba(255,255,255,0.08)' }}
+              style={{ border: '1px solid var(--bd-2)' }}
             >
               {specs.map(({ label, value }, i) => (
                 <div
                   key={label}
                   className="flex gap-4 px-5 py-3.5 text-sm"
                   style={{
-                    borderBottom: i < specs.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                    background: i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent',
+                    borderBottom: i < specs.length - 1 ? '1px solid var(--bd-3)' : 'none',
+                    background: i % 2 === 0 ? 'var(--su-3)' : 'transparent',
                   }}
                 >
                   <span
                     className="shrink-0 w-24 font-medium"
-                    style={{ color: 'rgba(248,248,246,0.38)' }}
+                    style={{ color: 'var(--t-6)' }}
                   >
                     {label}
                   </span>
-                  <span style={{ color: 'rgba(248,248,246,0.82)' }}>{value}</span>
+                  <span style={{ color: 'var(--t-2)' }}>{value}</span>
                 </div>
               ))}
             </div>
@@ -182,7 +182,7 @@ export default function DeviceSection() {
             {/* Key differentiators */}
             <h3
               className="text-xs font-semibold tracking-widest uppercase mb-3"
-              style={{ color: 'rgba(248,248,246,0.30)' }}
+              style={{ color: 'var(--t-6)' }}
             >
               핵심 기술
             </h3>
@@ -197,14 +197,14 @@ export default function DeviceSection() {
                   key={title}
                   className="px-4 py-3 rounded-xl"
                   style={{
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid rgba(255,255,255,0.07)',
+                    background: 'var(--su-2)',
+                    border: '1px solid var(--bd-3)',
                   }}
                 >
                   <div className="text-sm font-semibold mb-0.5" style={{ color: '#9dd470' }}>
                     {title}
                   </div>
-                  <div className="text-xs" style={{ color: 'rgba(248,248,246,0.42)' }}>
+                  <div className="text-xs" style={{ color: 'var(--t-5)' }}>
                     {sub}
                   </div>
                 </div>

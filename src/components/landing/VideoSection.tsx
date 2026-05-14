@@ -80,10 +80,10 @@ export default function VideoSection() {
             </span>
           </div>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: '#f8f8f6' }}>더마홈 </span>
+            <span style={{ color: 'var(--t-1)' }}>더마홈 </span>
             <span className="text-gradient-green">공식 영상</span>
           </h2>
-          <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'rgba(248,248,246,0.5)' }}>
+          <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
             유니앤코어 공식 채널에서 더마홈 기기 사용법, 케어 가이드, 라운지 체험 영상을 확인하세요.
           </p>
         </div>
@@ -96,8 +96,8 @@ export default function VideoSection() {
           <div
             className="rounded-3xl overflow-hidden"
             style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              background: 'var(--su-2)',
+              border: '1px solid var(--bd-2)',
             }}
           >
             {/* Video player area */}
@@ -126,7 +126,7 @@ export default function VideoSection() {
                   {/* Dark overlay */}
                   <div
                     className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-70"
-                    style={{ background: 'rgba(7,7,10,0.45)' }}
+                    style={{ background: 'var(--t-bg-gl)' }}
                   />
                   {/* Play button */}
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -165,10 +165,10 @@ export default function VideoSection() {
             {/* Video info */}
             <div className="p-5 flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-base font-bold mb-1" style={{ color: '#f8f8f6' }}>
+                <h3 className="text-base font-bold mb-1" style={{ color: 'var(--t-1)' }}>
                   {featured.title}
                 </h3>
-                <p className="text-sm" style={{ color: 'rgba(248,248,246,0.5)' }}>
+                <p className="text-sm" style={{ color: 'var(--t-4)' }}>
                   {featured.desc}
                 </p>
               </div>
@@ -178,11 +178,11 @@ export default function VideoSection() {
                 rel="noopener noreferrer"
                 className="shrink-0 flex items-center gap-1.5 text-xs px-3 py-2 rounded-lg transition-all duration-200"
                 style={{
-                  color: 'rgba(248,248,246,0.45)',
-                  border: '1px solid rgba(255,255,255,0.10)',
+                  color: 'var(--t-5)',
+                  border: '1px solid var(--bd-2)',
                 }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#f8f8f6'; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.45)'; }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-1)'; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-5)'; }}
               >
                 YouTube
                 <ExternalLink className="w-3 h-3" />
@@ -195,8 +195,8 @@ export default function VideoSection() {
         <div
           className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl transition-all duration-700 delay-200"
           style={{
-            background: 'rgba(255,255,255,0.025)',
-            border: '1px solid rgba(255,255,255,0.07)',
+            background: 'var(--su-2)',
+            border: '1px solid var(--bd-3)',
             opacity: inView ? 1 : 0,
           }}
         >
@@ -208,10 +208,10 @@ export default function VideoSection() {
               <Play className="w-5 h-5" style={{ color: '#ff4444', fill: '#ff4444' }} />
             </div>
             <div>
-              <p className="text-sm font-semibold" style={{ color: '#f8f8f6' }}>
+              <p className="text-sm font-semibold" style={{ color: 'var(--t-1)' }}>
                 UNI&CORE Official YouTube
               </p>
-              <p className="text-xs" style={{ color: 'rgba(248,248,246,0.42)' }}>
+              <p className="text-xs" style={{ color: 'var(--t-5)' }}>
                 더마홈 관리 영상, 라운지 체험기, 케어 가이드 영상
               </p>
             </div>

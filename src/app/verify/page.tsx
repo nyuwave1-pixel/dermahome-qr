@@ -67,10 +67,10 @@ function VerifyInner() {
         >
           <RefreshCw className="w-10 h-10 animate-spin" style={{ color: '#7bae52' }} />
         </div>
-        <h2 className="text-xl font-bold mb-2" style={{ color: '#f8f8f6' }}>
+        <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--t-1)' }}>
           QR 인증 처리 중
         </h2>
-        <p className="text-sm" style={{ color: 'rgba(248,248,246,0.5)' }}>
+        <p className="text-sm" style={{ color: 'var(--t-4)' }}>
           잠시만 기다려주세요...
         </p>
         <div className="mt-6 space-y-2">
@@ -79,7 +79,7 @@ function VerifyInner() {
               key={step}
               className="flex items-center gap-2 text-xs transition-all duration-500"
               style={{
-                color: 'rgba(248,248,246,0.42)',
+                color: 'var(--t-5)',
                 opacity: 1,
                 transitionDelay: `${i * 400}ms`,
               }}
@@ -115,10 +115,10 @@ function VerifyInner() {
         >
           인증 완료
         </div>
-        <h2 className="text-2xl font-black mb-2" style={{ color: '#f8f8f6' }}>
+        <h2 className="text-2xl font-black mb-2" style={{ color: 'var(--t-1)' }}>
           기기 사용 권한이<br />부여되었습니다
         </h2>
-        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'rgba(248,248,246,0.55)' }}>
+        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--t-3)' }}>
           <span className="font-semibold" style={{ color: '#9dd470' }}>{deviceModel}</span>
           을(를) 사용하실 수 있습니다.
           <br />이 QR은 1회 사용으로 만료되었습니다.
@@ -130,7 +130,7 @@ function VerifyInner() {
             <span
               key={h}
               className="text-xs px-3 py-1.5 rounded-lg font-medium"
-              style={{ background: 'rgba(92,138,60,0.10)', color: 'rgba(248,248,246,0.7)', border: '1px solid rgba(92,138,60,0.20)' }}
+              style={{ background: 'rgba(92,138,60,0.10)', color: 'var(--t-2)', border: '1px solid rgba(92,138,60,0.20)' }}
             >
               {h}
             </span>
@@ -163,14 +163,14 @@ function VerifyInner() {
         >
           이미 사용됨
         </div>
-        <h2 className="text-2xl font-black mb-2" style={{ color: '#f8f8f6' }}>
+        <h2 className="text-2xl font-black mb-2" style={{ color: 'var(--t-1)' }}>
           만료된 QR 코드입니다
         </h2>
-        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'rgba(248,248,246,0.55)' }}>
+        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--t-3)' }}>
           이 QR 코드는 이미 사용되었습니다.
           <br />매장 운영자에게 새 QR을 요청하세요.
         </p>
-        <p className="text-xs" style={{ color: 'rgba(248,248,246,0.30)' }}>
+        <p className="text-xs" style={{ color: 'var(--t-6)' }}>
           재 스캔 시 만료 · 새 QR은 매장 운영자가 발급합니다
         </p>
       </div>
@@ -192,10 +192,10 @@ function VerifyInner() {
         >
           만료됨
         </div>
-        <h2 className="text-2xl font-black mb-2" style={{ color: '#f8f8f6' }}>
+        <h2 className="text-2xl font-black mb-2" style={{ color: 'var(--t-1)' }}>
           유효 시간이 만료되었습니다
         </h2>
-        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'rgba(248,248,246,0.55)' }}>
+        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--t-3)' }}>
           이 QR 코드의 유효 시간이 지났습니다.
           <br />매장 운영자에게 새 QR을 요청하세요.
         </p>
@@ -212,16 +212,16 @@ function VerifyInner() {
         >
           <AlertCircle className="w-10 h-10" style={{ color: '#f472b6' }} />
         </div>
-        <h2 className="text-2xl font-black mb-2" style={{ color: '#f8f8f6' }}>
+        <h2 className="text-2xl font-black mb-2" style={{ color: 'var(--t-1)' }}>
           유효하지 않은 QR입니다
         </h2>
-        <p className="text-sm mb-6" style={{ color: 'rgba(248,248,246,0.55)' }}>
+        <p className="text-sm mb-6" style={{ color: 'var(--t-3)' }}>
           QR 코드를 다시 확인하거나 새 QR을 요청하세요.
         </p>
         <button
           onClick={() => { setState('idle'); setManualCode(''); }}
           className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200"
-          style={{ background: 'rgba(255,255,255,0.06)', color: '#f8f8f6', border: '1px solid rgba(255,255,255,0.10)' }}
+          style={{ background: 'var(--su-hover)', color: 'var(--t-1)', border: '1px solid var(--bd-2)' }}
         >
           다시 시도
         </button>
@@ -240,10 +240,10 @@ function VerifyInner() {
         >
           <QrCode className="w-8 h-8" style={{ color: '#7bae52' }} />
         </div>
-        <h1 className="text-xl font-black mb-1" style={{ color: '#f8f8f6' }}>
+        <h1 className="text-xl font-black mb-1" style={{ color: 'var(--t-1)' }}>
           QR 세션 스캔
         </h1>
-        <p className="text-sm" style={{ color: 'rgba(248,248,246,0.48)' }}>
+        <p className="text-sm" style={{ color: 'var(--t-4)' }}>
           매장에서 받은 QR 코드를 스캔해주세요
         </p>
       </div>
@@ -253,7 +253,7 @@ function VerifyInner() {
         className="p-4 rounded-xl mb-4 text-sm"
         style={{ background: 'rgba(92,138,60,0.07)', border: '1px solid rgba(92,138,60,0.20)' }}
       >
-        <p style={{ color: 'rgba(248,248,246,0.65)' }}>
+        <p style={{ color: 'var(--t-3)' }}>
           스마트폰 기본 카메라 앱으로 QR 코드를 스캔하면 자동으로 이 페이지로 연결됩니다.
         </p>
       </div>
@@ -261,7 +261,7 @@ function VerifyInner() {
       {/* Manual code entry */}
       <div
         className="rounded-xl overflow-hidden"
-        style={{ border: '1px solid rgba(255,255,255,0.08)' }}
+        style={{ border: '1px solid var(--bd-2)' }}
       >
         <button
           className="w-full flex items-center justify-between p-4"
@@ -269,14 +269,14 @@ function VerifyInner() {
         >
           <div className="flex items-center gap-3">
             <Shield className="w-5 h-5" style={{ color: '#7bae52' }} />
-            <span className="text-sm font-medium" style={{ color: 'rgba(248,248,246,0.72)' }}>
+            <span className="text-sm font-medium" style={{ color: 'var(--t-2)' }}>
               코드 직접 입력
             </span>
           </div>
           <span
             className="text-xs transition-transform duration-300"
             style={{
-              color: 'rgba(248,248,246,0.3)',
+              color: 'var(--t-6)',
               transform: manualOpen ? 'rotate(180deg)' : 'rotate(0deg)',
               display: 'inline-block',
             }}
@@ -293,9 +293,9 @@ function VerifyInner() {
               onChange={(e) => setManualCode(e.target.value.toUpperCase())}
               className="w-full px-4 py-3 rounded-xl text-center font-mono text-sm tracking-wider focus:outline-none"
               style={{
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.12)',
-                color: '#f8f8f6',
+                background: 'var(--su-1)',
+                border: '1px solid var(--bd-1)',
+                color: 'var(--t-1)',
               }}
             />
             <button
@@ -320,15 +320,15 @@ export default function VerifyPage() {
       <Header />
       <main
         className="min-h-screen flex items-center justify-center px-4 py-24"
-        style={{ background: '#07070a' }}
+        style={{ background: 'var(--t-bg)' }}
       >
         <div className="w-full max-w-sm">
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 text-sm mb-6 transition-colors"
-            style={{ color: 'rgba(248,248,246,0.38)' }}
+            style={{ color: 'var(--t-5)' }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#7bae52'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.38)'; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-5)'; }}
           >
             <ArrowLeft className="w-4 h-4" />
             홈으로
@@ -337,15 +337,15 @@ export default function VerifyPage() {
           <div
             className="p-6 rounded-2xl"
             style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.09)',
+              background: 'var(--su-2)',
+              border: '1px solid var(--bd-2)',
             }}
           >
             <Suspense
               fallback={
                 <div className="text-center py-8">
                   <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-3" style={{ color: '#7bae52' }} />
-                  <p className="text-sm" style={{ color: 'rgba(248,248,246,0.5)' }}>로딩 중...</p>
+                  <p className="text-sm" style={{ color: 'var(--t-4)' }}>로딩 중...</p>
                 </div>
               }
             >

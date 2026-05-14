@@ -7,23 +7,33 @@ interface GlassCardProps {
   className?: string;
   hover?: boolean;
   onClick?: () => void;
+  accent?: boolean;
 }
 
-export default function GlassCard({ children, className = '', hover = false, onClick }: GlassCardProps) {
+export default function GlassCard({
+  children,
+  className = '',
+  hover = false,
+  onClick,
+  accent = false,
+}: GlassCardProps) {
   return (
     <div
       onClick={onClick}
       className={`
         relative overflow-hidden rounded-2xl
-        bg-white border border-slate-200/80
-        shadow-sm hover:shadow-md
         transition-all duration-300
-        ${hover ? 'hover:scale-[1.02] hover:shadow-lg' : ''}
+        ${accent ? 'glass-accent' : 'glass-dark'}
+        ${hover ? 'hover:scale-[1.02] cursor-pointer hover:border-white/20' : ''}
         ${onClick ? 'cursor-pointer' : ''}
         ${className}
       `}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-transparent to-sky-50/30 pointer-events-none" />
+      {/* Subtle top-edge highlight */}
+      <div
+        className="absolute inset-x-0 top-0 h-px pointer-events-none"
+        style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent)' }}
+      />
       <div className="relative z-10">{children}</div>
     </div>
   );

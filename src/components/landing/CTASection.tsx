@@ -1,52 +1,139 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Phone, MessageCircle, Mail } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { QrCode, ArrowRight } from 'lucide-react';
 import Button from '@/components/ui/Button';
 
+function useInView(ref: React.RefObject<Element | null>) {
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [ref]);
+  return inView;
+}
+
 export default function CTASection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(sectionRef);
+
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-sky-500 via-blue-600 to-indigo-700" />
-      <div className="absolute inset-0 opacity-10" style={{
-        backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.2) 1px, transparent 0)',
-        backgroundSize: '24px 24px',
-      }} />
+    <section ref={sectionRef} className="py-28 relative overflow-hidden">
+      {/* BG glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 80% 70% at 50% 50%, rgba(92,138,60,0.08) 0%, transparent 65%)',
+        }}
+      />
+      {/* Grid dots */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(92,138,60,0.06) 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+        }}
+      />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+
+        {/* Logo */}
+        <div
+          className="flex justify-center mb-8 transition-all duration-700"
+          style={{ opacity: inView ? 1 : 0, transform: inView ? 'translateY(0)' : 'translateY(20px)' }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            도움이 필요하신가요?
-          </h2>
-          <p className="text-sky-100 mb-10 max-w-lg mx-auto">
-            더마홈 고객센터가 언제든 도와드립니다
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-10">
-            {[
-              { icon: Phone, label: '전화 문의', value: '1588-0000' },
-              { icon: MessageCircle, label: '카카오톡', value: '@dermahome' },
-              { icon: Mail, label: '이메일', value: 'help@unicore.co.kr' },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 text-white"
-              >
-                <item.icon className="w-6 h-6 mx-auto mb-2 text-sky-200" />
-                <div className="text-xs text-sky-200 mb-1">{item.label}</div>
-                <div className="font-semibold text-sm">{item.value}</div>
-              </div>
-            ))}
+          <div
+            className="inline-block rounded-2xl overflow-hidden"
+            style={{
+              background: 'linear-gradient(160deg, #f0f0ec 0%, #e4e4e0 100%)',
+              padding: '10px 24px',
+              boxShadow: '0 0 0 1px rgba(255,255,255,0.06), 0 16px 48px rgba(0,0,0,0.4), 0 0 60px rgba(92,138,60,0.10)',
+            }}
+          >
+            <Image
+              src="/images/logo_with_slogan.png"
+              alt="UNI&CORE — United power of uni&core to the global"
+              width={240}
+              height={80}
+              className="h-16 w-auto object-contain"
+            />
           </div>
+        </div>
 
-          <p className="text-sky-200 text-sm">
-            운영 시간: 평일 09:00 - 18:00 (공휴일 제외)
+        {/* Headline */}
+        <div
+          className="transition-all duration-700 delay-100"
+          style={{ opacity: inView ? 1 : 0, transform: inView ? 'translateY(0)' : 'translateY(24px)' }}
+        >
+          <h2 className="text-3xl md:text-5xl font-black mb-4 leading-tight">
+            <span style={{ color: '#f8f8f6' }}>지금 바로 </span>
+            <span className="text-gradient-green">정품 인증</span>
+            <span style={{ color: '#f8f8f6' }}>하고<br />프리미엄 케어를 시작하세요</span>
+          </h2>
+          <p
+            className="text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed"
+            style={{ color: 'rgba(248,248,246,0.52)' }}
+          >
+            더마10 기기의 QR 코드를 스캔하는 것만으로
+            정품 인증과 모든 혜택이 시작됩니다.
           </p>
-        </motion.div>
+        </div>
+
+        {/* CTA Buttons */}
+        <div
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 transition-all duration-700 delay-200"
+          style={{ opacity: inView ? 1 : 0, transform: inView ? 'translateY(0)' : 'translateY(20px)' }}
+        >
+          <Link href="/verify">
+            <Button size="lg" className="min-w-[220px]">
+              <QrCode className="w-5 h-5" />
+              QR 정품 인증하기
+            </Button>
+          </Link>
+          <a
+            href="https://www.unincore.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="outline" size="lg" className="min-w-[220px]">
+              유니앤코어 공식 사이트
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </a>
+        </div>
+
+        {/* Trust badges */}
+        <div
+          className="flex flex-wrap items-center justify-center gap-4 transition-all duration-700 delay-300"
+          style={{ opacity: inView ? 0.6 : 0 }}
+        >
+          {[
+            '㈜ 유니앤코어 공식 정품',
+            '1회성 QR 위조 방지',
+            '전국 120+ 라운지',
+            '7개국 글로벌 브랜드',
+          ].map((badge) => (
+            <div
+              key={badge}
+              className="flex items-center gap-1.5 text-xs"
+              style={{ color: 'rgba(248,248,246,0.45)' }}
+            >
+              <span
+                className="w-1 h-1 rounded-full"
+                style={{ background: '#5c8a3c', display: 'inline-block' }}
+              />
+              {badge}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

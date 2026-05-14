@@ -1,91 +1,170 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Gift, Percent, Clock, Star } from 'lucide-react';
-import GlassCard from '@/components/ui/GlassCard';
+import { useEffect, useRef, useState } from 'react';
+import { TrendingUp, MapPin, Globe, Package } from 'lucide-react';
 
-const promos = [
+function useInView(ref: React.RefObject<Element | null>) {
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [ref]);
+  return inView;
+}
+
+const stats = [
   {
-    icon: Percent,
-    title: '정품 인증 쿠폰',
-    description: 'QR 인증 시 15% 할인 쿠폰 자동 지급',
-    highlight: '15% OFF',
-    color: 'from-sky-400 to-blue-500',
+    icon: TrendingUp,
+    value: '120억+',
+    label: '2024 연매출',
+    sub: '전년 대비 250% 성장',
+    color: '#7bae52',
   },
   {
-    icon: Gift,
-    title: '앱 연동 보너스',
-    description: '더마홈 앱 최초 연동 시 추가 10% 쿠폰',
-    highlight: '+10% 추가',
-    color: 'from-violet-400 to-purple-500',
+    icon: MapPin,
+    value: '120+',
+    label: '전국 라운지',
+    sub: '운영 중인 더마10 라운지',
+    color: '#38bdf8',
   },
   {
-    icon: Star,
-    title: 'VIP 멤버십',
-    description: '3개 이상 기기 등록 시 VIP 등급 자동 승급',
-    highlight: 'VIP',
-    color: 'from-amber-400 to-orange-500',
+    icon: Globe,
+    value: '7개국',
+    label: '해외 진출',
+    sub: 'USA 법인 포함 글로벌 확장',
+    color: '#e879f9',
+  },
+  {
+    icon: Package,
+    value: '300+',
+    label: '기기 판매',
+    sub: '2023–2024 더마10 누적',
+    color: '#fb923c',
   },
 ];
 
 export default function PromotionSection() {
-  return (
-    <section className="py-24 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-sky-50/20 to-white" />
-      <div className="relative z-10 max-w-6xl mx-auto px-4">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <span className="text-sm font-semibold text-sky-500 tracking-wider uppercase mb-3 block">Promotion</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
-            프로모션 혜택
-          </h2>
-          <p className="text-slate-500 max-w-lg mx-auto">
-            정품 인증 고객에게 드리는 특별한 혜택
-          </p>
-        </motion.div>
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(sectionRef);
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {promos.map((promo, i) => (
-            <GlassCard key={promo.title} hover className="p-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+  return (
+    <section ref={sectionRef} className="py-28 relative overflow-hidden">
+
+      {/* Background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 100% 60% at 50% 50%, rgba(92,138,60,0.06) 0%, transparent 70%)',
+        }}
+      />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-4">
+
+        {/* Header */}
+        <div
+          className="text-center mb-14 transition-all duration-700"
+          style={{ opacity: inView ? 1 : 0, transform: inView ? 'translateY(0)' : 'translateY(24px)' }}
+        >
+          <span
+            className="inline-block text-xs font-semibold tracking-widest uppercase mb-3"
+            style={{ color: '#7bae52' }}
+          >
+            Company
+          </span>
+          <h2 className="text-3xl md:text-4xl font-black mb-4">
+            <span style={{ color: '#f8f8f6' }}>유니앤코어, </span>
+            <span className="text-gradient-green">글로벌 성장</span>
+          </h2>
+          <p
+            className="max-w-md mx-auto text-sm leading-relaxed"
+            style={{ color: 'rgba(248,248,246,0.5)' }}
+          >
+            2022년 설립 후 빠른 성장으로 전국 120여 라운지,
+            7개국 진출의 뷰티 테크 기업입니다
+          </p>
+        </div>
+
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+          {stats.map((s, i) => (
+            <div
+              key={s.label}
+              className="transition-all duration-500"
+              style={{
+                opacity: inView ? 1 : 0,
+                transform: inView ? 'translateY(0)' : 'translateY(24px)',
+                transitionDelay: `${i * 80}ms`,
+              }}
+            >
+              <div
+                className="p-5 rounded-2xl text-center h-full"
+                style={{
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${promo.color} flex items-center justify-center shadow-lg`}>
-                    <promo.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <span className={`px-3 py-1 rounded-full text-sm font-bold bg-gradient-to-r ${promo.color} text-white`}>
-                    {promo.highlight}
-                  </span>
+                <div
+                  className="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center"
+                  style={{ background: `${s.color}15`, border: `1px solid ${s.color}30` }}
+                >
+                  <s.icon className="w-5 h-5" style={{ color: s.color }} />
                 </div>
-                <h3 className="text-lg font-bold text-slate-800 mb-2">{promo.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{promo.description}</p>
-              </motion.div>
-            </GlassCard>
+                <div className="text-2xl font-black mb-0.5" style={{ color: s.color }}>
+                  {s.value}
+                </div>
+                <div className="text-sm font-semibold mb-1" style={{ color: '#f8f8f6' }}>
+                  {s.label}
+                </div>
+                <div className="text-xs" style={{ color: 'rgba(248,248,246,0.38)' }}>
+                  {s.sub}
+                </div>
+              </div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 text-white text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        {/* Vision banner */}
+        <div
+          className="relative p-8 rounded-3xl overflow-hidden text-center transition-all duration-700 delay-400"
+          style={{
+            background: 'rgba(92,138,60,0.07)',
+            border: '1px solid rgba(92,138,60,0.22)',
+            opacity: inView ? 1 : 0,
+            transform: inView ? 'translateY(0)' : 'translateY(20px)',
+          }}
         >
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Clock className="w-5 h-5" />
-            <span className="font-semibold">한정 기간 프로모션</span>
+          {/* Corner glows */}
+          <div
+            className="absolute -top-12 -left-12 w-48 h-48 rounded-full pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(92,138,60,0.12) 0%, transparent 70%)' }}
+          />
+          <div
+            className="absolute -bottom-12 -right-12 w-48 h-48 rounded-full pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(92,138,60,0.08) 0%, transparent 70%)' }}
+          />
+
+          <div
+            className="inline-block text-xs font-semibold tracking-widest uppercase mb-3 px-3 py-1 rounded-full"
+            style={{ background: 'rgba(92,138,60,0.15)', color: '#9dd470', border: '1px solid rgba(92,138,60,0.3)' }}
+          >
+            Vision
           </div>
-          <p className="text-sky-100 text-sm">
-            2026년 12월 31일까지 인증 시 추가 5% 할인 쿠폰을 드립니다
+          <blockquote
+            className="text-xl md:text-2xl font-bold italic mb-3"
+            style={{ color: '#f8f8f6' }}
+          >
+            &ldquo;구독 플랫폼을 기반으로한 세계 최고의 직접 판매 회사&rdquo;
+          </blockquote>
+          <p className="text-sm" style={{ color: 'rgba(248,248,246,0.45)' }}>
+            ㈜ 유니앤코어 &nbsp;|&nbsp; 대표이사 김성현 &nbsp;|&nbsp; 2022년 10월 설립
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,77 +1,131 @@
 'use client';
 
 import Link from 'next/link';
-import { Shield, Mail, Phone, MapPin } from 'lucide-react';
+import Image from 'next/image';
+import { QrCode, MapPin, Globe } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-slate-50 to-slate-100 border-t border-slate-200/50">
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center">
-                <Shield className="w-5 h-5 text-white" />
+    <footer
+      className="relative mt-auto"
+      style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
+    >
+      {/* Top accent line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(to right, transparent, rgba(92,138,60,0.5), transparent)' }}
+      />
+
+      <div style={{ background: 'rgba(7,7,10,0.98)' }}>
+        <div className="max-w-6xl mx-auto px-6 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+            {/* Brand */}
+            <div className="md:col-span-1">
+              <div className="mb-4">
+                <Image
+                  src="/images/logo_horizontal_mono.png"
+                  alt="UNI&CORE"
+                  width={140}
+                  height={24}
+                  className="h-6 w-auto object-contain"
+                  style={{ filter: 'invert(1) brightness(0.75)' }}
+                />
               </div>
-              <div>
-                <span className="text-lg font-bold text-slate-800">DermaHome</span>
-                <span className="text-[10px] block -mt-1 text-slate-400 tracking-wider">by UNI&CORE</span>
+              <p className="text-sm leading-relaxed mb-4 italic" style={{ color: 'rgba(248,248,246,0.30)' }}>
+                &ldquo;United power of uni&core to the global&rdquo;
+              </p>
+              <div className="flex items-start gap-2 mb-2">
+                <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: 'rgba(248,248,246,0.28)' }} />
+                <span className="text-xs leading-relaxed" style={{ color: 'rgba(248,248,246,0.28)' }}>
+                  서울시 서초구 양재대로2길 100-30, 2층
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Globe className="w-3.5 h-3.5 shrink-0" style={{ color: 'rgba(248,248,246,0.28)' }} />
+                <a
+                  href="https://www.unincore.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs transition-colors"
+                  style={{ color: 'rgba(248,248,246,0.28)' }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#7bae52')}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.28)')}
+                >
+                  www.unincore.com
+                </a>
               </div>
             </div>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              프리미엄 더마 뷰티 디바이스와 스마트 피부 관리 솔루션을 제공합니다.
+
+            {/* Quick Links */}
+            <div>
+              <h4
+                className="text-xs font-semibold tracking-widest uppercase mb-4"
+                style={{ color: 'rgba(248,248,246,0.30)' }}
+              >
+                바로가기
+              </h4>
+              <ul className="space-y-2.5">
+                {[
+                  { href: '/verify', label: 'QR 정품 인증', icon: QrCode },
+                ].map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="flex items-center gap-2 text-sm transition-colors"
+                      style={{ color: 'rgba(248,248,246,0.48)' }}
+                      onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#9dd470')}
+                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'rgba(248,248,246,0.48)')}
+                    >
+                      <item.icon className="w-3.5 h-3.5" />
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Company Info */}
+            <div>
+              <h4
+                className="text-xs font-semibold tracking-widest uppercase mb-4"
+                style={{ color: 'rgba(248,248,246,0.30)' }}
+              >
+                회사 정보
+              </h4>
+              <dl className="space-y-2">
+                {[
+                  { term: '회사명', desc: '㈜ 유니앤코어' },
+                  { term: '대표이사', desc: '김성현' },
+                  { term: '설립', desc: '2022년 10월' },
+                  { term: '등록번호', desc: '서울 제935호' },
+                ].map(({ term, desc }) => (
+                  <div key={term} className="flex gap-3 text-sm">
+                    <dt className="shrink-0 w-20" style={{ color: 'rgba(248,248,246,0.26)' }}>{term}</dt>
+                    <dd style={{ color: 'rgba(248,248,246,0.52)' }}>{desc}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div
+            className="mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
+            style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+          >
+            <p className="text-xs" style={{ color: 'rgba(248,248,246,0.22)' }}>
+              © 2025 ㈜ 유니앤코어. All rights reserved.
             </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-slate-800 mb-4">서비스</h3>
-            <ul className="space-y-2.5">
-              {['QR 정품 인증', '피부 분석', '더마홈 기기', '프로모션'].map((item) => (
-                <li key={item}>
-                  <span className="text-sm text-slate-500 hover:text-sky-600 cursor-pointer transition-colors">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-slate-800 mb-4">고객 지원</h3>
-            <ul className="space-y-2.5">
-              {['자주 묻는 질문', '사용 가이드', '기기 연결 방법', '개인정보처리방침'].map((item) => (
-                <li key={item}>
-                  <span className="text-sm text-slate-500 hover:text-sky-600 cursor-pointer transition-colors">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-slate-800 mb-4">연락처</h3>
-            <ul className="space-y-3">
-              <li className="flex items-center gap-2.5 text-sm text-slate-500">
-                <Phone className="w-4 h-4 text-sky-500" />
-                1588-0000
-              </li>
-              <li className="flex items-center gap-2.5 text-sm text-slate-500">
-                <Mail className="w-4 h-4 text-sky-500" />
-                support@unicore.co.kr
-              </li>
-              <li className="flex items-start gap-2.5 text-sm text-slate-500">
-                <MapPin className="w-4 h-4 text-sky-500 mt-0.5" />
-                서울특별시 강남구 테헤란로 123
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-12 pt-8 border-t border-slate-200/50 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-400">
-            &copy; 2026 UNI&CORE Korea. All rights reserved.
-          </p>
-          <div className="flex gap-6">
-            {['이용약관', '개인정보처리방침', '사업자정보'].map((item) => (
-              <span key={item} className="text-xs text-slate-400 hover:text-sky-500 cursor-pointer transition-colors">{item}</span>
-            ))}
+            <div className="flex items-center gap-1.5">
+              <span
+                className="w-1.5 h-1.5 rounded-full animate-glow-fast"
+                style={{ display: 'inline-block', background: '#5c8a3c' }}
+              />
+              <span className="text-xs" style={{ color: 'rgba(248,248,246,0.22)' }}>
+                더마10 QR 시스템 운영 중
+              </span>
+            </div>
           </div>
         </div>
       </div>

@@ -1,66 +1,278 @@
 @import "tailwindcss";
 
+/* ── NanumSquareNeo Korean Font ─────────────────────────── */
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url('/fonts/NanumSquareNeo-aLt.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url('/fonts/NanumSquareNeo-bRg.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url('/fonts/NanumSquareNeo-cBd.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url('/fonts/NanumSquareNeo-dEb.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url('/fonts/NanumSquareNeo-eHv.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Design Tokens ──────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --bg:             #07070a;
+  --bg-surface:     rgba(255,255,255,0.032);
+  --bg-elevated:    rgba(255,255,255,0.06);
+  --bg-card:        rgba(255,255,255,0.04);
+
+  --border:         rgba(255,255,255,0.08);
+  --border-bright:  rgba(255,255,255,0.16);
+  --border-accent:  rgba(92,138,60,0.35);
+
+  --text-primary:   #f8f8f6;
+  --text-secondary: rgba(248,248,246,0.55);
+  --text-muted:     rgba(248,248,246,0.30);
+
+  /* UNI&CORE brand green */
+  --accent:         #5c8a3c;
+  --accent-light:   #7bae52;
+  --accent-bright:  #9dd470;
+  --accent-glow:    rgba(92,138,60,0.28);
+  --accent-glow-sm: rgba(92,138,60,0.15);
+
+  /* Silver / metallic */
+  --silver:         #a8b0b8;
+  --silver-light:   #d0d8e0;
+
+  --background: var(--bg);
+  --foreground: var(--text-primary);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg);
+  --color-foreground: var(--text-primary);
+  --font-sans: 'NanumSquareNeo', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}
+
+/* ── Base ───────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'NanumSquareNeo', -apple-system, BlinkMacSystemFont,
+    'Apple SD Gothic Neo', 'Malgun Gothic', 'Nanum Gothic', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Safe area padding for iOS */
-.safe-top { padding-top: env(safe-area-inset-top); }
-.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
-.safe-left { padding-left: env(safe-area-inset-left); }
-.safe-right { padding-right: env(safe-area-inset-right); }
+/* ── Keyframe Animations ────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
+}
 
-/* Glassmorphism utility */
-.glass {
-  background: rgba(255, 255, 255, 0.6);
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-8px) rotate(0.8deg); }
+  66%       { transform: translateY(-4px) rotate(-0.4deg); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%       { opacity: 0.70; transform: scale(1.06); }
+}
+
+@keyframes glowPulseFast {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+
+@keyframes scanBeam {
+  0%    { top: 0%;   opacity: 0.9; }
+  48%   { opacity: 0.9; }
+  50%   { top: 100%; opacity: 0; }
+  50.1% { top: 0%;   opacity: 0; }
+  52%   { opacity: 0.9; }
+  100%  { top: 100%; opacity: 0.9; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes rotateReverse {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+
+@keyframes borderRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes particleFloat {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.6; }
+  25%  { transform: translateY(-20px) translateX(10px); opacity: 1; }
+  75%  { transform: translateY(10px) translateX(-8px); opacity: 0.4; }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ripple {
+  0%   { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* ── Animation Utility Classes ──────────────────────────── */
+.animate-float     { animation: float 5s ease-in-out infinite; }
+.animate-float-slow { animation: floatSlow 7s ease-in-out infinite; }
+.animate-glow      { animation: glowPulse 3s ease-in-out infinite; }
+.animate-glow-fast { animation: glowPulseFast 1.5s ease-in-out infinite; }
+.animate-shimmer   { animation: shimmer 3s linear infinite; }
+.animate-rotate    { animation: rotateSlow 12s linear infinite; }
+.animate-rotate-rev { animation: rotateReverse 16s linear infinite; }
+.animate-fade-up   {
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Glass Dark Utilities ───────────────────────────────── */
+.glass-dark {
+  background: var(--bg-card);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--border);
 }
 
-/* Neumorphic utility */
-.neumorph {
-  background: linear-gradient(145deg, #f0f0f0, #ffffff);
-  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.06), -6px -6px 16px rgba(255, 255, 255, 0.8);
+.glass-dark-elevated {
+  background: var(--bg-elevated);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid var(--border-bright);
 }
 
-.neumorph-inset {
-  box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+.glass-accent {
+  background: rgba(92,138,60,0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-accent);
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
+/* ── Text Gradient Utilities ────────────────────────────── */
+.text-gradient-green {
+  background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent-light) 50%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-::-webkit-scrollbar-track {
-  background: transparent;
+
+.text-gradient-silver {
+  background: linear-gradient(135deg, #ffffff 0%, var(--silver-light) 50%, var(--silver) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
+.text-gradient-white {
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glow Effects ───────────────────────────────────────── */
+.glow-green {
+  box-shadow:
+    0 0 24px var(--accent-glow),
+    0 0 60px var(--accent-glow-sm),
+    0 0 120px rgba(92,138,60,0.06);
+}
+
+.glow-green-sm {
+  box-shadow: 0 0 16px var(--accent-glow-sm);
+}
+
+.glow-white {
+  box-shadow: 0 0 30px rgba(255,255,255,0.06), 0 0 80px rgba(255,255,255,0.03);
+}
+
+/* ── Section Divider ────────────────────────────────────── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-bright), transparent);
+}
+
+/* ── Safe Area Padding ──────────────────────────────────── */
+.safe-top    { padding-top:    env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.safe-left   { padding-left:   env(safe-area-inset-left); }
+.safe-right  { padding-right:  env(safe-area-inset-right); }
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.3);
-  border-radius: 3px;
+  background: rgba(92,138,60,0.25);
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.5);
+  background: rgba(92,138,60,0.45);
 }
 
-/* Selection color */
+/* ── Selection ──────────────────────────────────────────── */
 ::selection {
-  background: rgba(56, 189, 248, 0.2);
-  color: #0284c7;
+  background: rgba(92,138,60,0.28);
+  color: var(--accent-bright);
+}
+
+/* ── Product Card (white-bg photos on dark) ─────────────── */
+.product-card {
+  background: linear-gradient(160deg, #f8f8f6 0%, #ededea 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 24px 60px rgba(0,0,0,0.5),
+    0 0 80px var(--accent-glow-sm);
 }

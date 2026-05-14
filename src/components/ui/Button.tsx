@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
 
 interface ButtonProps {
@@ -14,17 +13,21 @@ interface ButtonProps {
   fullWidth?: boolean;
 }
 
-const variants = {
-  primary: 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40',
-  secondary: 'bg-slate-100 text-slate-700 border border-slate-200 shadow-md hover:shadow-lg hover:bg-slate-200',
-  outline: 'border-2 border-sky-400 text-sky-600 hover:bg-sky-50',
-  ghost: 'text-slate-600 hover:bg-slate-100',
+const variants: Record<string, string> = {
+  primary:
+    'bg-[#5c8a3c] text-white border border-[#7bae52]/40 hover:bg-[#6a9f47] hover:border-[#9dd470]/50 active:bg-[#4f7a34]',
+  secondary:
+    'bg-white/[0.06] text-[#f8f8f6] border border-white/[0.12] hover:bg-white/[0.10] hover:border-white/20 active:bg-white/[0.04]',
+  outline:
+    'bg-transparent text-[#7bae52] border border-[#5c8a3c]/60 hover:bg-[#5c8a3c]/10 hover:border-[#7bae52] active:bg-[#5c8a3c]/20',
+  ghost:
+    'bg-transparent text-[rgba(248,248,246,0.7)] border border-transparent hover:bg-white/[0.06] hover:text-[#f8f8f6]',
 };
 
-const sizes = {
-  sm: 'px-4 py-2 text-sm rounded-lg',
-  md: 'px-6 py-3 text-base rounded-xl',
-  lg: 'px-8 py-4 text-lg rounded-2xl',
+const sizes: Record<string, string> = {
+  sm: 'px-4 py-2 text-sm rounded-xl gap-1.5',
+  md: 'px-6 py-3 text-base rounded-xl gap-2',
+  lg: 'px-8 py-4 text-base font-semibold rounded-2xl gap-2.5',
 };
 
 export default function Button({
@@ -38,23 +41,25 @@ export default function Button({
   fullWidth = false,
 }: ButtonProps) {
   return (
-    <motion.button
+    <button
       type={type}
-      whileHover={disabled ? undefined : { scale: 1.03 }}
-      whileTap={disabled ? undefined : { scale: 0.97 }}
       onClick={onClick}
       disabled={disabled}
       className={`
-        inline-flex items-center justify-center gap-2 font-semibold
-        transition-all duration-300
-        disabled:opacity-50 disabled:cursor-not-allowed
+        inline-flex items-center justify-center font-semibold tracking-wide
+        transition-all duration-200
+        disabled:opacity-40 disabled:cursor-not-allowed
+        active:scale-[0.97]
         ${variants[variant]}
         ${sizes[size]}
         ${fullWidth ? 'w-full' : ''}
         ${className}
       `}
+      style={variant === 'primary' ? {
+        boxShadow: '0 0 24px rgba(92,138,60,0.25), 0 4px 12px rgba(0,0,0,0.3)',
+      } : undefined}
     >
       {children}
-    </motion.button>
+    </button>
   );
 }

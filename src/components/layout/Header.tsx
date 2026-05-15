@@ -8,10 +8,10 @@ import ThemeToggle from '@/components/ui/ThemeToggle';
 
 const navItems = [
   { href: '/', label: '홈', icon: Home },
-  { href: '#device', label: '기기 소개', icon: Cpu },
-  { href: '#guide', label: '케어 가이드', icon: BookOpen },
-  { href: '#stores', label: '매장 찾기', icon: MapPin },
-  { href: '#about', label: '회사 소개', icon: Building2 },
+  { href: '#device', label: '기기소개', icon: Cpu },
+  { href: '#guide', label: '케어가이드', icon: BookOpen },
+  { href: '#stores', label: '매장찾기', icon: MapPin },
+  { href: '#about', label: '회사소개', icon: Building2 },
 ];
 
 export default function Header() {
@@ -57,46 +57,45 @@ export default function Header() {
           }}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-2 shrink-0 group">
             <div
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl transition-all duration-200"
+              className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl transition-all duration-200"
               style={{ background: 'var(--su-1)', border: '1px solid var(--bd-2)' }}
             >
               <Image
                 src="/images/logo_vertical.png"
                 alt="UNI&CORE"
-                width={28}
-                height={28}
-                className="h-7 w-7 object-contain"
+                width={24}
+                height={24}
+                className="h-6 w-6 object-contain"
                 priority
               />
               <Image
                 src="/images/logo_horizontal_mono.png"
                 alt="UNI&CORE"
-                width={100}
-                height={20}
-                className="h-5 w-auto object-contain hidden sm:block"
+                width={80}
+                height={16}
+                className="h-4 w-auto object-contain hidden sm:block"
                 style={{ filter: 'var(--logo-filter, invert(1) brightness(0.85))' }}
                 priority
               />
             </div>
-            <div className="hidden sm:block h-4 w-px" style={{ background: 'var(--bd-1)' }} />
             <span
-              className="hidden lg:block text-xs font-medium tracking-widest uppercase"
-              style={{ color: 'var(--t-7)', letterSpacing: '0.15em' }}
+              className="hidden xl:block text-[10px] font-medium tracking-widest uppercase whitespace-nowrap"
+              style={{ color: 'var(--t-7)', letterSpacing: '0.12em' }}
             >
               DermaHome 10
             </span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-0.5">
+          <nav className="hidden lg:flex items-center gap-0.5">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={(e) => handleAnchorClick(e, item.href)}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200"
+                className="flex items-center gap-1 px-3 py-2 rounded-xl text-[13px] font-medium whitespace-nowrap transition-all duration-200"
                 style={{ color: 'var(--t-4)' }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.color = 'var(--t-1)';
@@ -107,37 +106,37 @@ export default function Header() {
                   (e.currentTarget as HTMLElement).style.background = 'transparent';
                 }}
               >
-                <item.icon className="w-4 h-4" />
+                <item.icon className="w-3.5 h-3.5" />
                 {item.label}
               </Link>
             ))}
           </nav>
 
           {/* Right actions */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-1.5 shrink-0">
             <ThemeToggle />
             <Link
               href="/verify"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[13px] font-medium whitespace-nowrap transition-all duration-200"
               style={{ color: 'var(--t-4)', border: '1px solid var(--bd-2)' }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-1)'; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-4)'; }}
             >
-              <QrCode className="w-4 h-4" />
+              <QrCode className="w-3.5 h-3.5" />
               QR 스캔
             </Link>
             <Link
               href="/generate"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-white"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[13px] font-semibold whitespace-nowrap transition-all duration-200 text-white"
               style={{ background: '#5c8a3c', boxShadow: '0 0 16px rgba(92,138,60,0.30)' }}
             >
-              <QrCode className="w-4 h-4" />
-              QR 세션 생성
+              <QrCode className="w-3.5 h-3.5" />
+              QR 생성
             </Link>
           </div>
 
           {/* Mobile: theme toggle + hamburger */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="lg:hidden flex items-center gap-2">
             <ThemeToggle />
             <button
               className="p-2 rounded-xl transition-colors"
@@ -154,7 +153,7 @@ export default function Header() {
       {/* Mobile Menu */}
       {isOpen && (
         <div
-          className="md:hidden mx-4 mt-2 transition-all duration-300"
+          className="lg:hidden mx-4 mt-2 transition-all duration-300"
           style={{
             opacity: mobileVisible ? 1 : 0,
             transform: mobileVisible ? 'translateY(0)' : 'translateY(-8px)',

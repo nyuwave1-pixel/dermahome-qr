@@ -46,7 +46,7 @@ export async function verifyQRCode(code: string, userId: string): Promise<Verify
       userId,
       couponCode: generateCouponCode(),
       discountPercent: 15,
-      description: '더마홈 정품 인증 프로모션 쿠폰',
+      description: '더마 시리즈 정품 인증 프로모션 쿠폰',
       expiredAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
       usedAt: null,
       createdAt: now,
@@ -92,11 +92,25 @@ export async function getUserQRHistory(userId: string): Promise<QRCode[]> {
 /* ─── Store Session (매장 운영자 → 고객 1회 사용 QR) ─────────────────
    Flow:
    1. Generate a unique session token
-   2. Call /api/qr/generate which proxies the Adjust QR Code API
-      (falls back to api.qrserver.com if Adjust is not configured)
-   3. Save session to Firestore with Adjust short URL for attribution
+   2. Call /api/qr/generate (qrcode npm lib, server-side)
+      Falls back to api.qrserver.com if the route fails
+   3. Save session to Firestore
    4. Return image data URL + metadata to the caller
 ──────────────────────────────────────────────────────────────────── */
+
+/** 5-second AbortController wrapper around fetch */
+async function fetchWithTimeout(url: string, init: RequestInit, ms = 5000): Promise<Response> {
+  const controller = new AbortController();
+  const tid = setTimeout(() => controller.abort(), ms);
+  try {
+    const res = await fetch(url, { ...init, signal: controller.signal });
+    clearTimeout(tid);
+    return res;
+  } catch (e) {
+    clearTimeout(tid);
+    throw e;
+  }
+}
 
 export async function createStoreSession(storeId = 'default'): Promise<{
   token: string;
@@ -117,53 +131,48 @@ export async function createStoreSession(storeId = 'default'): Promise<{
 
   const verifyUrl = `${baseUrl}/verify?code=${token}`;
 
-  /* ── 2. Generate QR via server-side route (Adjust → fallback) ── */
+  /* ── 2. Generate QR via server-side route (5 s timeout) ── */
   let qrImageUrl: string;
-  let adjustShortUrl: string = verifyUrl;
+  const adjustShortUrl = verifyUrl;
 
   try {
-    const res = await fetch('/api/qr/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ verifyUrl, token }),
-    });
+    const res = await fetchWithTimeout(
+      '/api/qr/generate',
+      {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ verifyUrl, token }),
+      },
+      5000,
+    );
 
     if (res.ok) {
-      const data = (await res.json()) as {
-        qrImageUrl: string;
-        adjustShortUrl: string;
-      };
-      qrImageUrl    = data.qrImageUrl;
-      adjustShortUrl = data.adjustShortUrl ?? verifyUrl;
+      const data = (await res.json()) as { qrImageUrl: string };
+      qrImageUrl = data.qrImageUrl;
     } else {
       throw new Error(`QR API ${res.status}`);
     }
   } catch (err) {
     console.warn('QR API unavailable, using direct fallback:', err);
-    /* Direct fallback in case the API route itself is unreachable */
-    qrImageUrl = [
-      'https://api.qrserver.com/v1/create-qr-code/',
-      `?size=300x300`,
-      `&data=${encodeURIComponent(verifyUrl)}`,
-      `&format=png`,
-      `&margin=12`,
-      `&color=07070a`,
-      `&bgcolor=f8f8f6`,
-    ].join('');
+    /* Instant URL fallback — no network call, <img src> fetches lazily */
+    qrImageUrl =
+      `https://api.qrserver.com/v1/create-qr-code/` +
+      `?size=360x360` +
+      `&data=${encodeURIComponent(verifyUrl)}` +
+      `&format=png&margin=12&color=07070a&bgcolor=f8f8f6`;
   }
 
   /* ── 3. Persist to Firestore ── */
   await setDoc(doc(db, 'qr_codes', token), {
-    status:          'unused',
-    type:            'store_session',
+    status:   'unused',
+    type:     'store_session',
     storeId,
-    deviceId:        'dermahome-10',
-    createdAt:       new Date().toISOString(),
+    deviceId: 'dermahome-10',
+    createdAt: new Date().toISOString(),
     expiredAt,
-    usedBy:          null,
-    usedAt:          null,
-    couponId:        null,
-    adjustShortUrl:  adjustShortUrl !== verifyUrl ? adjustShortUrl : null,
+    usedBy:   null,
+    usedAt:   null,
+    couponId: null,
   });
 
   return { token, qrImageUrl, verifyUrl, expiredAt, adjustShortUrl };

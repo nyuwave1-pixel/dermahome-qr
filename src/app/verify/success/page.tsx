@@ -1,129 +1,221 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { CheckCircle, Gift, Smartphone, Copy, Check, ArrowRight, Sparkles } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import Header from '@/components/layout/Header';
-import Button from '@/components/ui/Button';
-import GlassCard from '@/components/ui/GlassCard';
-import { useQRStore } from '@/store/useQRStore';
+import Link from 'next/link';
+import Image from 'next/image';
+import { CheckCircle2, Sparkles, ArrowRight, Shield } from 'lucide-react';
 
 export default function VerifySuccessPage() {
-  const router = useRouter();
-  const { verifyResult } = useQRStore();
-  const [copied, setCopied] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const couponCode = verifyResult?.coupon?.couponCode || 'DH-DEMO1234';
+  const [step, setStep] = useState(0);
 
-  useEffect(() => { setMounted(true); }, []);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(couponCode);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {}
-  };
+  useEffect(() => {
+    const t1 = setTimeout(() => setStep(1), 100);
+    const t2 = setTimeout(() => setStep(2), 600);
+    const t3 = setTimeout(() => setStep(3), 1100);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, []);
 
   return (
-    <>
-      <Header />
-      <main className="flex-1 pt-24 pb-12 px-4 safe-top safe-bottom">
-        <div className="max-w-lg mx-auto">
-          {/* Success animation */}
+    <main
+      className="min-h-screen flex items-center justify-center px-4 py-12"
+      style={{ background: 'var(--t-bg)' }}
+    >
+      <div className="w-full max-w-sm text-center">
+
+        {/* ── Animated checkmark ── */}
+        <div
+          className="relative w-28 h-28 mx-auto mb-8 transition-all duration-700"
+          style={{
+            opacity: step >= 1 ? 1 : 0,
+            transform: step >= 1 ? 'scale(1)' : 'scale(0.5)',
+          }}
+        >
+          {/* Pulse ring */}
           <div
-            className="text-center mb-8 transition-all duration-500"
-            style={{ opacity: mounted ? 1 : 0, transform: mounted ? 'scale(1)' : 'scale(0.9)' }}
-          >
-            <div className="relative w-28 h-28 mx-auto mb-6">
-              <motion.div
-                className="absolute inset-0 rounded-full bg-emerald-400/20"
-                animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-xl shadow-emerald-500/30">
-                <CheckCircle className="w-14 h-14 text-white" />
-              </div>
-            </div>
-
-            <h1 className="text-2xl font-bold mb-2" style={{ color: '#1e293b' }}>정품 인증이 완료되었습니다</h1>
-            <p style={{ color: '#64748b' }}>유니앤코어 더마홈 케어가 시작됩니다</p>
-          </div>
-
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: 'rgba(92,138,60,0.15)',
+              animation: step >= 1 ? 'ripple 2s ease-out infinite' : 'none',
+            }}
+          />
+          {/* Second ring */}
           <div
-            className="space-y-4 transition-all duration-500 delay-200"
-            style={{ opacity: mounted ? 1 : 0, transform: mounted ? 'translateY(0)' : 'translateY(20px)' }}
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: 'rgba(92,138,60,0.10)',
+              animation: step >= 1 ? 'ripple 2s ease-out infinite 0.4s' : 'none',
+            }}
+          />
+          {/* Icon circle */}
+          <div
+            className="absolute inset-0 rounded-full flex items-center justify-center"
+            style={{
+              background: 'linear-gradient(135deg, #5c8a3c 0%, #7bae52 100%)',
+              boxShadow: '0 0 40px rgba(92,138,60,0.40), 0 0 80px rgba(92,138,60,0.15)',
+            }}
           >
-            {/* Coupon card */}
-            <GlassCard className="p-0 overflow-hidden">
-              <div className="bg-gradient-to-r from-sky-500 to-blue-600 p-4 text-white">
-                <div className="flex items-center gap-2 mb-1">
-                  <Gift className="w-5 h-5" />
-                  <span className="font-semibold">프로모션 쿠폰 발급 완료</span>
-                </div>
-                <p className="text-sky-100 text-sm">정품 인증 고객 전용 할인 쿠폰</p>
-              </div>
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <div className="text-3xl font-bold" style={{ color: '#0284c7' }}>15%</div>
-                    <div className="text-sm" style={{ color: '#64748b' }}>할인 쿠폰</div>
-                  </div>
-                  <Sparkles className="w-8 h-8 text-sky-400" />
-                </div>
-                <div className="flex items-center gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200">
-                  <code className="flex-1 text-center font-mono text-lg tracking-wider" style={{ color: '#334155' }}>
-                    {couponCode}
-                  </code>
-                  <button
-                    onClick={handleCopy}
-                    className="p-2 rounded-lg hover:bg-slate-100 transition-colors"
-                  >
-                    {copied ? <Check className="w-5 h-5 text-emerald-500" /> : <Copy className="w-5 h-5 text-slate-400" />}
-                  </button>
-                </div>
-                <p className="text-xs mt-3 text-center" style={{ color: '#94a3b8' }}>
-                  유효 기간: 발급일로부터 30일
-                </p>
-              </div>
-            </GlassCard>
-
-            {/* Skin care start */}
-            <GlassCard className="p-6" hover>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center shadow-lg">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold" style={{ color: '#1e293b' }}>피부 관리 시작하기</h3>
-                  <p className="text-sm" style={{ color: '#64748b' }}>AI 기반 맞춤 피부 분석을 시작해보세요</p>
-                </div>
-              </div>
-            </GlassCard>
-
-            {/* Actions */}
-            <div className="space-y-3 pt-2">
-              <Button fullWidth onClick={() => router.push('/coupon')}>
-                <Gift className="w-5 h-5" />
-                쿠폰 확인하기
-              </Button>
-              <Button fullWidth variant="secondary" onClick={() => router.push('/app-connect')}>
-                <Smartphone className="w-5 h-5" />
-                앱 연결하기
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-              <button
-                onClick={() => router.push('/')}
-                className="w-full text-center text-sm py-2 transition-colors hover:text-sky-500"
-                style={{ color: '#94a3b8' }}
-              >
-                메인으로 이동
-              </button>
-            </div>
+            <CheckCircle2 className="w-14 h-14 text-white" strokeWidth={2.2} />
           </div>
         </div>
-      </main>
-    </>
+
+        {/* ── Badge ── */}
+        <div
+          className="transition-all duration-500"
+          style={{
+            opacity: step >= 2 ? 1 : 0,
+            transform: step >= 2 ? 'translateY(0)' : 'translateY(12px)',
+          }}
+        >
+          <div
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-5"
+            style={{
+              background: 'rgba(92,138,60,0.14)',
+              border: '1px solid rgba(92,138,60,0.40)',
+              color: '#9dd470',
+            }}
+          >
+            <Shield className="w-3 h-3" />
+            인증 완료
+          </div>
+        </div>
+
+        {/* ── Main message ── */}
+        <div
+          className="transition-all duration-600"
+          style={{
+            opacity: step >= 2 ? 1 : 0,
+            transform: step >= 2 ? 'translateY(0)' : 'translateY(16px)',
+          }}
+        >
+          <h1
+            className="text-2xl md:text-3xl font-black leading-tight mb-3"
+            style={{ color: 'var(--t-1)' }}
+          >
+            인증이 성공하셨습니다
+          </h1>
+          <p
+            className="text-base font-semibold mb-2"
+            style={{ color: '#9dd470' }}
+          >
+            더마 시리즈 1회 사용 가능합니다.
+          </p>
+          <p
+            className="text-sm leading-relaxed mb-8"
+            style={{ color: 'var(--t-4)' }}
+          >
+            이 QR 코드는 1회 사용으로 만료되었습니다.
+            <br />다음 이용 시 매장에서 새 QR을 발급받으세요.
+          </p>
+        </div>
+
+        {/* ── Device info card ── */}
+        <div
+          className="transition-all duration-500 delay-100"
+          style={{
+            opacity: step >= 3 ? 1 : 0,
+            transform: step >= 3 ? 'translateY(0)' : 'translateY(16px)',
+          }}
+        >
+          <div
+            className="rounded-2xl p-5 mb-6"
+            style={{
+              background: 'var(--su-1)',
+              border: '1px solid var(--bd-2)',
+            }}
+          >
+            <div className="flex items-center gap-4 mb-4">
+              <div
+                className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                style={{
+                  background: 'rgba(92,138,60,0.12)',
+                  border: '1px solid rgba(92,138,60,0.25)',
+                }}
+              >
+                <Image
+                  src="/images/logo_vertical.png"
+                  alt="UNI&CORE"
+                  width={28}
+                  height={28}
+                  className="w-7 h-7 object-contain"
+                />
+              </div>
+              <div className="text-left">
+                <div className="text-sm font-bold" style={{ color: 'var(--t-1)' }}>
+                  더마10 PRO
+                </div>
+                <div className="text-xs" style={{ color: 'var(--t-5)' }}>
+                  8종 헤드 올인원 피부 미용 기기
+                </div>
+              </div>
+            </div>
+
+            {/* Available heads */}
+            <div className="flex flex-wrap gap-1.5">
+              {[
+                '페이스 RF',
+                '바디 RF',
+                '갈바닉',
+                '울트라소닉',
+                '이온토포레시스',
+                'LED',
+                '쿨링',
+                '산소 인퓨전',
+              ].map((head) => (
+                <span
+                  key={head}
+                  className="text-[11px] px-2.5 py-1 rounded-lg font-medium"
+                  style={{
+                    background: 'rgba(92,138,60,0.08)',
+                    border: '1px solid rgba(92,138,60,0.18)',
+                    color: 'var(--t-3)',
+                  }}
+                >
+                  {head}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* ── One-time notice ── */}
+          <div
+            className="flex items-center gap-2 justify-center mb-6 px-3 py-2.5 rounded-xl"
+            style={{
+              background: 'rgba(251,146,60,0.08)',
+              border: '1px solid rgba(251,146,60,0.20)',
+            }}
+          >
+            <Sparkles className="w-3.5 h-3.5 shrink-0" style={{ color: '#fb923c' }} />
+            <span className="text-xs font-medium" style={{ color: '#fb923c' }}>
+              본 QR은 1회 전용입니다 · 재사용 불가
+            </span>
+          </div>
+
+          {/* ── CTA buttons ── */}
+          <div className="space-y-3">
+            <Link
+              href="/#guide"
+              className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02]"
+              style={{
+                background: '#5c8a3c',
+                boxShadow: '0 0 20px rgba(92,138,60,0.25)',
+              }}
+            >
+              케어 가이드 보기
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/"
+              className="flex items-center justify-center w-full py-3 rounded-xl text-sm font-medium transition-all duration-200"
+              style={{
+                color: 'var(--t-4)',
+                border: '1px solid var(--bd-2)',
+              }}
+            >
+              홈으로 이동
+            </Link>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }

@@ -24,7 +24,7 @@ const CHANNEL_URL = 'https://www.youtube.com/@unincore.official/videos';
 const videos = [
   {
     id: 'sICDg5vYvPk',
-    title: '더마홈 기기 소개 — UNI&CORE DermaHome 10',
+    title: '더마 시리즈 기기 소개 — UNI&CORE DermaHome 10',
     desc: '8종 헤드 올인원 피부 미용 기기의 모든 것. RF 리프팅부터 산소 인퓨전까지.',
     tag: 'FEATURED',
     tagColor: '#9dd470',
@@ -80,11 +80,11 @@ export default function VideoSection() {
             </span>
           </div>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: 'var(--t-1)' }}>더마홈 </span>
+            <span style={{ color: 'var(--t-1)' }}>더마 시리즈 </span>
             <span className="text-gradient-green">공식 영상</span>
           </h2>
           <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
-            유니앤코어 공식 채널에서 더마홈 기기 사용법, 케어 가이드, 라운지 체험 영상을 확인하세요.
+            유니앤코어 공식 채널에서 더마 시리즈 기기 사용법, 케어 가이드, 라운지 체험 영상을 확인하세요.
           </p>
         </div>
 
@@ -212,7 +212,7 @@ export default function VideoSection() {
                 UNI&CORE Official YouTube
               </p>
               <p className="text-xs" style={{ color: 'var(--t-5)' }}>
-                더마홈 관리 영상, 라운지 체험기, 케어 가이드 영상
+                더마 시리즈 관리 영상, 라운지 체험기, 케어 가이드 영상
               </p>
             </div>
           </div>

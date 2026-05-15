@@ -7,7 +7,7 @@ import Footer from '@/components/layout/Footer';
 import GlassCard from '@/components/ui/GlassCard';
 
 const connectSteps = [
-  { step: 1, title: '앱 다운로드', description: 'App Store 또는 Google Play에서 더마홈 앱을 다운로드합니다.', icon: Download },
+  { step: 1, title: '앱 다운로드', description: 'App Store 또는 Google Play에서 더마 시리즈 앱을 다운로드합니다.', icon: Download },
   { step: 2, title: '블루투스 활성화', description: '기기와 스마트폰의 블루투스를 모두 켜주세요.', icon: Bluetooth },
   { step: 3, title: '기기 검색', description: '앱에서 "기기 연결" 버튼을 누르면 주변 기기를 자동 검색합니다.', icon: RefreshCw },
   { step: 4, title: '연결 완료', description: '기기를 선택하면 BLE 5.3으로 자동 페어링됩니다.', icon: Activity },
@@ -30,7 +30,7 @@ export default function AppConnectPage() {
               <Smartphone className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-2xl font-bold mb-2" style={{ color: '#1e293b' }}>앱 연결</h1>
-            <p className="text-sm" style={{ color: '#64748b' }}>더마홈 앱과 기기를 연결하여 스마트 케어를 시작하세요</p>
+            <p className="text-sm" style={{ color: '#64748b' }}>더마 시리즈 앱과 기기를 연결하여 스마트 케어를 시작하세요</p>
           </div>
 
           {/* Download buttons */}

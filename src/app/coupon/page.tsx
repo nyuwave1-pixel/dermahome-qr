@@ -93,7 +93,7 @@ export default function CouponPage() {
                 쿠폰 사용 안내
               </h3>
               <ul className="space-y-2 text-sm" style={{ color: '#64748b' }}>
-                <li className="flex items-start gap-2"><span className="text-sky-400 mt-1">•</span>더마홈 공식 앱 또는 온라인 스토어에서 사용 가능합니다.</li>
+                <li className="flex items-start gap-2"><span className="text-sky-400 mt-1">•</span>더마 시리즈 공식 앱 또는 온라인 스토어에서 사용 가능합니다.</li>
                 <li className="flex items-start gap-2"><span className="text-sky-400 mt-1">•</span>쿠폰 코드를 결제 시 입력하여 할인을 받으세요.</li>
                 <li className="flex items-start gap-2"><span className="text-sky-400 mt-1">•</span>타 쿠폰/할인과 중복 사용이 불가합니다.</li>
                 <li className="flex items-start gap-2"><span className="text-sky-400 mt-1">•</span>유효 기간 내 사용하지 않은 쿠폰은 자동 소멸됩니다.</li>

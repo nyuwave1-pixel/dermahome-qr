@@ -38,7 +38,8 @@ function VerifyInner() {
       // Mark as used
       const result = await verifyQRCode(codeParam, 'customer');
       if (result.success) {
-        setState('success');
+        router.push('/verify/success');
+        return;
       } else if (result.errorType === 'used') {
         setState('used');
       } else if (result.errorType === 'expired') {

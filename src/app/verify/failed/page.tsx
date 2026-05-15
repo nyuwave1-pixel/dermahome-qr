@@ -26,7 +26,7 @@ const errorConfig: Record<string, { icon: typeof XCircle; title: string; message
   invalid: {
     icon: XCircle,
     title: '유효하지 않은 QR 코드',
-    message: '인식할 수 없는 QR 코드입니다. 정품 더마홈 기기의 QR 코드인지 확인해주세요.',
+    message: '인식할 수 없는 QR 코드입니다. 정품 더마 시리즈 기기의 QR 코드인지 확인해주세요.',
     color: 'from-red-400 to-rose-500',
     pulse: 'bg-red-400/20',
   },

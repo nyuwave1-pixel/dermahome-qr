@@ -91,13 +91,13 @@ export default function VerifySuccessPage() {
             className="text-2xl md:text-3xl font-black leading-tight mb-3"
             style={{ color: 'var(--t-1)' }}
           >
-            인증이 성공하셨습니다
+            인증에 성공했습니다
           </h1>
           <p
             className="text-base font-semibold mb-2"
             style={{ color: '#9dd470' }}
           >
-            더마 시리즈 1회 사용 가능합니다.
+            1회 더마 시리즈 사용 가능합니다.
           </p>
           <p
             className="text-sm leading-relaxed mb-8"
@@ -125,23 +125,23 @@ export default function VerifySuccessPage() {
           >
             <div className="flex items-center gap-4 mb-4">
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                className="rounded-xl flex items-center justify-center shrink-0 px-2.5 py-1.5"
                 style={{
-                  background: 'rgba(92,138,60,0.12)',
+                  background: '#f5f5f3',
                   border: '1px solid rgba(92,138,60,0.25)',
                 }}
               >
                 <Image
-                  src="/images/logo_vertical.png"
+                  src="/images/logo_with_slogan.png"
                   alt="UNI&CORE"
-                  width={28}
-                  height={28}
-                  className="w-7 h-7 object-contain"
+                  width={100}
+                  height={30}
+                  className="h-7 w-auto object-contain"
                 />
               </div>
               <div className="text-left">
                 <div className="text-sm font-bold" style={{ color: 'var(--t-1)' }}>
-                  더마10 PRO
+                  더마 시리즈
                 </div>
                 <div className="text-xs" style={{ color: 'var(--t-5)' }}>
                   8종 헤드 올인원 피부 미용 기기

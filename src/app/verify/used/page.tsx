@@ -1,99 +1,150 @@
 'use client';
 
-import { Suspense, useEffect, useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { ShieldCheck, Clock, Smartphone, User, Ban, Home, ArrowLeft } from 'lucide-react';
-import Header from '@/components/layout/Header';
-import Button from '@/components/ui/Button';
-import GlassCard from '@/components/ui/GlassCard';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { XCircle, ShieldOff, AlertTriangle, ArrowRight } from 'lucide-react';
 
-function UsedContent() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const [mounted, setMounted] = useState(false);
+export default function VerifyUsedPage() {
+  const [step, setStep] = useState(0);
 
-  useEffect(() => { setMounted(true); }, []);
-
-  const code = searchParams.get('code') || 'UNINCORE-XXXXX';
+  useEffect(() => {
+    const t1 = setTimeout(() => setStep(1), 100);
+    const t2 = setTimeout(() => setStep(2), 600);
+    const t3 = setTimeout(() => setStep(3), 1100);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, []);
 
   return (
-    <div className="max-w-lg mx-auto">
-      <div
-        className="text-center mb-8 transition-all duration-500"
-        style={{ opacity: mounted ? 1 : 0, transform: mounted ? 'translateY(0)' : 'translateY(20px)' }}
-      >
-        <div className="relative w-28 h-28 mx-auto mb-6">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-slate-300 to-slate-400 flex items-center justify-center shadow-xl">
-            <ShieldCheck className="w-14 h-14 text-white" />
-          </div>
-          <div className="absolute -top-1 -right-1 w-10 h-10 rounded-full bg-amber-400 flex items-center justify-center shadow-lg border-4 border-white">
-            <Ban className="w-5 h-5 text-white" />
+    <main
+      className="min-h-screen flex items-center justify-center px-4 py-12"
+      style={{ background: 'var(--t-bg)' }}
+    >
+      <div className="w-full max-w-sm text-center">
+
+        {/* ── Animated X icon ── */}
+        <div
+          className="relative w-28 h-28 mx-auto mb-8 transition-all duration-700"
+          style={{
+            opacity: step >= 1 ? 1 : 0,
+            transform: step >= 1 ? 'scale(1)' : 'scale(0.5)',
+          }}
+        >
+          <div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: 'rgba(239,68,68,0.15)',
+              animation: step >= 1 ? 'ripple 2s ease-out infinite' : 'none',
+            }}
+          />
+          <div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: 'rgba(239,68,68,0.10)',
+              animation: step >= 1 ? 'ripple 2s ease-out infinite 0.4s' : 'none',
+            }}
+          />
+          <div
+            className="absolute inset-0 rounded-full flex items-center justify-center"
+            style={{
+              background: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)',
+              boxShadow: '0 0 40px rgba(239,68,68,0.40), 0 0 80px rgba(239,68,68,0.15)',
+            }}
+          >
+            <XCircle className="w-14 h-14 text-white" strokeWidth={2.2} />
           </div>
         </div>
 
-        <h1 className="text-2xl font-bold mb-2" style={{ color: '#1e293b' }}>인증 완료된 QR 코드</h1>
-        <p style={{ color: '#64748b' }}>본 QR 코드는 이미 인증 완료되었습니다</p>
-      </div>
-
-      <div
-        className="transition-all duration-500 delay-150"
-        style={{ opacity: mounted ? 1 : 0, transform: mounted ? 'translateY(0)' : 'translateY(20px)' }}
-      >
-        <GlassCard className="p-6 mb-4">
-          <h3 className="font-semibold mb-4" style={{ color: '#1e293b' }}>인증 정보</h3>
-          <div className="space-y-4">
-            {[
-              { icon: ShieldCheck, label: 'QR 코드', value: code, mono: true },
-              { icon: Clock, label: '최초 인증 시간', value: '2026.05.10 14:30', mono: false },
-              { icon: Smartphone, label: '사용 기기', value: 'DermaHome Pro (DH-PRO-001)', mono: false },
-              { icon: User, label: '등록 계정', value: 'u***@email.com', mono: false },
-            ].map(({ icon: Icon, label, value, mono }) => (
-              <div key={label} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50">
-                <Icon className="w-5 h-5 text-sky-500" />
-                <div>
-                  <div className="text-xs" style={{ color: '#94a3b8' }}>{label}</div>
-                  <div className={`font-medium ${mono ? 'font-mono' : ''}`} style={{ color: '#334155' }}>{value}</div>
-                </div>
-              </div>
-            ))}
+        {/* ── Badge ── */}
+        <div
+          className="transition-all duration-500"
+          style={{
+            opacity: step >= 2 ? 1 : 0,
+            transform: step >= 2 ? 'translateY(0)' : 'translateY(12px)',
+          }}
+        >
+          <div
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-5"
+            style={{
+              background: 'rgba(239,68,68,0.14)',
+              border: '1px solid rgba(239,68,68,0.40)',
+              color: '#fca5a5',
+            }}
+          >
+            <ShieldOff className="w-3 h-3" />
+            사용 불가
           </div>
-        </GlassCard>
-      </div>
+        </div>
 
-      <div
-        className="transition-all duration-500 delay-300"
-        style={{ opacity: mounted ? 1 : 0, transform: mounted ? 'translateY(0)' : 'translateY(20px)' }}
-      >
-        <div className="p-4 rounded-xl bg-amber-50 border border-amber-100 mb-6">
-          <p className="text-sm text-amber-700 text-center">
-            이 QR 코드는 재사용이 불가합니다. 본인 인증이 아닌 경우 고객센터로 문의해주세요.
+        {/* ── Main message ── */}
+        <div
+          className="transition-all duration-600"
+          style={{
+            opacity: step >= 2 ? 1 : 0,
+            transform: step >= 2 ? 'translateY(0)' : 'translateY(16px)',
+          }}
+        >
+          <h1
+            className="text-2xl md:text-3xl font-black leading-tight mb-3"
+            style={{ color: 'var(--t-1)' }}
+          >
+            해당 QR은 더 이상<br />사용 불가입니다
+          </h1>
+          <p
+            className="text-sm leading-relaxed mb-8"
+            style={{ color: 'var(--t-4)' }}
+          >
+            이 QR 코드는 이미 사용되었거나 만료되었습니다.
+            <br />매장에서 새로운 QR 코드를 발급받아 주세요.
           </p>
         </div>
 
-        <div className="space-y-3">
-          <Button fullWidth variant="outline" onClick={() => router.push('/verify')}>
-            <ArrowLeft className="w-5 h-5" />
-            다른 QR 인증하기
-          </Button>
-          <Button fullWidth variant="ghost" onClick={() => router.push('/')}>
-            <Home className="w-5 h-5" />
-            메인으로 이동
-          </Button>
+        {/* ── Warning notice + CTA ── */}
+        <div
+          className="transition-all duration-500 delay-100"
+          style={{
+            opacity: step >= 3 ? 1 : 0,
+            transform: step >= 3 ? 'translateY(0)' : 'translateY(16px)',
+          }}
+        >
+          <div
+            className="flex items-center gap-2 justify-center mb-6 px-3 py-2.5 rounded-xl"
+            style={{
+              background: 'rgba(251,146,60,0.08)',
+              border: '1px solid rgba(251,146,60,0.20)',
+            }}
+          >
+            <AlertTriangle className="w-3.5 h-3.5 shrink-0" style={{ color: '#fb923c' }} />
+            <span className="text-xs font-medium" style={{ color: '#fb923c' }}>
+              1회 사용된 QR은 재사용이 불가합니다
+            </span>
+          </div>
+
+          {/* ── CTA buttons ── */}
+          <div className="space-y-3">
+            <Link
+              href="/verify"
+              className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02]"
+              style={{
+                background: '#5c8a3c',
+                boxShadow: '0 0 20px rgba(92,138,60,0.25)',
+              }}
+            >
+              새 QR 코드 인증하기
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/"
+              className="flex items-center justify-center w-full py-3 rounded-xl text-sm font-medium transition-all duration-200"
+              style={{
+                color: 'var(--t-4)',
+                border: '1px solid var(--bd-2)',
+              }}
+            >
+              홈으로 이동
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-export default function VerifyUsedPage() {
-  return (
-    <>
-      <Header />
-      <main className="flex-1 pt-24 pb-12 px-4 safe-top safe-bottom">
-        <Suspense fallback={<div className="flex justify-center pt-20"><div style={{ color: '#94a3b8' }}>로딩 중...</div></div>}>
-          <UsedContent />
-        </Suspense>
-      </main>
-    </>
+    </main>
   );
 }

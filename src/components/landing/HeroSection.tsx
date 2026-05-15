@@ -100,7 +100,7 @@ export default function HeroSection() {
               <br />
               <span style={{ color: 'var(--t-1)' }}>집으로 가져오다</span>
               <br />
-              <span className="text-gradient-green">더마10 PRO</span>
+              <span className="text-gradient-green">더마 시리즈</span>
             </h1>
 
             <p
@@ -198,7 +198,7 @@ export default function HeroSection() {
               >
                 <Image
                   src="/images/derma10_2.jpg"
-                  alt="더마10 PRO — 8종 헤드 올인원 피부 미용 기기"
+                  alt="더마 시리즈 — 8종 헤드 올인원 피부 미용 기기"
                   width={480}
                   height={640}
                   className="w-full object-cover"

@@ -18,7 +18,7 @@ function VerifyInner() {
   );
   const [manualCode, setManualCode] = useState('');
   const [manualOpen, setManualOpen] = useState(false);
-  const [deviceModel, setDeviceModel] = useState('더마10 PRO');
+  const [deviceModel, setDeviceModel] = useState('더마 시리즈');
 
   // Auto-verify if ?code= is in the URL
   useEffect(() => {

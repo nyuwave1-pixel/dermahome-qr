@@ -19,7 +19,7 @@ function useInView(ref: React.RefObject<Element | null>) {
 }
 
 const specs = [
-  { label: '기기명', value: '더마10 PRO' },
+  { label: '기기명', value: '더마 시리즈' },
   { label: '8종 헤드', value: '페이스RF, 바디RF, 울트라소닉, 이온토포레시스, 고주파, 스킨스크러버, 쿨&핫, 산소주입기' },
   { label: '디스플레이', value: '8인치 터치스크린' },
   { label: '연결', value: 'BLE 5.3 스마트 연동' },
@@ -147,7 +147,7 @@ export default function DeviceSection() {
                 10
               </div>
               <div>
-                <div className="font-bold" style={{ color: 'var(--t-1)' }}>더마10 PRO</div>
+                <div className="font-bold" style={{ color: 'var(--t-1)' }}>더마 시리즈</div>
                 <div className="text-xs" style={{ color: 'var(--t-5)' }}>
                   UNI&CORE 플래그십 미용 기기
                 </div>

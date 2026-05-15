@@ -162,18 +162,30 @@ export async function createStoreSession(storeId = 'default'): Promise<{
       `&format=png&margin=12&color=07070a&bgcolor=f8f8f6`;
   }
 
-  /* ── 3. Persist to Firestore ── */
-  await setDoc(doc(db, 'qr_codes', token), {
-    status:   'unused',
-    type:     'store_session',
-    storeId,
-    deviceId: 'dermahome-10',
-    createdAt: new Date().toISOString(),
-    expiredAt,
-    usedBy:   null,
-    usedAt:   null,
-    couponId: null,
-  });
+  /* ── 3. Persist to Firestore (non-blocking, 5 s timeout) ── */
+  try {
+    const firestorePromise = setDoc(doc(db, 'qr_codes', token), {
+      status:   'unused',
+      type:     'store_session',
+      storeId,
+      deviceId: 'dermahome-10',
+      createdAt: new Date().toISOString(),
+      expiredAt,
+      usedBy:   null,
+      usedAt:   null,
+      couponId: null,
+    });
+
+    // Race against a 5 s timeout so Firestore never hangs the UI
+    await Promise.race([
+      firestorePromise,
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Firestore timeout')), 5000),
+      ),
+    ]);
+  } catch (fsErr) {
+    console.warn('Firestore save failed (QR still usable):', fsErr);
+  }
 
   return { token, qrImageUrl, verifyUrl, expiredAt, adjustShortUrl };
 }

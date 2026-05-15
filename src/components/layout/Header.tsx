@@ -57,35 +57,20 @@ export default function Header() {
           }}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0 group">
+          <Link href="/" className="flex items-center shrink-0 group">
             <div
-              className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl transition-all duration-200"
-              style={{ background: 'var(--su-1)', border: '1px solid var(--bd-2)' }}
+              className="flex items-center px-3 py-1.5 rounded-xl transition-all duration-200"
+              style={{ background: '#f5f5f3', border: '1px solid var(--bd-2)' }}
             >
               <Image
-                src="/images/logo_vertical.png"
-                alt="UNI&CORE"
-                width={24}
-                height={24}
-                className="h-6 w-6 object-contain"
-                priority
-              />
-              <Image
-                src="/images/logo_horizontal_mono.png"
-                alt="UNI&CORE"
-                width={80}
-                height={16}
-                className="h-4 w-auto object-contain hidden sm:block"
-                style={{ filter: 'var(--logo-filter, invert(1) brightness(0.85))' }}
+                src="/images/logo_with_slogan.png"
+                alt="UNI&CORE — United power of uni&core to the global"
+                width={160}
+                height={48}
+                className="h-8 w-auto object-contain"
                 priority
               />
             </div>
-            <span
-              className="hidden xl:block text-[10px] font-medium tracking-widest uppercase whitespace-nowrap"
-              style={{ color: 'var(--t-7)', letterSpacing: '0.12em' }}
-            >
-              DermaHome 10
-            </span>
           </Link>
 
           {/* Desktop Nav */}
@@ -115,16 +100,6 @@ export default function Header() {
           {/* Right actions */}
           <div className="hidden lg:flex items-center gap-1.5 shrink-0">
             <ThemeToggle />
-            <Link
-              href="/verify"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[13px] font-medium whitespace-nowrap transition-all duration-200"
-              style={{ color: 'var(--t-4)', border: '1px solid var(--bd-2)' }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-1)'; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-4)'; }}
-            >
-              <QrCode className="w-3.5 h-3.5" />
-              QR 스캔
-            </Link>
             <Link
               href="/generate"
               className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[13px] font-semibold whitespace-nowrap transition-all duration-200 text-white"
@@ -198,15 +173,6 @@ export default function Header() {
             >
               <QrCode className="w-5 h-5" />
               매장 QR 세션 생성
-            </Link>
-            <Link
-              href="/verify"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center justify-center gap-2 py-3 rounded-xl font-medium transition-all"
-              style={{ color: 'var(--t-4)', border: '1px solid var(--bd-2)' }}
-            >
-              <QrCode className="w-5 h-5" />
-              QR 스캔 (고객용)
             </Link>
           </nav>
         </div>

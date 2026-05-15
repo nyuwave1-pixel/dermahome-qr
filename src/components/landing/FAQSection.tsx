@@ -219,7 +219,7 @@ export default function FAQSection() {
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-sm font-bold" style={{ color: 'var(--t-1)' }}>더마10 PRO</span>
+                <span className="text-sm font-bold" style={{ color: 'var(--t-1)' }}>더마 시리즈</span>
                 <span
                   className="text-[9px] font-bold px-1.5 py-0.5 rounded"
                   style={{ background: 'rgba(92,138,60,0.20)', color: '#9dd470' }}

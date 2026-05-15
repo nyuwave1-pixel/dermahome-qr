@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import { QrCode, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Button from '@/components/ui/Button';
 
 function useInView(ref: React.RefObject<Element | null>) {
@@ -92,18 +91,12 @@ export default function CTASection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 transition-all duration-700 delay-200"
           style={{ opacity: inView ? 1 : 0, transform: inView ? 'translateY(0)' : 'translateY(20px)' }}
         >
-          <Link href="/verify">
-            <Button size="lg" className="min-w-[220px]">
-              <QrCode className="w-5 h-5" />
-              QR 정품 인증하기
-            </Button>
-          </Link>
           <a
             href="https://www.unincore.com"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button variant="outline" size="lg" className="min-w-[220px]">
+            <Button size="lg" className="min-w-[220px]">
               유니앤코어 공식 사이트
               <ArrowRight className="w-4 h-4" />
             </Button>

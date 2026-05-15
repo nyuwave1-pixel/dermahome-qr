@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 /* ─── Types ──────────────────────────────────────────────────── */
 type Step = { head: string; product: string; time: string; purpose: string };
@@ -14,7 +13,6 @@ type Routine = {
   steps: Step[];
   directions: { zone: string; guide: string }[];
   tip?: string;
-  slideImg?: string;
 };
 type Category = { id: string; label: string; color: string; routines: Routine[] };
 
@@ -49,7 +47,6 @@ const categories: Category[] = [
           { zone: '목', guide: '귀 뒤 → 쇄골 (노폐물 배출)' },
         ],
         tip: '*미스트는 마무리에 필수',
-        slideImg: '/images/dermahome-final/slide_14.png',
       },
       {
         id: 'wrinkle',
@@ -69,7 +66,6 @@ const categories: Category[] = [
           { zone: '목', guide: '쇄골 방향 (탄력 강화, 림프와 반대 방향 주의)' },
         ],
         tip: '*미스트는 마무리에 필수',
-        slideImg: '/images/dermahome-final/slide_15.png',
       },
       {
         id: 'soothing',
@@ -88,7 +84,6 @@ const categories: Category[] = [
           { zone: '목', guide: '귀 뒤 → 쇄골 (노폐물 배출)' },
         ],
         tip: '*전반적으로 진동 분산, 압력 최소화',
-        slideImg: '/images/dermahome-final/slide_16.png',
       },
       {
         id: 'depuff',
@@ -105,7 +100,6 @@ const categories: Category[] = [
           { zone: '턱', guide: '중앙 → 귀 밑 (림관 부종 개선)' },
           { zone: '목', guide: '귀 뒤 → 쇄골 아래 (배출 경로)' },
         ],
-        slideImg: '/images/dermahome-final/slide_17.png',
       },
       {
         id: 'makeup',
@@ -122,7 +116,6 @@ const categories: Category[] = [
           { zone: '턱', guide: '중앙 → 귀 밑 (수분/영양 흡수 촉진)' },
           { zone: '눈가', guide: '가볍게 안쪽 → 바깥쪽, 잔고 완화' },
         ],
-        slideImg: '/images/dermahome-final/slide_18.png',
       },
     ],
   },
@@ -148,7 +141,6 @@ const categories: Category[] = [
           { zone: '목덜미 중앙', guide: '후두신경 압박 완화, 가장 흔한 두통 원인 지점' },
           { zone: '후두융기', guide: '신경·혈류 밀집 → 즉각적인 통증 완화' },
         ],
-        slideImg: '/images/dermahome-final/slide_21.png',
       },
       {
         id: 'hairloss',
@@ -165,7 +157,6 @@ const categories: Category[] = [
           { zone: '울트라소닉', guide: '헤어라인에서 정수리 방향 → Z형으로 두피 전진' },
           { zone: '이온토포레시스', guide: '정수리 → 앞머리 라인 → 측면 아래에서 위 방향' },
         ],
-        slideImg: '/images/dermahome-final/slide_22.png',
       },
       {
         id: 'facelift',
@@ -182,7 +173,6 @@ const categories: Category[] = [
           { zone: '정수리 라인', guide: '후두 → 정수리 → 전두부 일방향 직선' },
           { zone: '측두부', guide: '귀 위에서 헤어라인까지 수평 방향' },
         ],
-        slideImg: '/images/dermahome-final/slide_23.png',
       },
     ],
   },
@@ -207,7 +197,6 @@ const categories: Category[] = [
           { zone: '고염식 후 부종', guide: '림프 흐름을 전체적으로 부드럽게' },
         ],
         tip: '*부드럽게 쓸어주듯 림프관 압박 최소화',
-        slideImg: '/images/dermahome-final/slide_27.png',
       },
       {
         id: 'slimbody',
@@ -225,7 +214,6 @@ const categories: Category[] = [
           { zone: '볼', guide: '발목공치서 → 겨드랑이 → 상부고 방향' },
           { zone: '허벅지', guide: '바깥쪽 → 중앙 → 상부고 (위에서부터)' },
         ],
-        slideImg: '/images/dermahome-final/slide_28.png',
       },
       {
         id: 'fascia',
@@ -241,7 +229,6 @@ const categories: Category[] = [
           { zone: '목 어깨', guide: '귀 뒤(위에서 아래) → 어깨(목에서 바깥쪽) → 견갑골(위에서 아래)' },
           { zone: '등', guide: '척추 옆 → 옆구리 → 겨드랑이' },
         ],
-        slideImg: '/images/dermahome-final/slide_29.png',
       },
     ],
   },
@@ -432,30 +419,6 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
             </div>
           )}
 
-          {/* Slide reference image */}
-          {routine.slideImg && (
-            <div>
-              <div
-                className="text-[10px] font-bold tracking-widest uppercase mb-2"
-                style={{ color: 'var(--t-7)' }}
-              >
-                트레이닝 자료
-              </div>
-              <div
-                className="rounded-xl overflow-hidden"
-                style={{ border: '1px solid var(--bd-3)' }}
-              >
-                <Image
-                  src={routine.slideImg}
-                  alt={routine.title}
-                  width={960}
-                  height={540}
-                  className="w-full h-auto"
-                  style={{ filter: 'brightness(0.92)' }}
-                />
-              </div>
-            </div>
-          )}
 
         </div>
       </div>

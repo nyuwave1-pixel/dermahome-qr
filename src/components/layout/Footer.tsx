@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { QrCode, MapPin, Globe, Store, Play } from 'lucide-react';
+import { MapPin, Globe, Store, Play } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -22,26 +22,16 @@ export default function Footer() {
 
             {/* Brand */}
             <div className="md:col-span-1">
-              <div className="flex items-center gap-3 mb-4">
+              <div className="inline-block mb-4 px-4 py-2 rounded-xl" style={{ background: '#f5f5f3' }}>
                 <Image
-                  src="/images/logo_vertical.png"
-                  alt="UNI&CORE"
-                  width={28}
-                  height={28}
-                  className="h-7 w-7 object-contain"
-                />
-                <Image
-                  src="/images/logo_horizontal_mono.png"
-                  alt="UNI&CORE"
-                  width={120}
-                  height={22}
-                  className="h-5 w-auto object-contain"
-                  style={{ filter: 'var(--logo-filter)' }}
+                  src="/images/logo_with_slogan.png"
+                  alt="UNI&CORE — United power of uni&core to the global"
+                  width={180}
+                  height={54}
+                  className="h-12 w-auto object-contain"
                 />
               </div>
-              <p className="text-sm leading-relaxed mb-4 italic" style={{ color: 'var(--t-6)' }}>
-                &ldquo;United power of uni&core to the global&rdquo;
-              </p>
+              <div className="mb-4" />
               <div className="flex items-start gap-2 mb-2">
                 <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: 'var(--t-6)' }} />
                 <span className="text-xs leading-relaxed" style={{ color: 'var(--t-6)' }}>
@@ -75,7 +65,6 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 {[
                   { href: '/generate', label: 'QR 세션 생성 (매장용)', icon: Store },
-                  { href: '/verify', label: 'QR 스캔 (고객용)', icon: QrCode },
                   { href: 'https://www.youtube.com/@unincore.official/videos', label: '공식 YouTube', icon: Play, ext: true },
                 ].map((item) => (
                   <li key={item.href}>

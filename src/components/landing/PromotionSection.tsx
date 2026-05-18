@@ -42,9 +42,9 @@ const stats = [
   },
   {
     icon: Package,
-    value: '300+',
-    label: '기기 판매',
-    sub: '2023–2024 더마 시리즈 누적',
+    value: '8종',
+    label: '올인원 헤드',
+    sub: '더마 테크 기반 프리미엄 관리',
     color: '#fb923c',
   },
 ];

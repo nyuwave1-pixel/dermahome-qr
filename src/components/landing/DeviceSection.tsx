@@ -24,7 +24,6 @@ const specs = [
   { label: '디스플레이', value: '8인치 터치스크린' },
   { label: '연결', value: 'BLE 5.3 스마트 연동' },
   { label: '인증', value: 'QR 1회성 정품 인증' },
-  { label: '출시가', value: '₩6,700,000' },
 ];
 
 const galleryImages = [

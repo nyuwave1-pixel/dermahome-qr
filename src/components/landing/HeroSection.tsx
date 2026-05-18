@@ -221,21 +221,6 @@ export default function HeroSection() {
                 <div style={{ color: 'var(--t-4)' }}>헤드 시스템</div>
               </div>
 
-              {/* Chip: price */}
-              <div
-                className="absolute -right-6 bottom-20 px-3 py-2 rounded-xl text-xs font-semibold"
-                style={{
-                  background: 'var(--t-bg-dp)',
-                  border: '1px solid var(--bd-1)',
-                  backdropFilter: 'blur(16px)',
-                  color: 'var(--t-1)',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
-                }}
-              >
-                <div className="text-base font-black" style={{ color: '#9dd470' }}>₩670만</div>
-                <div style={{ color: 'var(--t-4)' }}>플래그십 기기</div>
-              </div>
-
               {/* Chip: session */}
               <div
                 className="absolute -right-4 top-8 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs"

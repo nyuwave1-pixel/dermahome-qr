@@ -227,10 +227,9 @@ export default function FAQSection() {
                   FLAGSHIP
                 </span>
               </div>
-              <div className="text-xs mb-0.5" style={{ color: 'var(--t-5)' }}>
+              <div className="text-xs" style={{ color: 'var(--t-5)' }}>
                 8종 헤드 올인원 피부 미용 기기
               </div>
-              <div className="text-sm font-bold" style={{ color: '#9dd470' }}>₩6,700,000</div>
             </div>
           </div>
 

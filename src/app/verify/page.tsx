@@ -2,50 +2,34 @@
 
 import { useState, useCallback, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { QrCode, Shield, AlertCircle, ArrowLeft, CheckCircle2, Clock, RefreshCw } from 'lucide-react';
+import { QrCode, Shield, ArrowLeft, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
-import { verifyQRCode, getQRCodeInfo } from '@/services/qrService';
+import { consumeQR } from '@/services/qrService';
 
-/* ── Inner component that reads searchParams ── */
 function VerifyInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const codeParam = searchParams.get('code');
 
-  const [state, setState] = useState<'idle' | 'verifying' | 'success' | 'used' | 'expired' | 'invalid' | 'error'>(
+  const [state, setState] = useState<'idle' | 'verifying'>(
     codeParam ? 'verifying' : 'idle'
   );
   const [manualCode, setManualCode] = useState('');
   const [manualOpen, setManualOpen] = useState(false);
-  const [deviceModel, setDeviceModel] = useState('더마 시리즈');
 
-  // Auto-verify if ?code= is in the URL
   useEffect(() => {
     if (!codeParam) return;
     const run = async () => {
       setState('verifying');
-      // small UX delay
       await new Promise((r) => setTimeout(r, 1200));
 
-      const info = await getQRCodeInfo(codeParam);
-      if (!info) { setState('invalid'); return; }
-      if (info.status === 'used') { setState('used'); return; }
-      if (info.status === 'expired' || new Date(info.expiredAt) < new Date()) {
-        setState('expired'); return;
-      }
+      const result = await consumeQR(codeParam);
 
-      // Mark as used
-      const result = await verifyQRCode(codeParam, 'customer');
       if (result.success) {
-        router.push('/verify/success');
-        return;
-      } else if (result.errorType === 'used') {
-        setState('used');
-      } else if (result.errorType === 'expired') {
-        setState('expired');
+        router.replace('/verify/success');
       } else {
-        setState('invalid');
+        router.replace('/verify/used');
       }
     };
     run();
@@ -97,135 +81,6 @@ function VerifyInner() {
             </div>
           ))}
         </div>
-      </div>
-    );
-  }
-
-  if (state === 'success') {
-    return (
-      <div className="text-center">
-        <div
-          className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
-          style={{ background: 'rgba(92,138,60,0.15)', border: '2px solid rgba(92,138,60,0.45)' }}
-        >
-          <CheckCircle2 className="w-10 h-10" style={{ color: '#9dd470' }} />
-        </div>
-        <div
-          className="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase mb-4"
-          style={{ background: 'rgba(92,138,60,0.15)', color: '#9dd470', border: '1px solid rgba(92,138,60,0.35)' }}
-        >
-          인증 완료
-        </div>
-        <h2 className="text-2xl font-black mb-2" style={{ color: 'var(--t-1)' }}>
-          기기 사용 권한이<br />부여되었습니다
-        </h2>
-        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--t-3)' }}>
-          <span className="font-semibold" style={{ color: '#9dd470' }}>{deviceModel}</span>
-          을(를) 사용하실 수 있습니다.
-          <br />이 QR은 1회 사용으로 만료되었습니다.
-        </p>
-
-        {/* Usage guide chips */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
-          {['페이스 RF', '울트라소닉', '이온토포레시스', '고주파'].map((h) => (
-            <span
-              key={h}
-              className="text-xs px-3 py-1.5 rounded-lg font-medium"
-              style={{ background: 'rgba(92,138,60,0.10)', color: 'var(--t-2)', border: '1px solid rgba(92,138,60,0.20)' }}
-            >
-              {h}
-            </span>
-          ))}
-        </div>
-
-        <Link
-          href="/#guide"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:scale-[1.03]"
-          style={{ background: '#5c8a3c', color: '#fff', boxShadow: '0 0 20px rgba(92,138,60,0.25)' }}
-        >
-          케어 가이드 보기
-        </Link>
-      </div>
-    );
-  }
-
-  if (state === 'used') {
-    return (
-      <div className="text-center">
-        <div
-          className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
-          style={{ background: 'rgba(244,114,182,0.10)', border: '2px solid rgba(244,114,182,0.30)' }}
-        >
-          <Clock className="w-10 h-10" style={{ color: '#f472b6' }} />
-        </div>
-        <div
-          className="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase mb-4"
-          style={{ background: 'rgba(244,114,182,0.10)', color: '#f472b6', border: '1px solid rgba(244,114,182,0.28)' }}
-        >
-          이미 사용됨
-        </div>
-        <h2 className="text-2xl font-black mb-2" style={{ color: 'var(--t-1)' }}>
-          만료된 QR 코드입니다
-        </h2>
-        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--t-3)' }}>
-          이 QR 코드는 이미 사용되었습니다.
-          <br />매장 운영자에게 새 QR을 요청하세요.
-        </p>
-        <p className="text-xs" style={{ color: 'var(--t-6)' }}>
-          재 스캔 시 만료 · 새 QR은 매장 운영자가 발급합니다
-        </p>
-      </div>
-    );
-  }
-
-  if (state === 'expired') {
-    return (
-      <div className="text-center">
-        <div
-          className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
-          style={{ background: 'rgba(251,146,60,0.10)', border: '2px solid rgba(251,146,60,0.30)' }}
-        >
-          <Clock className="w-10 h-10" style={{ color: '#fb923c' }} />
-        </div>
-        <div
-          className="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase mb-4"
-          style={{ background: 'rgba(251,146,60,0.10)', color: '#fb923c', border: '1px solid rgba(251,146,60,0.28)' }}
-        >
-          만료됨
-        </div>
-        <h2 className="text-2xl font-black mb-2" style={{ color: 'var(--t-1)' }}>
-          유효 시간이 만료되었습니다
-        </h2>
-        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--t-3)' }}>
-          이 QR 코드의 유효 시간이 지났습니다.
-          <br />매장 운영자에게 새 QR을 요청하세요.
-        </p>
-      </div>
-    );
-  }
-
-  if (state === 'invalid' || state === 'error') {
-    return (
-      <div className="text-center">
-        <div
-          className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
-          style={{ background: 'rgba(244,114,182,0.10)', border: '2px solid rgba(244,114,182,0.30)' }}
-        >
-          <AlertCircle className="w-10 h-10" style={{ color: '#f472b6' }} />
-        </div>
-        <h2 className="text-2xl font-black mb-2" style={{ color: 'var(--t-1)' }}>
-          유효하지 않은 QR입니다
-        </h2>
-        <p className="text-sm mb-6" style={{ color: 'var(--t-3)' }}>
-          QR 코드를 다시 확인하거나 새 QR을 요청하세요.
-        </p>
-        <button
-          onClick={() => { setState('idle'); setManualCode(''); }}
-          className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200"
-          style={{ background: 'var(--su-hover)', color: 'var(--t-1)', border: '1px solid var(--bd-2)' }}
-        >
-          다시 시도
-        </button>
       </div>
     );
   }

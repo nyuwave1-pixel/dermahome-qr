@@ -96,9 +96,9 @@ export default function HeroSection() {
 
             {/* Main headline */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.08] mb-6">
-              <span style={{ color: 'var(--t-1)' }}>클리닉 기술을</span>
+              <span style={{ color: 'var(--t-1)' }}>피부의 시간을</span>
               <br />
-              <span style={{ color: 'var(--t-1)' }}>집으로 가져오다</span>
+              <span style={{ color: 'var(--t-1)' }}>되돌리다</span>
               <br />
               <span className="text-gradient-green">더마 시리즈</span>
             </h1>

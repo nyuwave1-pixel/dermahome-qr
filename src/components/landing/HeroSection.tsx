@@ -30,7 +30,7 @@ export default function HeroSection() {
     <section className="relative min-h-screen flex items-center overflow-hidden">
 
       {/* ── Hero Background Image ──────────────────────── */}
-      <div className="absolute inset-0 overflow-hidden bg-black">
+      <div className="absolute inset-0 overflow-hidden bg-white">
         <Image
           src="/images/hero_bg.png"
           alt="DermaHome hero background"
@@ -40,27 +40,18 @@ export default function HeroSection() {
           quality={90}
         />
 
-        {/* Layered dark overlays */}
+        {/* Light fade for text readability */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'var(--hero-grad)',
+            background: 'linear-gradient(to right, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.45) 45%, rgba(255,255,255,0) 65%)',
           }}
         />
-        {/* Warm gold tint matching promo image */}
+        {/* Bottom fade to page bg */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background:
-              'radial-gradient(ellipse 80% 70% at 50% 40%, rgba(180,140,60,0.06) 0%, transparent 65%)',
-          }}
-        />
-        {/* Vignette edges */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(ellipse 140% 120% at 50% 50%, transparent 60%, var(--t-bg-gl) 100%)',
+            background: 'linear-gradient(to bottom, transparent 70%, var(--t-bg) 100%)',
           }}
         />
       </div>
@@ -81,11 +72,10 @@ export default function HeroSection() {
             <div
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6 text-xs font-semibold tracking-widest uppercase"
               style={{
-                background: 'rgba(92,138,60,0.25)',
-                border: '1px solid rgba(92,138,60,0.50)',
-                color: '#b5e890',
-                backdropFilter: 'blur(12px)',
-                boxShadow: '0 2px 12px rgba(0,0,0,0.25)',
+                background: 'rgba(92,138,60,0.10)',
+                border: '1px solid rgba(92,138,60,0.35)',
+                color: '#3d6b22',
+                backdropFilter: 'blur(8px)',
               }}
             >
               <span
@@ -97,16 +87,16 @@ export default function HeroSection() {
 
             {/* Main headline */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.08] mb-6">
-              <span style={{ color: '#ffffff' }}>피부의 시간을</span>
+              <span style={{ color: '#1a1a1a' }}>피부의 시간을</span>
               <br />
-              <span style={{ color: '#ffffff' }}>되돌리다</span>
+              <span style={{ color: '#1a1a1a' }}>되돌리다</span>
               <br />
-              <span className="text-gradient-green">더마 시리즈</span>
+              <span style={{ color: '#4a8c2a' }}>더마 시리즈</span>
             </h1>
 
             <p
               className="text-base md:text-lg mb-8 leading-relaxed max-w-md"
-              style={{ color: '#e0e0e0' }}
+              style={{ color: '#555555' }}
             >
               페이스 RF·갈바닉·초음파·고주파 8가지 메디컬 에스테틱 기술.
               유니앤코어 본사에서 직접 체험하고,
@@ -120,13 +110,13 @@ export default function HeroSection() {
                   key={b}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium"
                   style={{
-                    background: 'rgba(0,0,0,0.35)',
-                    border: '1px solid rgba(255,255,255,0.18)',
-                    color: '#ffffff',
+                    background: 'rgba(255,255,255,0.70)',
+                    border: '1px solid rgba(0,0,0,0.10)',
+                    color: '#333333',
                     backdropFilter: 'blur(8px)',
                   }}
                 >
-                  <CheckCircle2 className="w-3.5 h-3.5" style={{ color: '#7bae52' }} />
+                  <CheckCircle2 className="w-3.5 h-3.5" style={{ color: '#4a8c2a' }} />
                   {b}
                 </div>
               ))}
@@ -151,7 +141,7 @@ export default function HeroSection() {
             {/* Stats */}
             <div
               className="flex items-center gap-6 pt-6"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.15)' }}
+              style={{ borderTop: '1px solid rgba(0,0,0,0.10)' }}
             >
               {stats.map(({ value, label }, i) => (
                 <div
@@ -163,10 +153,10 @@ export default function HeroSection() {
                     transitionDelay: `${400 + i * 100}ms`,
                   }}
                 >
-                  <div className="text-2xl font-black" style={{ color: '#9dd470' }}>
+                  <div className="text-2xl font-black" style={{ color: '#4a8c2a' }}>
                     {value}
                   </div>
-                  <div className="text-xs mt-0.5" style={{ color: '#c0c0c0' }}>
+                  <div className="text-xs mt-0.5" style={{ color: '#777777' }}>
                     {label}
                   </div>
                 </div>
@@ -186,15 +176,15 @@ export default function HeroSection() {
               className="relative w-full max-w-sm animate-float-slow"
               style={{
                 filter:
-                  'drop-shadow(0 40px 80px rgba(0,0,0,0.7)) drop-shadow(0 0 80px rgba(92,138,60,0.15))',
+                  'drop-shadow(0 20px 40px rgba(0,0,0,0.15)) drop-shadow(0 0 40px rgba(92,138,60,0.08))',
               }}
             >
               <div
                 className="rounded-3xl overflow-hidden"
                 style={{
-                  background: 'linear-gradient(160deg, #f4f4f0 0%, #e8e8e4 100%)',
+                  background: 'linear-gradient(160deg, #ffffff 0%, #f4f4f0 100%)',
                   boxShadow:
-                    '0 0 0 1px var(--bd-2), 0 32px 80px rgba(0,0,0,0.6), 0 0 120px rgba(92,138,60,0.12)',
+                    '0 0 0 1px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.12)',
                 }}
               >
                 <Image
@@ -211,26 +201,26 @@ export default function HeroSection() {
               <div
                 className="absolute -left-6 top-16 px-3 py-2 rounded-xl text-xs font-semibold"
                 style={{
-                  background: 'var(--t-bg-dp)',
-                  border: '1px solid rgba(92,138,60,0.40)',
-                  backdropFilter: 'blur(16px)',
-                  color: '#9dd470',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+                  background: 'rgba(255,255,255,0.92)',
+                  border: '1px solid rgba(92,138,60,0.30)',
+                  backdropFilter: 'blur(12px)',
+                  color: '#4a8c2a',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.10)',
                 }}
               >
                 <div className="text-base font-black">8종</div>
-                <div style={{ color: 'var(--t-4)' }}>헤드 시스템</div>
+                <div style={{ color: '#777' }}>헤드 시스템</div>
               </div>
 
               {/* Chip: session */}
               <div
                 className="absolute -right-4 top-8 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs"
                 style={{
-                  background: 'var(--t-bg-dp)',
-                  border: '1px solid var(--bd-1)',
-                  backdropFilter: 'blur(16px)',
-                  color: 'var(--t-2)',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+                  background: 'rgba(255,255,255,0.92)',
+                  border: '1px solid rgba(0,0,0,0.08)',
+                  backdropFilter: 'blur(12px)',
+                  color: '#333',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.10)',
                 }}
               >
                 <span
@@ -249,12 +239,12 @@ export default function HeroSection() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-all duration-700 delay-700"
         style={{ opacity: mounted ? 0.5 : 0 }}
       >
-        <span className="text-xs tracking-widest uppercase" style={{ color: 'var(--t-5)' }}>
+        <span className="text-xs tracking-widest uppercase" style={{ color: '#999' }}>
           Scroll
         </span>
         <div
           className="w-px h-10 relative overflow-hidden"
-          style={{ background: 'var(--bd-3)' }}
+          style={{ background: 'rgba(0,0,0,0.12)' }}
         >
           <div
             className="absolute w-full"

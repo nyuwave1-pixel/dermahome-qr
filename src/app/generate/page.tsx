@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { QrCode, RefreshCw, CheckCircle2, Clock, ArrowLeft, Store, AlertCircle } from 'lucide-react';
-import { createStoreSession, getQRCodeInfo } from '@/services/qrService';
+import { createStoreSession, getQRStatus } from '@/services/qrService';
 import Header from '@/components/layout/Header';
 
 interface Session {
@@ -12,8 +11,7 @@ interface Session {
   qrImageUrl: string;
   verifyUrl: string;
   expiredAt: string;
-  adjustShortUrl: string;
-  status: 'unused' | 'used' | 'expired' | 'checking';
+  status: 'unused' | 'used' | 'expired';
 }
 
 function useCountdown(expiredAt: string | null) {
@@ -39,21 +37,23 @@ export default function GeneratePage() {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const prevTokenRef = useRef<string | undefined>(undefined);
   const countdown = useCountdown(session?.expiredAt ?? null);
 
-  // Poll Firebase every 15 s to check if QR was scanned
+  // Poll server every 10s to check if QR was scanned
   useEffect(() => {
     if (!session || session.status !== 'unused') return;
     const id = setInterval(async () => {
-      const info = await getQRCodeInfo(session.token);
-      if (info?.status === 'used') {
+      const info = await getQRStatus(session.token);
+      if (!info) return;
+      if (info.status === 'used') {
         setSession((s) => s ? { ...s, status: 'used' } : s);
         clearInterval(id);
-      } else if (info?.status === 'expired' || (info && new Date(info.expiredAt) < new Date())) {
+      } else if (info.status === 'expired') {
         setSession((s) => s ? { ...s, status: 'expired' } : s);
         clearInterval(id);
       }
-    }, 15_000);
+    }, 10_000);
     return () => clearInterval(id);
   }, [session]);
 
@@ -61,10 +61,11 @@ export default function GeneratePage() {
     setLoading(true);
     setError(null);
     try {
-      const result = await createStoreSession('default');
-      setSession({ ...result, status: 'unused', adjustShortUrl: result.adjustShortUrl ?? result.verifyUrl });
+      const result = await createStoreSession('default', prevTokenRef.current);
+      prevTokenRef.current = result.token;
+      setSession({ ...result, status: 'unused' });
     } catch {
-      setError('QR 생성에 실패했습니다. Firebase 연결을 확인해주세요.');
+      setError('QR 생성에 실패했습니다. 네트워크 연결을 확인해주세요.');
     } finally {
       setLoading(false);
     }
@@ -81,8 +82,8 @@ export default function GeneratePage() {
     session?.status === 'unused'
       ? '대기 중 — 고객 스캔 전'
       : session?.status === 'used'
-      ? '사용됨 — 고객이 스캔했습니다'
-      : '만료됨';
+      ? '사용 완료 — QR 폐기됨'
+      : '만료됨 — QR 폐기됨';
 
   return (
     <>
@@ -125,7 +126,7 @@ export default function GeneratePage() {
                   매장 QR 세션 생성
                 </h1>
                 <p className="text-xs" style={{ color: 'var(--t-5)' }}>
-                  고객용 1회성 더마10 기기 사용 QR
+                  고객용 1회성 더마 시리즈 기기 사용 QR
                 </p>
               </div>
             </div>
@@ -231,7 +232,7 @@ export default function GeneratePage() {
                         고객이 성공적으로 스캔했습니다
                       </p>
                       <p className="text-xs" style={{ color: 'var(--t-5)' }}>
-                        이 QR은 만료되었습니다. 다음 고객을 위해 새 QR을 생성하세요.
+                        이 QR은 폐기되었습니다. 다음 고객을 위해 새 QR을 생성하세요.
                       </p>
                     </div>
                   )}
@@ -245,12 +246,12 @@ export default function GeneratePage() {
                         <Clock className="w-8 h-8" style={{ color: '#f472b6' }} />
                       </div>
                       <p className="text-base font-bold" style={{ color: 'var(--t-1)' }}>
-                        QR 유효 시간이 만료되었습니다
+                        QR이 만료 · 폐기되었습니다
                       </p>
                     </div>
                   )}
 
-                  {/* Countdown + token + short URL */}
+                  {/* Countdown + token */}
                   {session.status === 'unused' && (
                     <div className="space-y-2 mb-2">
                       <div
@@ -263,23 +264,6 @@ export default function GeneratePage() {
                       <div className="text-xs" style={{ color: 'var(--t-7)' }}>
                         코드: {session.token.slice(0, 18)}…
                       </div>
-                      {/* Show Adjust short URL if it differs from the raw verify URL */}
-                      {session.adjustShortUrl && session.adjustShortUrl !== session.verifyUrl && (
-                        <div
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium mx-auto"
-                          style={{
-                            background: 'rgba(92,138,60,0.10)',
-                            border: '1px solid rgba(92,138,60,0.25)',
-                            color: '#9dd470',
-                          }}
-                        >
-                          <span
-                            className="w-1.5 h-1.5 rounded-full"
-                            style={{ display: 'inline-block', background: '#5c8a3c' }}
-                          />
-                          Adjust 딥링크 활성
-                        </div>
-                      )}
                     </div>
                   )}
                 </div>
@@ -318,7 +302,7 @@ export default function GeneratePage() {
                   className="text-center text-xs"
                   style={{ color: 'var(--t-6)' }}
                 >
-                  새 QR 생성 시 현재 QR은 즉시 만료됩니다
+                  새 QR 생성 시 현재 QR은 즉시 폐기됩니다
                 </p>
               )}
             </div>
@@ -339,7 +323,7 @@ export default function GeneratePage() {
               '① 「QR 세션 생성하기」 버튼을 눌러 QR을 생성합니다',
               '② 화면의 QR을 고객 스마트폰으로 스캔하게 합니다',
               '③ 고객 스캔 완료 시 기기 사용 권한이 자동 부여됩니다',
-              '④ 다음 고객을 위해 새 QR을 다시 생성하세요',
+              '④ 사용된 QR은 자동 폐기 — 다음 고객에게 새 QR 생성',
             ].map((step) => (
               <p key={step} className="text-xs leading-relaxed" style={{ color: 'var(--t-5)' }}>
                 {step}

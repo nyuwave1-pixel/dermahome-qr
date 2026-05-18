@@ -96,17 +96,17 @@ export default function HeroSection() {
             </div>
 
             {/* Main headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.08] mb-6 hero-text-shadow">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.08] mb-6">
               <span style={{ color: '#ffffff' }}>피부의 시간을</span>
               <br />
               <span style={{ color: '#ffffff' }}>되돌리다</span>
               <br />
-              <span className="text-gradient-green" style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.4))' }}>더마 시리즈</span>
+              <span className="text-gradient-green">더마 시리즈</span>
             </h1>
 
             <p
-              className="text-base md:text-lg mb-8 leading-relaxed max-w-md hero-text-shadow-sm"
-              style={{ color: 'rgba(255,255,255,0.92)' }}
+              className="text-base md:text-lg mb-8 leading-relaxed max-w-md"
+              style={{ color: '#e0e0e0' }}
             >
               페이스 RF·갈바닉·초음파·고주파 8가지 메디컬 에스테틱 기술.
               유니앤코어 본사에서 직접 체험하고,
@@ -163,10 +163,10 @@ export default function HeroSection() {
                     transitionDelay: `${400 + i * 100}ms`,
                   }}
                 >
-                  <div className="text-2xl font-black hero-text-shadow-sm" style={{ color: '#9dd470' }}>
+                  <div className="text-2xl font-black" style={{ color: '#9dd470' }}>
                     {value}
                   </div>
-                  <div className="text-xs mt-0.5 hero-text-shadow-sm" style={{ color: 'rgba(255,255,255,0.75)' }}>
+                  <div className="text-xs mt-0.5" style={{ color: '#c0c0c0' }}>
                     {label}
                   </div>
                 </div>

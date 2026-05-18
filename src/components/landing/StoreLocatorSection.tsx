@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { MapPin, ExternalLink, Navigation, Store } from 'lucide-react';
+import { MapPin, ExternalLink, Navigation, Building2, Phone, Clock, Globe } from 'lucide-react';
 
 function useInView(ref: React.RefObject<Element | null>) {
   const [inView, setInView] = useState(false);
@@ -18,17 +18,14 @@ function useInView(ref: React.RefObject<Element | null>) {
   return inView;
 }
 
-const NAVER_SEARCH_URL =
-  'https://map.naver.com/p/search/%EC%9C%A0%EB%8B%88%EC%95%A4%EC%BD%94%EC%96%B4';
+const NAVER_MAP_URL =
+  'https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%84%9C%EC%B4%88%EA%B5%AC%20%EC%96%91%EC%9E%AC%EB%8C%80%EB%A1%9C2%EA%B8%B8%20100-30';
 
-// Key regional representative locations
-const regions = [
-  { name: '서울·경기', count: '50+', icon: '🗼' },
-  { name: '부산·경남', count: '20+', icon: '🌊' },
-  { name: '대구·경북', count: '15+', icon: '🏔️' },
-  { name: '인천·충청', count: '15+', icon: '✈️' },
-  { name: '광주·전라', count: '10+', icon: '🌿' },
-  { name: '강원·제주', count: '10+', icon: '🏖️' },
+const HQ_INFO = [
+  { icon: MapPin, label: '주소', value: '서울시 서초구 양재대로2길 100-30, 2층' },
+  { icon: Phone, label: '대표전화', value: '02-6952-1234' },
+  { icon: Clock, label: '운영시간', value: '평일 09:00 ~ 18:00' },
+  { icon: Globe, label: '홈페이지', value: 'www.unincore.com', href: 'https://www.unincore.com' },
 ];
 
 export default function StoreLocatorSection() {
@@ -39,7 +36,6 @@ export default function StoreLocatorSection() {
 
   return (
     <section ref={sectionRef} id="stores" className="py-28 relative overflow-hidden">
-      {/* BG */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -59,27 +55,26 @@ export default function StoreLocatorSection() {
             className="inline-block text-xs font-semibold tracking-widest uppercase mb-3"
             style={{ color: '#7bae52' }}
           >
-            Store Locator
+            Headquarters
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: 'var(--t-1)' }}>가까운 </span>
-            <span className="text-gradient-green">유니앤코어 라운지</span>
-            <span style={{ color: 'var(--t-1)' }}> 찾기</span>
+            <span className="text-gradient-green">유니앤코어</span>
+            <span style={{ color: 'var(--t-1)' }}> 본사 안내</span>
           </h2>
           <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
-            전국 120여 개 유니앤코어 라운지에서 더마10 기기를 직접 체험하고
-            전문가 케어를 받아보세요.
+            더마 시리즈에 대한 문의 및 방문 상담은
+            유니앤코어 본사에서 진행됩니다.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
-          {/* Left: Region stats */}
+          {/* Left: HQ Info */}
           <div
             className="lg:col-span-2 transition-all duration-700 delay-100"
             style={{ opacity: inView ? 1 : 0, transform: inView ? 'translateX(0)' : 'translateX(-24px)' }}
           >
-            {/* Total count */}
+            {/* Company badge */}
             <div
               className="p-5 rounded-2xl mb-4"
               style={{
@@ -87,37 +82,53 @@ export default function StoreLocatorSection() {
                 border: '1px solid rgba(92,138,60,0.25)',
               }}
             >
-              <div className="flex items-center gap-3 mb-2">
-                <Store className="w-5 h-5" style={{ color: '#7bae52' }} />
+              <div className="flex items-center gap-3 mb-3">
+                <Building2 className="w-5 h-5" style={{ color: '#7bae52' }} />
                 <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#7bae52' }}>
-                  전국 운영 현황
+                  UNI&CORE HQ
                 </span>
               </div>
-              <div className="text-5xl font-black mb-1" style={{ color: '#9dd470' }}>120+</div>
+              <div className="text-2xl font-black mb-1" style={{ color: 'var(--t-1)' }}>
+                ㈜ 유니앤코어
+              </div>
               <div className="text-sm" style={{ color: 'var(--t-4)' }}>
-                유니앤코어 공식 라운지
+                서울 서초구 본사
               </div>
             </div>
 
-            {/* Region grid */}
-            <div className="grid grid-cols-2 gap-2.5 mb-4">
-              {regions.map((r, i) => (
+            {/* Info list */}
+            <div className="space-y-2.5 mb-4">
+              {HQ_INFO.map((item, i) => (
                 <div
-                  key={r.name}
-                  className="p-3.5 rounded-xl transition-all duration-500"
+                  key={item.label}
+                  className="flex items-start gap-3 p-3.5 rounded-xl transition-all duration-500"
                   style={{
                     background: 'var(--su-1)',
                     border: '1px solid var(--bd-3)',
                     opacity: inView ? 1 : 0,
-                    transitionDelay: `${200 + i * 50}ms`,
+                    transitionDelay: `${200 + i * 80}ms`,
                   }}
                 >
-                  <div className="text-xl mb-1">{r.icon}</div>
-                  <div className="text-xs font-semibold mb-0.5" style={{ color: 'var(--t-1)' }}>
-                    {r.name}
-                  </div>
-                  <div className="text-xs font-bold" style={{ color: '#9dd470' }}>
-                    {r.count} 매장
+                  <item.icon className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#7bae52' }} />
+                  <div>
+                    <div className="text-[11px] font-medium mb-0.5" style={{ color: 'var(--t-5)' }}>
+                      {item.label}
+                    </div>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-semibold transition-colors"
+                        style={{ color: '#9dd470' }}
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <div className="text-sm font-semibold" style={{ color: 'var(--t-1)' }}>
+                        {item.value}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
@@ -125,7 +136,7 @@ export default function StoreLocatorSection() {
 
             {/* Naver map CTA */}
             <a
-              href={NAVER_SEARCH_URL}
+              href={NAVER_MAP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-between w-full p-4 rounded-xl transition-all duration-200 hover:scale-[1.02]"
@@ -137,7 +148,7 @@ export default function StoreLocatorSection() {
             >
               <div className="flex items-center gap-2">
                 <Navigation className="w-4 h-4" />
-                <span className="text-sm font-semibold">네이버 지도에서 검색</span>
+                <span className="text-sm font-semibold">네이버 지도에서 길찾기</span>
               </div>
               <ExternalLink className="w-4 h-4" />
             </a>
@@ -157,12 +168,10 @@ export default function StoreLocatorSection() {
               }}
             >
               {!showMap ? (
-                /* Map placeholder / click to load */
                 <button
                   className="absolute inset-0 w-full h-full flex flex-col items-center justify-center gap-4 group"
                   onClick={() => setShowMap(true)}
                 >
-                  {/* Map bg pattern */}
                   <div
                     className="absolute inset-0"
                     style={{
@@ -171,60 +180,58 @@ export default function StoreLocatorSection() {
                       backgroundSize: '32px 32px',
                     }}
                   />
-                  <div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-                    style={{
-                      background: 'rgba(3,199,90,0.12)',
-                      border: '1px solid rgba(3,199,90,0.25)',
-                    }}
-                  >
-                    <MapPin className="w-8 h-8" style={{ color: '#4dc870' }} />
+                  {/* HQ pin marker */}
+                  <div className="relative">
+                    <div
+                      className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                      style={{
+                        background: 'rgba(3,199,90,0.12)',
+                        border: '1px solid rgba(3,199,90,0.25)',
+                      }}
+                    >
+                      <Building2 className="w-8 h-8" style={{ color: '#4dc870' }} />
+                    </div>
+                    <div
+                      className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center"
+                      style={{
+                        background: '#5c8a3c',
+                        border: '2px solid var(--t-bg)',
+                      }}
+                    >
+                      <MapPin className="w-3 h-3 text-white" />
+                    </div>
                   </div>
                   <div className="text-center">
                     <p className="text-sm font-semibold mb-1" style={{ color: 'var(--t-1)' }}>
-                      네이버 지도 열기
+                      본사 위치 보기
                     </p>
                     <p className="text-xs" style={{ color: 'var(--t-5)' }}>
-                      클릭하면 전국 유니앤코어 라운지를 지도에서 확인합니다
+                      클릭하면 유니앤코어 본사 위치를 지도에서 확인합니다
                     </p>
                   </div>
 
-                  {/* Animated pings */}
-                  {[
-                    { top: '25%', left: '35%' },
-                    { top: '55%', left: '60%' },
-                    { top: '40%', left: '75%' },
-                    { top: '70%', left: '28%' },
-                    { top: '30%', left: '55%' },
-                  ].map((pos, i) => (
+                  {/* Single HQ ping */}
+                  <div className="absolute" style={{ top: '45%', left: '50%' }}>
                     <div
-                      key={i}
-                      className="absolute"
-                      style={{ top: pos.top, left: pos.left }}
-                    >
-                      <div
-                        className="w-3 h-3 rounded-full"
-                        style={{
-                          background: '#5c8a3c',
-                          animation: `glowPulse ${1.5 + i * 0.3}s ease-in-out infinite`,
-                          animationDelay: `${i * 0.4}s`,
-                        }}
-                      />
-                      <div
-                        className="absolute inset-0 rounded-full"
-                        style={{
-                          background: 'rgba(92,138,60,0.3)',
-                          animation: `ripple ${1.5 + i * 0.3}s ease-out infinite`,
-                          animationDelay: `${i * 0.4}s`,
-                        }}
-                      />
-                    </div>
-                  ))}
+                      className="w-3 h-3 rounded-full"
+                      style={{
+                        background: '#5c8a3c',
+                        animation: 'glowPulse 1.5s ease-in-out infinite',
+                      }}
+                    />
+                    <div
+                      className="absolute inset-0 rounded-full"
+                      style={{
+                        background: 'rgba(92,138,60,0.3)',
+                        animation: 'ripple 1.5s ease-out infinite',
+                      }}
+                    />
+                  </div>
                 </button>
               ) : (
                 <iframe
-                  src={`${NAVER_SEARCH_URL}?c=7.27,0,0,0,dh`}
-                  title="유니앤코어 라운지 찾기"
+                  src={`${NAVER_MAP_URL}?c=15,0,0,0,dh`}
+                  title="유니앤코어 본사 위치"
                   width="100%"
                   height="100%"
                   frameBorder="0"
@@ -249,11 +256,11 @@ export default function StoreLocatorSection() {
                   style={{ background: '#5c8a3c' }}
                 />
                 <span className="text-xs" style={{ color: 'var(--t-5)' }}>
-                  전국 120+ 라운지 운영 중
+                  서울 서초구 · 유니앤코어 본사
                 </span>
               </div>
               <a
-                href={NAVER_SEARCH_URL}
+                href={NAVER_MAP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1 text-xs transition-colors"

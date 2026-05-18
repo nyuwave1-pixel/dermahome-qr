@@ -15,7 +15,7 @@ export default function HeroSection() {
   }, []);
 
   const stats = [
-    { value: '120+', label: '전국 라운지' },
+    { value: '8종', label: '메디컬 헤드' },
     { value: '7개국', label: '글로벌 진출' },
     { value: '₩120억', label: '2024 연매출' },
   ];
@@ -23,7 +23,7 @@ export default function HeroSection() {
   const badges = [
     '8종 헤드 메디컬 에스테틱',
     '1회성 QR 세션 시스템',
-    '전국 120+ 매장 운영',
+    '서울 본사 직영 운영',
   ];
 
   return (
@@ -108,7 +108,7 @@ export default function HeroSection() {
               style={{ color: 'var(--t-3)' }}
             >
               페이스 RF·갈바닉·초음파·고주파 8가지 메디컬 에스테틱 기술.
-              전국 120개 라운지에서 직접 체험하고,
+              유니앤코어 본사에서 직접 체험하고,
               집에서 클리닉 수준의 케어를 시작하세요.
             </p>
 
@@ -142,7 +142,7 @@ export default function HeroSection() {
               <a href="#stores">
                 <Button variant="outline" size="lg" className="min-w-[196px]">
                   <MapPin className="w-4 h-4" />
-                  가까운 매장 찾기
+                  본사 위치 보기
                 </Button>
               </a>
             </div>

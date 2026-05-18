@@ -35,7 +35,7 @@ export default function HeroSection() {
           src="/images/hero_bg.png"
           alt="DermaHome hero background"
           fill
-          className="object-cover object-center"
+          className="object-cover object-top"
           priority
           quality={90}
         />
@@ -47,12 +47,12 @@ export default function HeroSection() {
             background: 'var(--hero-grad)',
           }}
         />
-        {/* Green tint */}
+        {/* Warm gold tint matching promo image */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(92,138,60,0.08) 0%, transparent 65%)',
+              'radial-gradient(ellipse 80% 70% at 50% 40%, rgba(180,140,60,0.06) 0%, transparent 65%)',
           }}
         />
         {/* Vignette edges */}
@@ -60,7 +60,7 @@ export default function HeroSection() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 120% 100% at 50% 50%, transparent 50%, var(--t-bg-gl) 100%)',
+              'radial-gradient(ellipse 130% 110% at 50% 50%, transparent 55%, var(--t-bg-gl) 100%)',
           }}
         />
       </div>

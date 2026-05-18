@@ -110,7 +110,7 @@ export default function HeroSection() {
             >
               페이스 RF·갈바닉·초음파·고주파 8가지 메디컬 에스테틱 기술.
               유니앤코어 본사에서 직접 체험하고,
-              집에서 클리닉 수준의 케어를 시작하세요.
+              클리닉 수준의 케어를 시작하세요.
             </p>
 
             {/* Feature badges */}

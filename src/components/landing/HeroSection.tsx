@@ -60,7 +60,7 @@ export default function HeroSection() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 130% 110% at 50% 50%, transparent 55%, var(--t-bg-gl) 100%)',
+              'radial-gradient(ellipse 140% 120% at 50% 50%, transparent 60%, var(--t-bg-gl) 100%)',
           }}
         />
       </div>

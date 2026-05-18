@@ -123,7 +123,7 @@ export default function GeneratePage() {
               </div>
               <div>
                 <h1 className="text-base font-bold" style={{ color: 'var(--t-1)' }}>
-                  매장 QR 세션 생성
+                  본사 QR 세션 생성
                 </h1>
                 <p className="text-xs" style={{ color: 'var(--t-5)' }}>
                   고객용 1회성 더마 시리즈 기기 사용 QR

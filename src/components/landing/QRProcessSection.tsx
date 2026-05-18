@@ -23,10 +23,10 @@ const steps = [
   {
     icon: Store,
     step: '01',
-    title: '매장 QR 세션 생성',
-    desc: '매장 운영자가 이 사이트에서 버튼 하나로 1회성 QR 세션을 생성합니다.',
+    title: '본사 QR 세션 생성',
+    desc: '본사 운영자가 이 사이트에서 버튼 하나로 1회성 QR 세션을 생성합니다.',
     accent: '#7bae52',
-    who: '매장 운영자',
+    who: '본사 운영자',
   },
   {
     icon: QrCode,
@@ -50,7 +50,7 @@ const steps = [
     title: '다음 고객 새 QR 발급',
     desc: '사용된 QR은 재사용 불가합니다. 다음 고객을 위해 새 QR 세션을 생성하세요.',
     accent: '#e879f9',
-    who: '매장 운영자',
+    who: '본사 운영자',
   },
 ];
 
@@ -95,7 +95,7 @@ export default function QRProcessSection() {
             <span style={{ color: 'var(--t-1)' }}> 관리</span>
           </h2>
           <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
-            매장 운영자가 QR 세션을 생성하고, 고객이 스캔하면 기기 사용 권한이 자동 부여됩니다.
+            본사 운영자가 QR 세션을 생성하고, 고객이 스캔하면 기기 사용 권한이 자동 부여됩니다.
             한 번 사용된 QR은 즉시 만료되어 재사용이 불가합니다.
           </p>
         </div>
@@ -187,7 +187,7 @@ export default function QRProcessSection() {
         >
           <div>
             <p className="text-sm font-semibold mb-1" style={{ color: 'var(--t-1)' }}>
-              매장 운영자이신가요?
+              본사 운영자이신가요?
             </p>
             <p className="text-xs" style={{ color: 'var(--t-4)' }}>
               지금 바로 고객용 1회성 QR 세션을 생성하세요. 무료, 즉시 생성.

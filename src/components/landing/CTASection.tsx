@@ -73,9 +73,8 @@ export default function CTASection() {
           style={{ opacity: inView ? 1 : 0, transform: inView ? 'translateY(0)' : 'translateY(24px)' }}
         >
           <h2 className="text-3xl md:text-5xl font-black mb-4 leading-tight">
-            <span style={{ color: 'var(--t-1)' }}>지금 바로 </span>
-            <span className="text-gradient-green">정품 인증</span>
-            <span style={{ color: 'var(--t-1)' }}>하고<br />프리미엄 케어를 시작하세요</span>
+            <span className="text-gradient-green">럭셔리 홈케어</span>
+            <span style={{ color: 'var(--t-1)' }}>의 시작을<br />본사에서 경험하세요</span>
           </h2>
           <p
             className="text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed"

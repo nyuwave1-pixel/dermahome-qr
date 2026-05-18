@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from '../store';
 
 /* GET /api/qr/status?token=xxx
-   Returns current token status for polling (매장 화면) */
+   Returns current token status for polling (본사 화면) */
 
 export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get('token');

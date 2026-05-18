@@ -100,7 +100,7 @@ function VerifyInner() {
           QR 세션 스캔
         </h1>
         <p className="text-sm" style={{ color: 'var(--t-4)' }}>
-          매장에서 받은 QR 코드를 스캔해주세요
+          본사에서 받은 QR 코드를 스캔해주세요
         </p>
       </div>
 

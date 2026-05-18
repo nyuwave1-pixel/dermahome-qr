@@ -136,7 +136,7 @@ export default function HeroSection() {
               <Link href="/generate">
                 <Button size="lg" className="min-w-[196px]">
                   <QrCode className="w-5 h-5" />
-                  매장 QR 세션 생성
+                  본사 QR 세션 생성
                 </Button>
               </Link>
               <a href="#stores">

@@ -94,7 +94,7 @@ export default function VerifyUsedPage() {
             style={{ color: 'var(--t-4)' }}
           >
             이 QR 코드는 이미 사용되었거나 만료되었습니다.
-            <br />매장에서 새로운 QR 코드를 발급받아 주세요.
+            <br />본사에서 새로운 QR 코드를 발급받아 주세요.
           </p>
         </div>
 

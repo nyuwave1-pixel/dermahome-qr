@@ -104,7 +104,7 @@ export default function VerifySuccessPage() {
             style={{ color: 'var(--t-4)' }}
           >
             이 QR 코드는 1회 사용으로 만료되었습니다.
-            <br />다음 이용 시 매장에서 새 QR을 발급받으세요.
+            <br />다음 이용 시 본사에서 새 QR을 발급받으세요.
           </p>
         </div>
 

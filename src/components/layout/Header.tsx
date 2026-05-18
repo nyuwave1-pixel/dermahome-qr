@@ -172,7 +172,7 @@ export default function Header() {
               style={{ background: '#5c8a3c' }}
             >
               <QrCode className="w-5 h-5" />
-              매장 QR 세션 생성
+              본사 QR 세션 생성
             </Link>
           </nav>
         </div>

@@ -64,7 +64,7 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2.5">
                 {[
-                  { href: '/generate', label: 'QR 세션 생성 (매장용)', icon: Store },
+                  { href: '/generate', label: 'QR 세션 생성 (본사용)', icon: Store },
                   { href: 'https://www.youtube.com/@unincore.official/videos', label: '공식 YouTube', icon: Play, ext: true },
                 ].map((item) => (
                   <li key={item.href}>

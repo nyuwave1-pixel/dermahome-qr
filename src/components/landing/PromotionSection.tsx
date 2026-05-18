@@ -21,16 +21,16 @@ function useInView(ref: React.RefObject<Element | null>) {
 const stats = [
   {
     icon: TrendingUp,
-    value: '120억+',
-    label: '2024 연매출',
-    sub: '전년 대비 250% 성장',
+    value: 'VIP',
+    label: '본사 직영 혜택',
+    sub: '본사 단독 프리미엄 케어',
     color: '#7bae52',
   },
   {
     icon: MapPin,
-    value: '120+',
-    label: '전국 라운지',
-    sub: '운영 중인 더마10 라운지',
+    value: '본사',
+    label: '서울 직영 운영',
+    sub: '서초구 유니앤코어 본사',
     color: '#38bdf8',
   },
   {
@@ -44,7 +44,7 @@ const stats = [
     icon: Package,
     value: '300+',
     label: '기기 판매',
-    sub: '2023–2024 더마10 누적',
+    sub: '2023–2024 더마 시리즈 누적',
     color: '#fb923c',
   },
 ];
@@ -79,14 +79,14 @@ export default function PromotionSection() {
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
             <span style={{ color: 'var(--t-1)' }}>유니앤코어, </span>
-            <span className="text-gradient-green">글로벌 성장</span>
+            <span className="text-gradient-green">글로벌 K-뷰티 혁신</span>
           </h2>
           <p
             className="max-w-md mx-auto text-sm leading-relaxed"
             style={{ color: 'var(--t-4)' }}
           >
-            2022년 설립 후 빠른 성장으로 전국 120여 라운지,
-            7개국 진출의 뷰티 테크 기업입니다
+            본사 직영 프리미엄 혜택과 글로벌 K-뷰티 혁신 기술로
+            피부 변화의 시작을 함께합니다
           </p>
         </div>
 
@@ -159,10 +159,10 @@ export default function PromotionSection() {
             className="text-xl md:text-2xl font-bold italic mb-3"
             style={{ color: 'var(--t-1)' }}
           >
-            &ldquo;구독 플랫폼을 기반으로한 세계 최고의 직접 판매 회사&rdquo;
+            &ldquo;피부 자신감을 완성하는 선택, 럭셔리 홈 에스테틱 경험&rdquo;
           </blockquote>
           <p className="text-sm" style={{ color: 'var(--t-5)' }}>
-            ㈜ 유니앤코어 &nbsp;|&nbsp; 대표이사 김성현 &nbsp;|&nbsp; 2022년 10월 설립
+            ㈜ 유니앤코어 본사 &nbsp;|&nbsp; 더마 테크 기반 프리미엄 관리 &nbsp;|&nbsp; 홈케어의 새로운 기준
           </p>
         </div>
       </div>

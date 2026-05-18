@@ -10,7 +10,7 @@ const navItems = [
   { href: '/', label: '홈', icon: Home },
   { href: '#device', label: '기기소개', icon: Cpu },
   { href: '#guide', label: '케어가이드', icon: BookOpen },
-  { href: '#stores', label: '매장찾기', icon: MapPin },
+  { href: '#stores', label: '본사안내', icon: MapPin },
   { href: '#about', label: '회사소개', icon: Building2 },
 ];
 

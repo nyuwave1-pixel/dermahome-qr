@@ -154,7 +154,7 @@ export default function ReviewSection() {
             <span className="text-gradient-green">피부 변화</span>
           </h2>
           <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
-            더마10을 사용한 유니앤코어 라운지 회원들의 실제 피부 데이터와 후기
+            더마 시리즈를 사용한 유니앤코어 VIP 회원들의 실제 피부 데이터와 후기
           </p>
         </div>
 
@@ -262,7 +262,7 @@ export default function ReviewSection() {
                   <Star key={i} className="w-4 h-4 fill-current" style={{ color: '#f59e0b' }} />
                 ))}
               </div>
-              <div className="text-xs" style={{ color: 'var(--t-7)' }}>전국 라운지 회원 평균 평점</div>
+              <div className="text-xs" style={{ color: 'var(--t-7)' }}>본사 인증 회원 평균 평점</div>
             </div>
           </div>
           <div
@@ -278,8 +278,8 @@ export default function ReviewSection() {
             style={{ background: 'var(--bd-2)' }}
           />
           <div className="text-center sm:text-right">
-            <div className="text-2xl font-black mb-0.5" style={{ color: '#38bdf8' }}>120+</div>
-            <div className="text-xs" style={{ color: 'var(--t-7)' }}>유니앤코어 라운지에서 체험 가능</div>
+            <div className="text-2xl font-black mb-0.5" style={{ color: '#38bdf8' }}>VIP</div>
+            <div className="text-xs" style={{ color: 'var(--t-7)' }}>본사 회원 전용 리워드 이벤트</div>
           </div>
         </div>
       </div>

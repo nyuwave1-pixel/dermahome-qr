@@ -558,7 +558,7 @@ export default function GuideSection() {
             <span className="font-semibold" style={{ color: '#9dd470' }}>전문가 팁</span>
             {' '}— 각 케어 프로그램은 1회 30분 기준입니다.
             처음 사용 시 강도를 1단계부터 시작하고, 피부 반응에 따라 단계별로 조절하세요.
-            전국 120여 개 유니앤코어 라운지에서 전문가 케어를 먼저 경험하실 수 있습니다.
+            유니앤코어 본사에서 전문가 케어를 먼저 경험하실 수 있습니다.
           </p>
         </div>
       </div>

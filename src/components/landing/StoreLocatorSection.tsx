@@ -18,8 +18,11 @@ function useInView(ref: React.RefObject<Element | null>) {
   return inView;
 }
 
-const NAVER_MAP_URL =
-  'https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%84%9C%EC%B4%88%EA%B5%AC%20%EC%96%91%EC%9E%AC%EB%8C%80%EB%A1%9C2%EA%B8%B8%20100-30';
+const GOOGLE_MAP_URL =
+  'https://www.google.com/maps?num=10&sca_esv=409ebaf8c7634d9a&output=search&q=%EC%9C%A0%EB%8B%88%EC%95%A4%EC%BD%94%EC%96%B4&source=lnms&fbs=ADc_l-bD_nyrjATWBKup7flJ4reabDXIIhQQUsoZw8B9coVqKEgfu6lcPwoTE2ivC7emLV02gK8-bh9uQxb87Gnd1572jqYXiMfkUQdpqFD76g4TDke-fqGeRZuOnmUIEv-xvuEIENt-CtAQImhSCars4MnNa7F7HIYkflutLigwMJqee__TGKPxZnexp0OEXX42rbGv_3wjPdUVziPJOw1Y5G4kd4seUQ&entry=mc&ved=1t:200715&ictx=111';
+
+const GOOGLE_MAP_EMBED =
+  'https://maps.google.com/maps?q=%EC%9C%A0%EB%8B%88%EC%95%A4%EC%BD%94%EC%96%B4&t=&z=15&ie=UTF8&iwloc=&output=embed';
 
 const HQ_INFO = [
   { icon: MapPin, label: '주소', value: '서울시 서초구 양재대로2길 100-30, 2층' },
@@ -136,7 +139,7 @@ export default function StoreLocatorSection() {
 
             {/* Naver map CTA */}
             <a
-              href={NAVER_MAP_URL}
+              href={GOOGLE_MAP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-between w-full p-4 rounded-xl transition-all duration-200 hover:scale-[1.02]"
@@ -148,7 +151,7 @@ export default function StoreLocatorSection() {
             >
               <div className="flex items-center gap-2">
                 <Navigation className="w-4 h-4" />
-                <span className="text-sm font-semibold">네이버 지도에서 길찾기</span>
+                <span className="text-sm font-semibold">구글 지도에서 길찾기</span>
               </div>
               <ExternalLink className="w-4 h-4" />
             </a>
@@ -230,13 +233,14 @@ export default function StoreLocatorSection() {
                 </button>
               ) : (
                 <iframe
-                  src={`${NAVER_MAP_URL}?c=15,0,0,0,dh`}
+                  src={GOOGLE_MAP_EMBED}
                   title="유니앤코어 본사 위치"
                   width="100%"
                   height="100%"
                   frameBorder="0"
                   onLoad={() => setMapLoaded(true)}
                   style={{ opacity: mapLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+                  allowFullScreen
                   referrerPolicy="no-referrer"
                 />
               )}
@@ -260,7 +264,7 @@ export default function StoreLocatorSection() {
                 </span>
               </div>
               <a
-                href={NAVER_MAP_URL}
+                href={GOOGLE_MAP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1 text-xs transition-colors"

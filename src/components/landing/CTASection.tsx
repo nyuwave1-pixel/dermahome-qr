@@ -81,8 +81,8 @@ export default function CTASection() {
             className="text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed"
             style={{ color: 'var(--t-4)' }}
           >
-            더마10 기기의 QR 코드를 스캔하는 것만으로
-            정품 인증과 모든 혜택이 시작됩니다.
+            QR 스캔 한 번으로 특별 혜택 시작 —
+            스캔 즉시 혜택이 자동 지급됩니다.
           </p>
         </div>
 
@@ -109,10 +109,10 @@ export default function CTASection() {
           style={{ opacity: inView ? 0.6 : 0 }}
         >
           {[
-            '㈜ 유니앤코어 공식 정품',
-            '1회성 QR 위조 방지',
-            '전국 120+ 라운지',
-            '7개국 글로벌 브랜드',
+            '유니앤코어 공식 인증 프로모션',
+            '단 한 번의 인증으로 프리미엄 혜택',
+            '본사 직영 프리미엄 혜택',
+            '글로벌 K-뷰티 혁신 기술',
           ].map((badge) => (
             <div
               key={badge}

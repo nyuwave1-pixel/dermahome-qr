@@ -20,8 +20,8 @@ function useInView(ref: React.RefObject<Element | null>) {
 }
 
 const keyStats = [
-  { value: '₩120억', label: '2024 연매출', sub: '전년 대비 +250%', color: '#9dd470' },
-  { value: '120+', label: '전국 라운지', sub: '직영 & 파트너', color: '#38bdf8' },
+  { value: 'VIP', label: '본사 직영 케어', sub: '프리미엄 뷰티 혜택', color: '#9dd470' },
+  { value: '본사', label: '서울 직영 운영', sub: '서초구 양재대로', color: '#38bdf8' },
   { value: '7개국', label: '글로벌 진출', sub: 'USA 법인 설립', color: '#e879f9' },
   { value: '2022', label: '창립', sub: '서초구 양재대로', color: '#fb923c' },
 ];
@@ -76,8 +76,8 @@ export default function FAQSection() {
             <span className="text-gradient-green">회사 소개</span>
           </h2>
           <p className="max-w-lg mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
-            2022년 설립 후 3년 만에 연매출 ₩120억, 7개국 진출을 달성한
-            구독 플랫폼 기반 글로벌 뷰티 &amp; 헬스케어 기업
+            2022년 설립, 7개국 진출을 달성한 글로벌 K-뷰티 혁신 기업.
+            본사 직영 프리미엄 뷰티 &amp; 헬스케어 솔루션을 제공합니다
           </p>
         </div>
 
@@ -179,7 +179,7 @@ export default function FAQSection() {
             {[
               { year: '2022', event: '창립 — 서초구 양재대로', color: 'rgba(92,138,60,0.18)' },
               { year: '2023', event: '공식 론칭 · 더마10 출시', color: 'rgba(92,138,60,0.28)' },
-              { year: '2024', event: '연매출 120억 · 250% 성장', color: 'rgba(92,138,60,0.40)' },
+              { year: '2024', event: '글로벌 확장 · K-뷰티 혁신', color: 'rgba(92,138,60,0.40)' },
               { year: '2025', event: '7개국 · USA 법인 · 신제품', color: 'rgba(92,138,60,0.55)' },
             ].map((m) => (
               <div
@@ -252,10 +252,10 @@ export default function FAQSection() {
             </div>
             <div>
               <div className="text-sm font-bold mb-1" style={{ color: 'var(--t-1)' }}>
-                전국 120여 개 라운지
+                본사 직영 프리미엄 케어
               </div>
               <div className="text-xs leading-relaxed" style={{ color: 'var(--t-5)' }}>
-                더마10 기기를 직접 체험할 수 있는<br />전문 케어 라운지
+                더마 시리즈를 직접 체험할 수 있는<br />유니앤코어 본사 케어 서비스
               </div>
             </div>
           </div>

@@ -17,7 +17,7 @@ export default function HeroSection() {
   const stats = [
     { value: '8종', label: '메디컬 헤드' },
     { value: '7개국', label: '글로벌 진출' },
-    { value: '₩120억', label: '2024 연매출' },
+    { value: 'VIP', label: '본사 케어' },
   ];
 
   const badges = [

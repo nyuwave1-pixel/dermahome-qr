@@ -84,7 +84,7 @@ export default function VideoSection() {
             <span className="text-gradient-green">공식 영상</span>
           </h2>
           <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
-            유니앤코어 공식 채널에서 더마 시리즈 기기 사용법, 케어 가이드, 라운지 체험 영상을 확인하세요.
+            유니앤코어 공식 채널에서 더마 시리즈 기기 사용법, 케어 가이드, 프리미엄 체험 영상을 확인하세요.
           </p>
         </div>
 
@@ -212,7 +212,7 @@ export default function VideoSection() {
                 UNI&CORE Official YouTube
               </p>
               <p className="text-xs" style={{ color: 'var(--t-5)' }}>
-                더마 시리즈 관리 영상, 라운지 체험기, 케어 가이드 영상
+                더마 시리즈 관리 영상, 프리미엄 체험기, 케어 가이드 영상
               </p>
             </div>
           </div>

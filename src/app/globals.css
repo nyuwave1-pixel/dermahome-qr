@@ -49,13 +49,13 @@
   --t-bg-gl:    rgba(7,7,10,0.85);
 
   /* Text: 7 opacity levels */
-  --t-1: #f8f8f6;
-  --t-2: rgba(248,248,246,0.80);
-  --t-3: rgba(248,248,246,0.65);
-  --t-4: rgba(248,248,246,0.50);
-  --t-5: rgba(248,248,246,0.42);
-  --t-6: rgba(248,248,246,0.30);
-  --t-7: rgba(248,248,246,0.22);
+  --t-1: #ffffff;
+  --t-2: rgba(255,255,255,0.92);
+  --t-3: rgba(255,255,255,0.80);
+  --t-4: rgba(255,255,255,0.68);
+  --t-5: rgba(255,255,255,0.58);
+  --t-6: rgba(255,255,255,0.45);
+  --t-7: rgba(255,255,255,0.35);
 
   /* Surfaces */
   --su-1:     rgba(255,255,255,0.04);
@@ -69,7 +69,7 @@
   --bd-3: rgba(255,255,255,0.06);
 
   /* Hero gradient overlay */
-  --hero-grad: linear-gradient(to bottom,rgba(7,7,10,0.18) 0%,rgba(7,7,10,0.08) 40%,rgba(7,7,10,0.28) 75%,rgba(7,7,10,0.82) 100%);
+  --hero-grad: linear-gradient(to bottom,rgba(7,7,10,0.25) 0%,rgba(7,7,10,0.15) 40%,rgba(7,7,10,0.35) 75%,rgba(7,7,10,0.85) 100%);
 
   /* Legacy aliases */
   --bg:             var(--t-bg);
@@ -84,9 +84,9 @@
   --text-muted:     var(--t-6);
 
   /* UNI&CORE brand green — identical in both modes */
-  --accent:         #5c8a3c;
-  --accent-light:   #7bae52;
-  --accent-bright:  #9dd470;
+  --accent:         #6a9e45;
+  --accent-light:   #8cc25e;
+  --accent-bright:  #b0e478;
   --accent-glow:    rgba(92,138,60,0.28);
   --accent-glow-sm: rgba(92,138,60,0.15);
 
@@ -263,6 +263,14 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-accent);
+}
+
+/* Hero text shadow for readability over images */
+.hero-text-shadow {
+  text-shadow: 0 2px 16px rgba(0,0,0,0.5), 0 1px 4px rgba(0,0,0,0.4);
+}
+.hero-text-shadow-sm {
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3);
 }
 
 /* Text gradients */

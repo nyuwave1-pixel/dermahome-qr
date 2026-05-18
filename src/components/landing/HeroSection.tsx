@@ -81,10 +81,11 @@ export default function HeroSection() {
             <div
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6 text-xs font-semibold tracking-widest uppercase"
               style={{
-                background: 'rgba(92,138,60,0.14)',
-                border: '1px solid rgba(92,138,60,0.40)',
-                color: '#9dd470',
-                backdropFilter: 'blur(8px)',
+                background: 'rgba(92,138,60,0.25)',
+                border: '1px solid rgba(92,138,60,0.50)',
+                color: '#b5e890',
+                backdropFilter: 'blur(12px)',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.25)',
               }}
             >
               <span
@@ -95,17 +96,17 @@ export default function HeroSection() {
             </div>
 
             {/* Main headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.08] mb-6">
-              <span style={{ color: 'var(--t-1)' }}>피부의 시간을</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.08] mb-6 hero-text-shadow">
+              <span style={{ color: '#ffffff' }}>피부의 시간을</span>
               <br />
-              <span style={{ color: 'var(--t-1)' }}>되돌리다</span>
+              <span style={{ color: '#ffffff' }}>되돌리다</span>
               <br />
-              <span className="text-gradient-green">더마 시리즈</span>
+              <span className="text-gradient-green" style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.4))' }}>더마 시리즈</span>
             </h1>
 
             <p
-              className="text-base md:text-lg mb-8 leading-relaxed max-w-md"
-              style={{ color: 'var(--t-3)' }}
+              className="text-base md:text-lg mb-8 leading-relaxed max-w-md hero-text-shadow-sm"
+              style={{ color: 'rgba(255,255,255,0.92)' }}
             >
               페이스 RF·갈바닉·초음파·고주파 8가지 메디컬 에스테틱 기술.
               유니앤코어 본사에서 직접 체험하고,
@@ -119,10 +120,10 @@ export default function HeroSection() {
                   key={b}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium"
                   style={{
-                    background: 'var(--su-1)',
-                    border: '1px solid var(--bd-1)',
-                    color: 'var(--t-2)',
-                    backdropFilter: 'blur(4px)',
+                    background: 'rgba(0,0,0,0.35)',
+                    border: '1px solid rgba(255,255,255,0.18)',
+                    color: '#ffffff',
+                    backdropFilter: 'blur(8px)',
                   }}
                 >
                   <CheckCircle2 className="w-3.5 h-3.5" style={{ color: '#7bae52' }} />
@@ -150,7 +151,7 @@ export default function HeroSection() {
             {/* Stats */}
             <div
               className="flex items-center gap-6 pt-6"
-              style={{ borderTop: '1px solid var(--bd-2)' }}
+              style={{ borderTop: '1px solid rgba(255,255,255,0.15)' }}
             >
               {stats.map(({ value, label }, i) => (
                 <div
@@ -162,10 +163,10 @@ export default function HeroSection() {
                     transitionDelay: `${400 + i * 100}ms`,
                   }}
                 >
-                  <div className="text-2xl font-black" style={{ color: '#9dd470' }}>
+                  <div className="text-2xl font-black hero-text-shadow-sm" style={{ color: '#9dd470' }}>
                     {value}
                   </div>
-                  <div className="text-xs mt-0.5" style={{ color: 'var(--t-5)' }}>
+                  <div className="text-xs mt-0.5 hero-text-shadow-sm" style={{ color: 'rgba(255,255,255,0.75)' }}>
                     {label}
                   </div>
                 </div>

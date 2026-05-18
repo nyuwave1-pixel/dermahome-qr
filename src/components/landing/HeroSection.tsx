@@ -35,7 +35,7 @@ export default function HeroSection() {
           src="/images/hero_bg.png"
           alt="DermaHome hero background"
           fill
-          className="object-cover object-top"
+          className="object-cover object-center"
           priority
           quality={90}
         />

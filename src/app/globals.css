@@ -69,7 +69,7 @@
   --bd-3: rgba(255,255,255,0.06);
 
   /* Hero gradient overlay */
-  --hero-grad: linear-gradient(to bottom,rgba(7,7,10,0.50) 0%,rgba(7,7,10,0.38) 40%,rgba(7,7,10,0.62) 75%,rgba(7,7,10,0.92) 100%);
+  --hero-grad: linear-gradient(to bottom,rgba(7,7,10,0.58) 0%,rgba(7,7,10,0.45) 40%,rgba(7,7,10,0.68) 75%,rgba(7,7,10,0.94) 100%);
 
   /* Legacy aliases */
   --bg:             var(--t-bg);
@@ -125,7 +125,7 @@
   --bd-2: rgba(0,0,0,0.09);
   --bd-3: rgba(0,0,0,0.06);
 
-  --hero-grad: linear-gradient(to bottom,rgba(244,244,240,0.42) 0%,rgba(244,244,240,0.28) 40%,rgba(244,244,240,0.55) 75%,rgba(244,244,240,0.90) 100%);
+  --hero-grad: linear-gradient(to bottom,rgba(244,244,240,0.50) 0%,rgba(244,244,240,0.35) 40%,rgba(244,244,240,0.62) 75%,rgba(244,244,240,0.92) 100%);
 
   /* Override legacy aliases */
   --bg:             var(--t-bg);

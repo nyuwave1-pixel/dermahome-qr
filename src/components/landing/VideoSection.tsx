@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Play, ExternalLink } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 function useInView(ref: React.RefObject<Element | null>) {
   const [inView, setInView] = useState(false);
@@ -49,6 +50,7 @@ export default function VideoSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef);
   const [playing, setPlaying] = useState(false);
+  const { t } = useLanguage();
 
   const featured = videos[0];
 
@@ -80,11 +82,11 @@ export default function VideoSection() {
             </span>
           </div>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: 'var(--t-1)' }}>더마 시리즈 </span>
-            <span className="text-gradient-green">공식 영상</span>
+            <span style={{ color: 'var(--t-1)' }}>{t('video.h2_1')}</span>
+            <span className="text-gradient-green">{t('video.h2_2')}</span>
           </h2>
           <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
-            유니앤코어 공식 채널에서 더마 시리즈 기기 사용법, 케어 가이드, 프리미엄 체험 영상을 확인하세요.
+            {t('video.desc')}
           </p>
         </div>
 
@@ -115,7 +117,7 @@ export default function VideoSection() {
                 <button
                   onClick={() => setPlaying(true)}
                   className="absolute inset-0 w-full h-full group"
-                  aria-label="영상 재생"
+                  aria-label="Play video"
                 >
                   {/* Thumbnail */}
                   <img
@@ -209,10 +211,10 @@ export default function VideoSection() {
             </div>
             <div>
               <p className="text-sm font-semibold" style={{ color: 'var(--t-1)' }}>
-                UNI&CORE Official YouTube
+                {t('video.channel_name')}
               </p>
               <p className="text-xs" style={{ color: 'var(--t-5)' }}>
-                더마 시리즈 관리 영상, 프리미엄 체험기, 케어 가이드 영상
+                {t('video.channel_desc')}
               </p>
             </div>
           </div>
@@ -227,7 +229,7 @@ export default function VideoSection() {
               color: '#ff7070',
             }}
           >
-            채널 전체 보기
+            {t('video.channel_cta')}
             <ExternalLink className="w-4 h-4" />
           </a>
         </div>

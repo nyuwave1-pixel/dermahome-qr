@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { XCircle, ShieldOff, AlertTriangle, ArrowRight } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export default function VerifyUsedPage() {
   const [step, setStep] = useState(0);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const t1 = setTimeout(() => setStep(1), 100);
@@ -71,7 +73,7 @@ export default function VerifyUsedPage() {
             }}
           >
             <ShieldOff className="w-3 h-3" />
-            사용 불가
+            {t('verify.used_title')}
           </div>
         </div>
 
@@ -87,14 +89,13 @@ export default function VerifyUsedPage() {
             className="text-2xl md:text-3xl font-black leading-tight mb-3"
             style={{ color: 'var(--t-1)' }}
           >
-            해당 QR은 더 이상<br />사용 불가입니다
+            {t('verify.used_heading') || '해당 QR은 더 이상\n사용 불가입니다'}
           </h1>
           <p
-            className="text-sm leading-relaxed mb-8"
+            className="text-sm leading-relaxed mb-8 whitespace-pre-line"
             style={{ color: 'var(--t-4)' }}
           >
-            이 QR 코드는 이미 사용되었거나 만료되었습니다.
-            <br />본사에서 새로운 QR 코드를 발급받아 주세요.
+            {t('verify.used_desc')}
           </p>
         </div>
 
@@ -115,7 +116,7 @@ export default function VerifyUsedPage() {
           >
             <AlertTriangle className="w-3.5 h-3.5 shrink-0" style={{ color: '#fb923c' }} />
             <span className="text-xs font-medium" style={{ color: '#fb923c' }}>
-              1회 사용된 QR은 재사용이 불가합니다
+              {t('verify.used_warning') || '1회 사용된 QR은 재사용이 불가합니다'}
             </span>
           </div>
 
@@ -129,7 +130,7 @@ export default function VerifyUsedPage() {
                 boxShadow: '0 0 20px rgba(92,138,60,0.25)',
               }}
             >
-              새 QR 코드 인증하기
+              {t('verify.new_qr_cta') || '새 QR 코드 인증하기'}
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
@@ -140,7 +141,7 @@ export default function VerifyUsedPage() {
                 border: '1px solid var(--bd-2)',
               }}
             >
-              홈으로 이동
+              {t('nav.home')}
             </Link>
           </div>
         </div>

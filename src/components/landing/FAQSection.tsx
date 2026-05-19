@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { TrendingUp, Globe, Users, Award, Target, Heart, Zap } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 function useInView(ref: React.RefObject<Element | null>) {
   const [inView, setInView] = useState(false);
@@ -19,37 +20,38 @@ function useInView(ref: React.RefObject<Element | null>) {
   return inView;
 }
 
-const keyStats = [
-  { value: 'VIP', label: '본사 직영 케어', sub: '프리미엄 뷰티 혜택', color: '#9dd470' },
-  { value: '본사', label: '서울 직영 운영', sub: '서초구 양재대로', color: '#38bdf8' },
-  { value: '7개국', label: '글로벌 진출', sub: 'USA 법인 설립', color: '#e879f9' },
-  { value: '2022', label: '창립', sub: '서초구 양재대로', color: '#fb923c' },
-];
-
-const values = [
-  {
-    icon: Users,
-    title: 'United with Partners',
-    desc: '파트너스와 함께 성장하는 신뢰 기반 비즈니스 생태계',
-    color: '#7bae52',
-  },
-  {
-    icon: Award,
-    title: 'Core Product & Benefit',
-    desc: '핵심 제품과 최고의 보상 플랜으로 파트너의 성공 지원',
-    color: '#38bdf8',
-  },
-  {
-    icon: Globe,
-    title: 'To the Global',
-    desc: '7개국 진출, USA 법인 설립 — 글로벌 직접 판매 네트워크',
-    color: '#e879f9',
-  },
-];
-
 export default function FAQSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef);
+  const { t } = useLanguage();
+
+  const keyStats = [
+    { value: 'VIP', label: t('promo.stat1_label'), sub: t('promo.stat1_sub'), color: '#9dd470' },
+    { value: t('promo.stat2_val'), label: t('promo.stat2_label'), sub: t('promo.stat2_sub'), color: '#38bdf8' },
+    { value: t('promo.stat3_val'), label: t('promo.stat3_label'), sub: t('promo.stat3_sub'), color: '#e879f9' },
+    { value: '2022', label: t('promo.stat4_label'), sub: t('promo.stat4_sub'), color: '#fb923c' },
+  ];
+
+  const values = [
+    {
+      icon: Users,
+      title: t('about.value1_title'),
+      desc: t('about.value1_desc'),
+      color: '#7bae52',
+    },
+    {
+      icon: Award,
+      title: t('about.value2_title'),
+      desc: t('about.value2_desc'),
+      color: '#38bdf8',
+    },
+    {
+      icon: Globe,
+      title: t('about.value3_title'),
+      desc: t('about.value3_desc'),
+      color: '#e879f9',
+    },
+  ];
 
   return (
     <section id="about" ref={sectionRef} className="py-28 relative overflow-hidden">
@@ -69,15 +71,14 @@ export default function FAQSection() {
             className="inline-block text-xs font-semibold tracking-widest uppercase mb-3"
             style={{ color: '#7bae52' }}
           >
-            Company
+            {t('about.tag')}
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: 'var(--t-1)' }}>㈜ 유니앤코어 </span>
-            <span className="text-gradient-green">회사 소개</span>
+            <span style={{ color: 'var(--t-1)' }}>{t('about.h2_1')}</span>
+            <span className="text-gradient-green">{t('about.h2_2')}</span>
           </h2>
           <p className="max-w-lg mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
-            2022년 설립, 7개국 진출을 달성한 글로벌 K-뷰티 혁신 기업.
-            본사 직영 프리미엄 뷰티 &amp; 헬스케어 솔루션을 제공합니다
+            {t('about.desc')}
           </p>
         </div>
 
@@ -92,10 +93,10 @@ export default function FAQSection() {
           >
             <div className="flex items-center gap-2 mb-3">
               <Target className="w-4 h-4" style={{ color: '#7bae52' }} />
-              <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#7bae52' }}>Vision</span>
+              <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#7bae52' }}>{t('about.vision')}</span>
             </div>
-            <p className="text-lg font-bold leading-snug" style={{ color: 'var(--t-1)' }}>
-              구독 플랫폼을 기반으로한<br />세계 최고의 직접 판매 회사
+            <p className="text-lg font-bold leading-snug whitespace-pre-line" style={{ color: 'var(--t-1)' }}>
+              {t('about.vision_text')}
             </p>
           </div>
           <div
@@ -104,10 +105,10 @@ export default function FAQSection() {
           >
             <div className="flex items-center gap-2 mb-3">
               <Heart className="w-4 h-4" style={{ color: '#38bdf8' }} />
-              <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#38bdf8' }}>Mission</span>
+              <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#38bdf8' }}>{t('about.mission')}</span>
             </div>
-            <p className="text-lg font-bold leading-snug italic" style={{ color: 'var(--t-1)' }}>
-              &ldquo;United power of uni&amp;core<br />to the global&rdquo;
+            <p className="text-lg font-bold leading-snug italic whitespace-pre-line" style={{ color: 'var(--t-1)' }}>
+              {t('about.mission_text')}
             </p>
           </div>
         </div>
@@ -116,7 +117,7 @@ export default function FAQSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
           {keyStats.map((s, i) => (
             <div
-              key={s.label}
+              key={i}
               className="p-4 rounded-2xl text-center transition-all duration-500"
               style={{
                 background: 'var(--su-1)',
@@ -138,7 +139,7 @@ export default function FAQSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
           {values.map((v, i) => (
             <div
-              key={v.title}
+              key={i}
               className="p-5 rounded-2xl text-center transition-all duration-500"
               style={{
                 background: 'var(--su-1)',
@@ -172,15 +173,15 @@ export default function FAQSection() {
           <div className="flex items-center gap-2 mb-4">
             <TrendingUp className="w-4 h-4" style={{ color: '#7bae52' }} />
             <span className="text-xs font-bold tracking-widest uppercase" style={{ color: 'var(--t-6)' }}>
-              성장 연혁
+              {t('about.timeline_title')}
             </span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { year: '2022', event: '창립 — 서초구 양재대로', color: 'rgba(92,138,60,0.18)' },
-              { year: '2023', event: '공식 론칭 · 더마10 출시', color: 'rgba(92,138,60,0.28)' },
-              { year: '2024', event: '글로벌 확장 · K-뷰티 혁신', color: 'rgba(92,138,60,0.40)' },
-              { year: '2025', event: '7개국 · USA 법인 · 신제품', color: 'rgba(92,138,60,0.55)' },
+              { year: '2022', event: t('about.y2022'), color: 'rgba(92,138,60,0.18)' },
+              { year: '2023', event: t('about.y2023'), color: 'rgba(92,138,60,0.28)' },
+              { year: '2024', event: t('about.y2024'), color: 'rgba(92,138,60,0.40)' },
+              { year: '2025', event: t('about.y2025'), color: 'rgba(92,138,60,0.55)' },
             ].map((m) => (
               <div
                 key={m.year}
@@ -219,16 +220,16 @@ export default function FAQSection() {
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-sm font-bold" style={{ color: 'var(--t-1)' }}>더마 시리즈</span>
+                <span className="text-sm font-bold" style={{ color: 'var(--t-1)' }}>{t('about.flagship')}</span>
                 <span
                   className="text-[9px] font-bold px-1.5 py-0.5 rounded"
                   style={{ background: 'rgba(92,138,60,0.20)', color: '#9dd470' }}
                 >
-                  FLAGSHIP
+                  {t('about.flagship_tag')}
                 </span>
               </div>
               <div className="text-xs" style={{ color: 'var(--t-5)' }}>
-                8종 헤드 올인원 피부 미용 기기
+                {t('about.flagship_sub')}
               </div>
             </div>
           </div>
@@ -251,10 +252,10 @@ export default function FAQSection() {
             </div>
             <div>
               <div className="text-sm font-bold mb-1" style={{ color: 'var(--t-1)' }}>
-                본사 직영 프리미엄 케어
+                {t('about.lounge_title')}
               </div>
-              <div className="text-xs leading-relaxed" style={{ color: 'var(--t-5)' }}>
-                더마 시리즈를 직접 체험할 수 있는<br />유니앤코어 본사 케어 서비스
+              <div className="text-xs leading-relaxed whitespace-pre-line" style={{ color: 'var(--t-5)' }}>
+                {t('about.lounge_desc')}
               </div>
             </div>
           </div>

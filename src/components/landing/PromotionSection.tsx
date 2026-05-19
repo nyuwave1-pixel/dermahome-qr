@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { TrendingUp, MapPin, Globe, Package } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 function useInView(ref: React.RefObject<Element | null>) {
   const [inView, setInView] = useState(false);
@@ -18,40 +19,41 @@ function useInView(ref: React.RefObject<Element | null>) {
   return inView;
 }
 
-const stats = [
-  {
-    icon: TrendingUp,
-    value: 'VIP',
-    label: '본사 직영 혜택',
-    sub: '본사 단독 프리미엄 케어',
-    color: '#7bae52',
-  },
-  {
-    icon: MapPin,
-    value: '본사',
-    label: '서울 직영 운영',
-    sub: '서초구 유니앤코어 본사',
-    color: '#38bdf8',
-  },
-  {
-    icon: Globe,
-    value: '7개국',
-    label: '해외 진출',
-    sub: 'USA 법인 포함 글로벌 확장',
-    color: '#e879f9',
-  },
-  {
-    icon: Package,
-    value: '8종',
-    label: '올인원 헤드',
-    sub: '더마 테크 기반 프리미엄 관리',
-    color: '#fb923c',
-  },
-];
-
 export default function PromotionSection() {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef);
+
+  const stats = [
+    {
+      icon: TrendingUp,
+      value: t('promo.stat1_val'),
+      label: t('promo.stat1_label'),
+      sub: t('promo.stat1_sub'),
+      color: '#7bae52',
+    },
+    {
+      icon: MapPin,
+      value: t('promo.stat2_val'),
+      label: t('promo.stat2_label'),
+      sub: t('promo.stat2_sub'),
+      color: '#38bdf8',
+    },
+    {
+      icon: Globe,
+      value: t('promo.stat3_val'),
+      label: t('promo.stat3_label'),
+      sub: t('promo.stat3_sub'),
+      color: '#e879f9',
+    },
+    {
+      icon: Package,
+      value: t('promo.stat4_val'),
+      label: t('promo.stat4_label'),
+      sub: t('promo.stat4_sub'),
+      color: '#fb923c',
+    },
+  ];
 
   return (
     <section ref={sectionRef} className="py-28 relative overflow-hidden">
@@ -75,18 +77,17 @@ export default function PromotionSection() {
             className="inline-block text-xs font-semibold tracking-widest uppercase mb-3"
             style={{ color: '#7bae52' }}
           >
-            Company
+            {t('promo.tag')}
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: 'var(--t-1)' }}>유니앤코어, </span>
-            <span className="text-gradient-green">글로벌 K-뷰티 혁신</span>
+            <span style={{ color: 'var(--t-1)' }}>{t('promo.h2_1')}</span>
+            <span className="text-gradient-green">{t('promo.h2_2')}</span>
           </h2>
           <p
             className="max-w-md mx-auto text-sm leading-relaxed"
             style={{ color: 'var(--t-4)' }}
           >
-            본사 직영 프리미엄 혜택과 글로벌 K-뷰티 혁신 기술로
-            피부 변화의 시작을 함께합니다
+            {t('promo.desc')}
           </p>
         </div>
 
@@ -94,7 +95,7 @@ export default function PromotionSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {stats.map((s, i) => (
             <div
-              key={s.label}
+              key={i}
               className="transition-all duration-500"
               style={{
                 opacity: inView ? 1 : 0,
@@ -153,16 +154,16 @@ export default function PromotionSection() {
             className="inline-block text-xs font-semibold tracking-widest uppercase mb-3 px-3 py-1 rounded-full"
             style={{ background: 'rgba(92,138,60,0.15)', color: '#9dd470', border: '1px solid rgba(92,138,60,0.3)' }}
           >
-            Vision
+            {t('promo.vision_tag')}
           </div>
           <blockquote
             className="text-xl md:text-2xl font-bold italic mb-3"
             style={{ color: 'var(--t-1)' }}
           >
-            &ldquo;피부 자신감을 완성하는 선택, 럭셔리 홈 에스테틱 경험&rdquo;
+            {t('promo.vision_quote')}
           </blockquote>
           <p className="text-sm" style={{ color: 'var(--t-5)' }}>
-            ㈜ 유니앤코어 본사 &nbsp;|&nbsp; 더마 테크 기반 프리미엄 관리 &nbsp;|&nbsp; 홈케어의 새로운 기준
+            {t('promo.vision_sub')}
           </p>
         </div>
       </div>

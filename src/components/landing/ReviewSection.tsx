@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Star, TrendingUp } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 function useInView(ref: React.RefObject<Element | null>) {
   const [inView, setInView] = useState(false);
@@ -125,6 +126,7 @@ function MetricBar({ label, before, after, color }: { label: string; before: num
 export default function ReviewSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef);
+  const { t } = useLanguage();
 
   return (
     <section ref={sectionRef} className="py-28 relative overflow-hidden">
@@ -147,14 +149,14 @@ export default function ReviewSection() {
             className="inline-block text-xs font-semibold tracking-widest uppercase mb-3"
             style={{ color: '#7bae52' }}
           >
-            Reviews
+            {t('review.tag')}
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: 'var(--t-1)' }}>실제 사용자 </span>
-            <span className="text-gradient-green">피부 변화</span>
+            <span style={{ color: 'var(--t-1)' }}>{t('review.h2_1')}</span>
+            <span className="text-gradient-green">{t('review.h2_2')}</span>
           </h2>
           <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
-            더마 시리즈를 사용한 유니앤코어 VIP 회원들의 실제 피부 데이터와 후기
+            {t('review.desc')}
           </p>
         </div>
 
@@ -189,7 +191,7 @@ export default function ReviewSection() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-bold truncate" style={{ color: 'var(--t-1)' }}>{r.name}</span>
-                      <span className="text-xs" style={{ color: 'var(--t-6)' }}>{r.age}세</span>
+                      <span className="text-xs" style={{ color: 'var(--t-6)' }}>{r.age}</span>
                     </div>
                     <div className="text-xs" style={{ color: 'var(--t-6)' }}>{r.handle}</div>
                   </div>
@@ -226,18 +228,18 @@ export default function ReviewSection() {
                   className="p-4 rounded-xl mb-3"
                   style={{ background: 'var(--su-2)', border: '1px solid var(--bd-3)' }}
                 >
-                  <MetricBar label="수분도" before={r.before.moisture} after={r.after.moisture} color={r.gradient[0]} />
-                  <MetricBar label="탄력도" before={r.before.elasticity} after={r.after.elasticity} color={r.gradient[1]} />
+                  <MetricBar label={t('review.moisture')} before={r.before.moisture} after={r.after.moisture} color={r.gradient[0]} />
+                  <MetricBar label={t('review.elasticity')} before={r.before.elasticity} after={r.after.elasticity} color={r.gradient[1]} />
                 </div>
 
                 {/* Footer */}
                 <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1" style={{ color: 'var(--t-7)' }}>
                     <TrendingUp className="w-3 h-3" />
-                    {r.weeks}주 사용
+                    {r.weeks}{t('review.weeks')}
                   </div>
                   <div style={{ color: 'var(--t-7)' }}>
-                    헤드: <span style={{ color: '#9dd470' }}>{r.head}</span>
+                    {t('review.head_label')}: <span style={{ color: '#9dd470' }}>{r.head}</span>
                   </div>
                 </div>
               </div>
@@ -262,7 +264,7 @@ export default function ReviewSection() {
                   <Star key={i} className="w-4 h-4 fill-current" style={{ color: '#f59e0b' }} />
                 ))}
               </div>
-              <div className="text-xs" style={{ color: 'var(--t-7)' }}>본사 인증 회원 평균 평점</div>
+              <div className="text-xs" style={{ color: 'var(--t-7)' }}>{t('review.avg_rating')}</div>
             </div>
           </div>
           <div
@@ -271,7 +273,7 @@ export default function ReviewSection() {
           />
           <div className="text-center sm:text-right">
             <div className="text-2xl font-black mb-0.5" style={{ color: '#7bae52' }}>+43%</div>
-            <div className="text-xs" style={{ color: 'var(--t-7)' }}>평균 수분도 개선율 (4주 기준)</div>
+            <div className="text-xs" style={{ color: 'var(--t-7)' }}>{t('review.moisture_gain')}</div>
           </div>
           <div
             className="h-px sm:h-10 w-full sm:w-px"
@@ -279,7 +281,7 @@ export default function ReviewSection() {
           />
           <div className="text-center sm:text-right">
             <div className="text-2xl font-black mb-0.5" style={{ color: '#38bdf8' }}>VIP</div>
-            <div className="text-xs" style={{ color: 'var(--t-7)' }}>본사 회원 전용 리워드 이벤트</div>
+            <div className="text-xs" style={{ color: 'var(--t-7)' }}>{t('review.vip_event')}</div>
           </div>
         </div>
       </div>

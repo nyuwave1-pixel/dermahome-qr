@@ -5,25 +5,27 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { QrCode, ArrowRight, CheckCircle2, MapPin } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export default function HeroSection() {
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 80);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setMounted(true), 80);
+    return () => clearTimeout(timer);
   }, []);
 
   const stats = [
-    { value: '8종', label: '메디컬 헤드' },
-    { value: '7개국', label: '글로벌 진출' },
-    { value: 'VIP', label: '본사 케어' },
+    { value: t('hero.stat1_val'), label: t('hero.stat1_label') },
+    { value: t('hero.stat2_val'), label: t('hero.stat2_label') },
+    { value: t('hero.stat3_val'), label: t('hero.stat3_label') },
   ];
 
   const badges = [
-    '8종 헤드 메디컬 에스테틱',
-    '1회성 QR 세션 시스템',
-    '서울 본사 직영 운영',
+    t('hero.badge1'),
+    t('hero.badge2'),
+    t('hero.badge3'),
   ];
 
   return (
@@ -82,25 +84,23 @@ export default function HeroSection() {
                 className="w-1.5 h-1.5 rounded-full animate-glow-fast"
                 style={{ background: '#5c8a3c', display: 'inline-block' }}
               />
-              UNI&CORE Official — DermaHome 10
+              {t('hero.badge')}
             </div>
 
             {/* Main headline */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.08] mb-6">
-              <span style={{ color: '#1a1a1a' }}>피부의 시간을</span>
+              <span style={{ color: '#1a1a1a' }}>{t('hero.h1_1')}</span>
               <br />
-              <span style={{ color: '#1a1a1a' }}>되돌리다</span>
+              <span style={{ color: '#1a1a1a' }}>{t('hero.h1_2')}</span>
               <br />
-              <span style={{ color: '#4a8c2a' }}>더마 시리즈</span>
+              <span style={{ color: '#4a8c2a' }}>{t('hero.h1_3')}</span>
             </h1>
 
             <p
               className="text-base md:text-lg mb-8 leading-relaxed max-w-md"
               style={{ color: '#555555' }}
             >
-              페이스 RF·갈바닉·초음파·고주파 8가지 메디컬 에스테틱 기술.
-              유니앤코어 본사에서 직접 체험하고,
-              클리닉 수준의 케어를 시작하세요.
+              {t('hero.desc')}
             </p>
 
             {/* Feature badges */}
@@ -127,13 +127,13 @@ export default function HeroSection() {
               <Link href="/generate">
                 <Button size="lg" className="min-w-[196px]">
                   <QrCode className="w-5 h-5" />
-                  본사 QR 세션 생성
+                  {t('hero.cta1')}
                 </Button>
               </Link>
               <a href="#stores">
                 <Button variant="outline" size="lg" className="min-w-[196px]">
                   <MapPin className="w-4 h-4" />
-                  본사 위치 보기
+                  {t('hero.cta2')}
                 </Button>
               </a>
             </div>
@@ -208,8 +208,8 @@ export default function HeroSection() {
                   boxShadow: '0 4px 16px rgba(0,0,0,0.10)',
                 }}
               >
-                <div className="text-base font-black">8종</div>
-                <div style={{ color: '#777' }}>헤드 시스템</div>
+                <div className="text-base font-black">{t('hero.chip_heads')}</div>
+                <div style={{ color: '#777' }}>{t('hero.chip_heads_sub')}</div>
               </div>
 
               {/* Chip: session */}
@@ -227,7 +227,7 @@ export default function HeroSection() {
                   className="w-2 h-2 rounded-full animate-glow-fast"
                   style={{ background: '#5c8a3c', display: 'inline-block' }}
                 />
-                케어 세션 활성
+                {t('hero.chip_session')}
               </div>
             </div>
           </div>

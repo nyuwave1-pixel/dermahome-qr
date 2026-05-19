@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle2, Sparkles, ArrowRight, Shield } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export default function VerifySuccessPage() {
   const [step, setStep] = useState(0);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const t1 = setTimeout(() => setStep(1), 100);
@@ -75,7 +77,7 @@ export default function VerifySuccessPage() {
             }}
           >
             <Shield className="w-3 h-3" />
-            인증 완료
+            {t('verify.success_title')}
           </div>
         </div>
 
@@ -91,20 +93,19 @@ export default function VerifySuccessPage() {
             className="text-2xl md:text-3xl font-black leading-tight mb-3"
             style={{ color: 'var(--t-1)' }}
           >
-            인증에 성공했습니다
+            {t('verify.success_heading') || '인증에 성공했습니다'}
           </h1>
           <p
             className="text-base font-semibold mb-2"
             style={{ color: '#9dd470' }}
           >
-            1회 더마 시리즈 사용 가능합니다.
+            {t('verify.success_sub') || '1회 더마 시리즈 사용 가능합니다.'}
           </p>
           <p
-            className="text-sm leading-relaxed mb-8"
+            className="text-sm leading-relaxed mb-8 whitespace-pre-line"
             style={{ color: 'var(--t-4)' }}
           >
-            이 QR 코드는 1회 사용으로 만료되었습니다.
-            <br />다음 이용 시 본사에서 새 QR을 발급받으세요.
+            {t('verify.success_desc')}
           </p>
         </div>
 
@@ -141,10 +142,10 @@ export default function VerifySuccessPage() {
               </div>
               <div className="text-left">
                 <div className="text-sm font-bold" style={{ color: 'var(--t-1)' }}>
-                  더마 시리즈
+                  {t('device.name')}
                 </div>
                 <div className="text-xs" style={{ color: 'var(--t-5)' }}>
-                  8종 헤드 올인원 피부 미용 기기
+                  {t('about.flagship_sub')}
                 </div>
               </div>
             </div>
@@ -152,14 +153,14 @@ export default function VerifySuccessPage() {
             {/* Available heads */}
             <div className="flex flex-wrap gap-1.5">
               {[
-                '페이스 RF',
-                '바디 RF',
-                '갈바닉',
-                '울트라소닉',
-                '이온토포레시스',
+                'Face RF',
+                'Body RF',
+                'Galvanic',
+                'Ultrasonic',
+                'Iontophoresis',
                 'LED',
-                '쿨링',
-                '산소 인퓨전',
+                'Cooling',
+                'O2 Infusion',
               ].map((head) => (
                 <span
                   key={head}
@@ -186,7 +187,7 @@ export default function VerifySuccessPage() {
           >
             <Sparkles className="w-3.5 h-3.5 shrink-0" style={{ color: '#fb923c' }} />
             <span className="text-xs font-medium" style={{ color: '#fb923c' }}>
-              본 QR은 1회 전용입니다 · 재사용 불가
+              {t('verify.onetime_notice') || '본 QR은 1회 전용입니다 · 재사용 불가'}
             </span>
           </div>
 
@@ -200,7 +201,7 @@ export default function VerifySuccessPage() {
                 boxShadow: '0 0 20px rgba(92,138,60,0.25)',
               }}
             >
-              케어 가이드 보기
+              {t('verify.guide_cta') || '케어 가이드 보기'}
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
@@ -211,7 +212,7 @@ export default function VerifySuccessPage() {
                 border: '1px solid var(--bd-2)',
               }}
             >
-              홈으로 이동
+              {t('nav.home')}
             </Link>
           </div>
         </div>

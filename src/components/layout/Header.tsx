@@ -5,19 +5,24 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, QrCode, Home, Cpu, Building2, BookOpen, MapPin } from 'lucide-react';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import LanguageSelector from '@/components/ui/LanguageSelector';
+import { useLanguage } from '@/i18n/LanguageContext';
 
-const navItems = [
-  { href: '/', label: '홈', icon: Home },
-  { href: '#device', label: '기기소개', icon: Cpu },
-  { href: '#guide', label: '케어가이드', icon: BookOpen },
-  { href: '#stores', label: '본사안내', icon: MapPin },
-  { href: '#about', label: '회사소개', icon: Building2 },
-];
+const navIcons = [Home, Cpu, BookOpen, MapPin, Building2];
 
 export default function Header() {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileVisible, setMobileVisible] = useState(false);
+
+  const navItems = [
+    { href: '/', label: t('nav.home'), icon: Home },
+    { href: '#device', label: t('nav.device'), icon: Cpu },
+    { href: '#guide', label: t('nav.guide'), icon: BookOpen },
+    { href: '#stores', label: t('nav.hq'), icon: MapPin },
+    { href: '#about', label: t('nav.about'), icon: Building2 },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -99,6 +104,7 @@ export default function Header() {
 
           {/* Right actions */}
           <div className="hidden lg:flex items-center gap-1.5 shrink-0">
+            <LanguageSelector />
             <ThemeToggle />
             <Link
               href="/generate"
@@ -106,18 +112,19 @@ export default function Header() {
               style={{ background: '#5c8a3c', boxShadow: '0 0 16px rgba(92,138,60,0.30)' }}
             >
               <QrCode className="w-3.5 h-3.5" />
-              QR 생성
+              {t('nav.qr')}
             </Link>
           </div>
 
-          {/* Mobile: theme toggle + hamburger */}
+          {/* Mobile: language + theme toggle + hamburger */}
           <div className="lg:hidden flex items-center gap-2">
+            <LanguageSelector />
             <ThemeToggle />
             <button
               className="p-2 rounded-xl transition-colors"
               style={{ color: 'var(--t-3)' }}
               onClick={() => setIsOpen(!isOpen)}
-              aria-label="메뉴"
+              aria-label="Menu"
             >
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -172,7 +179,7 @@ export default function Header() {
               style={{ background: '#5c8a3c' }}
             >
               <QrCode className="w-5 h-5" />
-              본사 QR 세션 생성
+              {t('hero.cta1')}
             </Link>
           </nav>
         </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { MapPin, ExternalLink, Navigation, Building2, Phone, Clock, Globe } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 function useInView(ref: React.RefObject<Element | null>) {
   const [inView, setInView] = useState(false);
@@ -24,18 +25,19 @@ const GOOGLE_MAP_URL =
 const GOOGLE_MAP_EMBED =
   'https://maps.google.com/maps?q=%EC%9C%A0%EB%8B%88%EC%95%A4%EC%BD%94%EC%96%B4&t=&z=15&ie=UTF8&iwloc=&output=embed';
 
-const HQ_INFO = [
-  { icon: MapPin, label: '주소', value: '서울시 서초구 양재대로2길 100-30, 2층' },
-  { icon: Phone, label: '대표전화', value: '02-6952-1234' },
-  { icon: Clock, label: '운영시간', value: '평일 09:00 ~ 18:00' },
-  { icon: Globe, label: '홈페이지', value: 'www.unincore.com', href: 'https://www.unincore.com' },
-];
-
 export default function StoreLocatorSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [showMap, setShowMap] = useState(false);
+  const { t } = useLanguage();
+
+  const HQ_INFO = [
+    { icon: MapPin, label: t('store.address_label'), value: t('store.address') },
+    { icon: Phone, label: t('store.phone_label'), value: '02-6952-1234' },
+    { icon: Clock, label: t('store.hours_label'), value: t('store.hours') },
+    { icon: Globe, label: t('store.website_label'), value: 'www.unincore.com', href: 'https://www.unincore.com' },
+  ];
 
   return (
     <section ref={sectionRef} id="stores" className="py-28 relative overflow-hidden">
@@ -58,15 +60,14 @@ export default function StoreLocatorSection() {
             className="inline-block text-xs font-semibold tracking-widest uppercase mb-3"
             style={{ color: '#7bae52' }}
           >
-            Headquarters
+            {t('store.tag')}
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span className="text-gradient-green">유니앤코어</span>
-            <span style={{ color: 'var(--t-1)' }}> 본사 안내</span>
+            <span className="text-gradient-green">{t('store.h2_1')}</span>
+            <span style={{ color: 'var(--t-1)' }}>{t('store.h2_2')}</span>
           </h2>
           <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
-            더마 시리즈에 대한 문의 및 방문 상담은
-            유니앤코어 본사에서 진행됩니다.
+            {t('store.desc')}
           </p>
         </div>
 
@@ -92,10 +93,10 @@ export default function StoreLocatorSection() {
                 </span>
               </div>
               <div className="text-2xl font-black mb-1" style={{ color: 'var(--t-1)' }}>
-                ㈜ 유니앤코어
+                {t('store.company')}
               </div>
               <div className="text-sm" style={{ color: 'var(--t-4)' }}>
-                서울 서초구 본사
+                {t('store.hq_sub')}
               </div>
             </div>
 
@@ -103,7 +104,7 @@ export default function StoreLocatorSection() {
             <div className="space-y-2.5 mb-4">
               {HQ_INFO.map((item, i) => (
                 <div
-                  key={item.label}
+                  key={i}
                   className="flex items-start gap-3 p-3.5 rounded-xl transition-all duration-500"
                   style={{
                     background: 'var(--su-1)',
@@ -137,7 +138,7 @@ export default function StoreLocatorSection() {
               ))}
             </div>
 
-            {/* Naver map CTA */}
+            {/* Google map CTA */}
             <a
               href={GOOGLE_MAP_URL}
               target="_blank"
@@ -151,7 +152,7 @@ export default function StoreLocatorSection() {
             >
               <div className="flex items-center gap-2">
                 <Navigation className="w-4 h-4" />
-                <span className="text-sm font-semibold">구글 지도에서 길찾기</span>
+                <span className="text-sm font-semibold">{t('store.map_cta')}</span>
               </div>
               <ExternalLink className="w-4 h-4" />
             </a>
@@ -206,10 +207,10 @@ export default function StoreLocatorSection() {
                   </div>
                   <div className="text-center">
                     <p className="text-sm font-semibold mb-1" style={{ color: 'var(--t-1)' }}>
-                      본사 위치 보기
+                      {t('store.map_btn')}
                     </p>
                     <p className="text-xs" style={{ color: 'var(--t-5)' }}>
-                      클릭하면 유니앤코어 본사 위치를 지도에서 확인합니다
+                      {t('store.map_desc')}
                     </p>
                   </div>
 
@@ -234,7 +235,7 @@ export default function StoreLocatorSection() {
               ) : (
                 <iframe
                   src={GOOGLE_MAP_EMBED}
-                  title="유니앤코어 본사 위치"
+                  title="UNI&CORE HQ"
                   width="100%"
                   height="100%"
                   frameBorder="0"
@@ -260,7 +261,7 @@ export default function StoreLocatorSection() {
                   style={{ background: '#5c8a3c' }}
                 />
                 <span className="text-xs" style={{ color: 'var(--t-5)' }}>
-                  서울 서초구 · 유니앤코어 본사
+                  {t('store.map_bar')}
                 </span>
               </div>
               <a
@@ -272,7 +273,7 @@ export default function StoreLocatorSection() {
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#7bae52'; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-7)'; }}
               >
-                지도 앱으로 열기
+                {t('store.map_open')}
                 <ExternalLink className="w-3 h-3" />
               </a>
             </div>

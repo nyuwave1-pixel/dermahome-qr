@@ -6,11 +6,13 @@ import { QrCode, Shield, ArrowLeft, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import { consumeQR } from '@/services/qrService';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 function VerifyInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const codeParam = searchParams.get('code');
+  const { t } = useLanguage();
 
   const [state, setState] = useState<'idle' | 'verifying'>(
     codeParam ? 'verifying' : 'idle'
@@ -53,15 +55,19 @@ function VerifyInner() {
           <RefreshCw className="w-10 h-10 animate-spin" style={{ color: '#7bae52' }} />
         </div>
         <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--t-1)' }}>
-          QR 인증 처리 중
+          {t('verify.processing') || 'QR 인증 처리 중'}
         </h2>
         <p className="text-sm" style={{ color: 'var(--t-4)' }}>
-          잠시만 기다려주세요...
+          {t('verify.wait') || '잠시만 기다려주세요...'}
         </p>
         <div className="mt-6 space-y-2">
-          {['QR 코드 검증 중', '기기 사용 권한 확인 중', '세션 활성화 중'].map((step, i) => (
+          {[
+            t('verify.step1') || 'QR 코드 검증 중',
+            t('verify.step2') || '기기 사용 권한 확인 중',
+            t('verify.step3') || '세션 활성화 중',
+          ].map((step, i) => (
             <div
-              key={step}
+              key={i}
               className="flex items-center gap-2 text-xs transition-all duration-500"
               style={{
                 color: 'var(--t-5)',
@@ -97,10 +103,10 @@ function VerifyInner() {
           <QrCode className="w-8 h-8" style={{ color: '#7bae52' }} />
         </div>
         <h1 className="text-xl font-black mb-1" style={{ color: 'var(--t-1)' }}>
-          QR 세션 스캔
+          {t('verify.title')}
         </h1>
         <p className="text-sm" style={{ color: 'var(--t-4)' }}>
-          본사에서 받은 QR 코드를 스캔해주세요
+          {t('verify.desc')}
         </p>
       </div>
 
@@ -110,7 +116,7 @@ function VerifyInner() {
         style={{ background: 'rgba(92,138,60,0.07)', border: '1px solid rgba(92,138,60,0.20)' }}
       >
         <p style={{ color: 'var(--t-3)' }}>
-          스마트폰 기본 카메라 앱으로 QR 코드를 스캔하면 자동으로 이 페이지로 연결됩니다.
+          {t('verify.camera_notice') || '스마트폰 기본 카메라 앱으로 QR 코드를 스캔하면 자동으로 이 페이지로 연결됩니다.'}
         </p>
       </div>
 
@@ -126,7 +132,7 @@ function VerifyInner() {
           <div className="flex items-center gap-3">
             <Shield className="w-5 h-5" style={{ color: '#7bae52' }} />
             <span className="text-sm font-medium" style={{ color: 'var(--t-2)' }}>
-              코드 직접 입력
+              {t('verify.manual') || '코드 직접 입력'}
             </span>
           </div>
           <span
@@ -144,7 +150,7 @@ function VerifyInner() {
           <div className="px-4 pb-4 space-y-3">
             <input
               type="text"
-              placeholder="QR 코드 입력..."
+              placeholder="QR Code..."
               value={manualCode}
               onChange={(e) => setManualCode(e.target.value.toUpperCase())}
               className="w-full px-4 py-3 rounded-xl text-center font-mono text-sm tracking-wider focus:outline-none"
@@ -160,7 +166,7 @@ function VerifyInner() {
               className="w-full py-3 rounded-xl text-sm font-semibold text-white transition-all disabled:opacity-50"
               style={{ background: '#5c8a3c' }}
             >
-              인증하기
+              {t('verify.submit') || '인증하기'}
             </button>
           </div>
         )}
@@ -171,6 +177,8 @@ function VerifyInner() {
 
 /* ── Page wrapper with Suspense (required for useSearchParams) ── */
 export default function VerifyPage() {
+  const { t } = useLanguage();
+
   return (
     <>
       <Header />
@@ -187,7 +195,7 @@ export default function VerifyPage() {
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-5)'; }}
           >
             <ArrowLeft className="w-4 h-4" />
-            홈으로
+            {t('nav.home')}
           </Link>
 
           <div
@@ -201,7 +209,7 @@ export default function VerifyPage() {
               fallback={
                 <div className="text-center py-8">
                   <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-3" style={{ color: '#7bae52' }} />
-                  <p className="text-sm" style={{ color: 'var(--t-4)' }}>로딩 중...</p>
+                  <p className="text-sm" style={{ color: 'var(--t-4)' }}>Loading...</p>
                 </div>
               }
             >

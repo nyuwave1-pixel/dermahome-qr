@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 function useInView(ref: React.RefObject<Element | null>) {
   const [inView, setInView] = useState(false);
@@ -18,25 +19,26 @@ function useInView(ref: React.RefObject<Element | null>) {
   return inView;
 }
 
-const specs = [
-  { label: '기기명', value: '더마 시리즈' },
-  { label: '8종 헤드', value: '페이스RF, 바디RF, 울트라소닉, 이온토포레시스, 고주파, 스킨스크러버, 쿨&핫, 산소주입기' },
-  { label: '디스플레이', value: '8인치 터치스크린' },
-  { label: '연결', value: 'BLE 5.3 스마트 연동' },
-  { label: '인증', value: 'QR 1회성 정품 인증' },
-];
-
 const galleryImages = [
-  { src: '/images/derma10.jpg', alt: '더마10 정면', label: '정면' },
-  { src: '/images/derma10_2.jpg', alt: '더마10 헤드', label: '헤드 구성' },
-  { src: '/images/derma10_3.jpg', alt: '더마10 측면', label: '측면' },
-  { src: '/images/derma10_back.jpg', alt: '더마10 후면', label: '후면' },
+  { src: '/images/derma10.jpg', alt: '더마10 정면', labelKey: 'device.gallery_front' as const },
+  { src: '/images/derma10_2.jpg', alt: '더마10 헤드', labelKey: 'device.gallery_head' as const },
+  { src: '/images/derma10_3.jpg', alt: '더마10 측면', labelKey: 'device.gallery_side' as const },
+  { src: '/images/derma10_back.jpg', alt: '더마10 후면', labelKey: 'device.gallery_back' as const },
 ];
 
 export default function DeviceSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef);
   const [activeImg, setActiveImg] = useState(0);
+  const { t } = useLanguage();
+
+  const specs = [
+    { label: t('device.spec_name'), value: t('device.spec_name_val') },
+    { label: t('device.spec_heads'), value: t('device.spec_heads_val') },
+    { label: t('device.spec_display'), value: t('device.spec_display_val') },
+    { label: t('device.spec_conn'), value: t('device.spec_conn_val') },
+    { label: t('device.spec_auth'), value: t('device.spec_auth_val') },
+  ];
 
   return (
     <section ref={sectionRef} className="py-28 relative">
@@ -57,18 +59,17 @@ export default function DeviceSection() {
             className="inline-block text-xs font-semibold tracking-widest uppercase mb-3"
             style={{ color: '#7bae52' }}
           >
-            Device
+            {t('device.tag')}
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span className="text-gradient-green">더마10</span>
-            <span style={{ color: 'var(--t-1)' }}> 프리미엄 피부 관리 시스템</span>
+            <span className="text-gradient-green">{t('device.h2_1')}</span>
+            <span style={{ color: 'var(--t-1)' }}>{t('device.h2_2')}</span>
           </h2>
           <p
             className="max-w-lg mx-auto text-sm leading-relaxed"
             style={{ color: 'var(--t-4)' }}
           >
-            메디컬 에스테틱 기술을 담은 올인원 피부 미용 기기.
-            8종 헤드로 전신을 케어하는 전문가급 홈 뷰티 솔루션.
+            {t('device.desc')}
           </p>
         </div>
 
@@ -115,9 +116,9 @@ export default function DeviceSection() {
                       : '1px solid var(--bd-3)',
                     opacity: activeImg === i ? 1 : 0.65,
                   }}
-                  aria-label={img.label}
+                  aria-label={t(img.labelKey)}
                 >
-                  <Image src={img.src} alt={img.label} fill className="object-contain p-2" />
+                  <Image src={img.src} alt={t(img.labelKey)} fill className="object-contain p-2" />
                 </button>
               ))}
             </div>
@@ -146,9 +147,9 @@ export default function DeviceSection() {
                 10
               </div>
               <div>
-                <div className="font-bold" style={{ color: 'var(--t-1)' }}>더마 시리즈</div>
+                <div className="font-bold" style={{ color: 'var(--t-1)' }}>{t('device.name')}</div>
                 <div className="text-xs" style={{ color: 'var(--t-5)' }}>
-                  UNI&CORE 플래그십 미용 기기
+                  {t('device.brand_sub')}
                 </div>
               </div>
             </div>
@@ -183,14 +184,14 @@ export default function DeviceSection() {
               className="text-xs font-semibold tracking-widest uppercase mb-3"
               style={{ color: 'var(--t-6)' }}
             >
-              핵심 기술
+              {t('device.tech_title')}
             </h3>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { title: 'RF 고주파', sub: '콜라겐 재생 · 리프팅' },
-                { title: '갈바닉 이온', sub: '성분 침투 극대화' },
-                { title: '초음파 진동', sub: '모공 정화 · 흡수 촉진' },
-                { title: 'QR 인증', sub: '위조 방지 · 정품 보장' },
+                { title: t('device.tech1'), sub: t('device.tech1_sub') },
+                { title: t('device.tech2'), sub: t('device.tech2_sub') },
+                { title: t('device.tech3'), sub: t('device.tech3_sub') },
+                { title: t('device.tech4'), sub: t('device.tech4_sub') },
               ].map(({ title, sub }) => (
                 <div
                   key={title}

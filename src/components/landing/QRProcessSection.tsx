@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Store, QrCode, ShieldCheck, RefreshCw } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 function useInView(ref: React.RefObject<Element | null>) {
   const [inView, setInView] = useState(false);
@@ -19,44 +20,45 @@ function useInView(ref: React.RefObject<Element | null>) {
   return inView;
 }
 
-const steps = [
-  {
-    icon: Store,
-    step: '01',
-    title: '본사 QR 세션 생성',
-    desc: '본사 운영자가 이 사이트에서 버튼 하나로 1회성 QR 세션을 생성합니다.',
-    accent: '#7bae52',
-    who: '본사 운영자',
-  },
-  {
-    icon: QrCode,
-    step: '02',
-    title: '고객 QR 스캔',
-    desc: '고객이 운영자 화면의 QR 코드를 스마트폰으로 스캔합니다.',
-    accent: '#38bdf8',
-    who: '고객',
-  },
-  {
-    icon: ShieldCheck,
-    step: '03',
-    title: '기기 사용 권한 부여',
-    desc: 'QR 인증 완료 시 더마10 기기 사용 권한이 부여됩니다. QR은 즉시 만료 처리됩니다.',
-    accent: '#9dd470',
-    who: '시스템 자동',
-  },
-  {
-    icon: RefreshCw,
-    step: '04',
-    title: '다음 고객 새 QR 발급',
-    desc: '사용된 QR은 재사용 불가합니다. 다음 고객을 위해 새 QR 세션을 생성하세요.',
-    accent: '#e879f9',
-    who: '본사 운영자',
-  },
-];
-
 export default function QRProcessSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef);
+  const { t } = useLanguage();
+
+  const steps = [
+    {
+      icon: Store,
+      step: '01',
+      title: t('qr.step1_title'),
+      desc: t('qr.step1_desc'),
+      accent: '#7bae52',
+      who: t('qr.step1_who'),
+    },
+    {
+      icon: QrCode,
+      step: '02',
+      title: t('qr.step2_title'),
+      desc: t('qr.step2_desc'),
+      accent: '#38bdf8',
+      who: t('qr.step2_who'),
+    },
+    {
+      icon: ShieldCheck,
+      step: '03',
+      title: t('qr.step3_title'),
+      desc: t('qr.step3_desc'),
+      accent: '#9dd470',
+      who: t('qr.step3_who'),
+    },
+    {
+      icon: RefreshCw,
+      step: '04',
+      title: t('qr.step4_title'),
+      desc: t('qr.step4_desc'),
+      accent: '#e879f9',
+      who: t('qr.step4_who'),
+    },
+  ];
 
   return (
     <section ref={sectionRef} className="py-28 relative overflow-hidden">
@@ -87,16 +89,15 @@ export default function QRProcessSection() {
             className="inline-block text-xs font-semibold tracking-widest uppercase mb-3"
             style={{ color: '#7bae52' }}
           >
-            QR Session System
+            {t('qr.tag')}
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: 'var(--t-1)' }}>1회성 QR로 </span>
-            <span className="text-gradient-green">기기 사용 권한</span>
-            <span style={{ color: 'var(--t-1)' }}> 관리</span>
+            <span style={{ color: 'var(--t-1)' }}>{t('qr.h2_1')}</span>
+            <span className="text-gradient-green">{t('qr.h2_2')}</span>
+            <span style={{ color: 'var(--t-1)' }}>{t('qr.h2_3')}</span>
           </h2>
           <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
-            본사 운영자가 QR 세션을 생성하고, 고객이 스캔하면 기기 사용 권한이 자동 부여됩니다.
-            한 번 사용된 QR은 즉시 만료되어 재사용이 불가합니다.
+            {t('qr.desc')}
           </p>
         </div>
 
@@ -187,10 +188,10 @@ export default function QRProcessSection() {
         >
           <div>
             <p className="text-sm font-semibold mb-1" style={{ color: 'var(--t-1)' }}>
-              본사 운영자이신가요?
+              {t('qr.cta_title')}
             </p>
             <p className="text-xs" style={{ color: 'var(--t-4)' }}>
-              지금 바로 고객용 1회성 QR 세션을 생성하세요. 무료, 즉시 생성.
+              {t('qr.cta_desc')}
             </p>
           </div>
           <Link
@@ -199,7 +200,7 @@ export default function QRProcessSection() {
             style={{ background: '#5c8a3c', boxShadow: '0 0 20px rgba(92,138,60,0.30)' }}
           >
             <QrCode className="w-4 h-4" />
-            QR 세션 생성하기
+            {t('qr.cta_btn')}
           </Link>
         </div>
       </div>

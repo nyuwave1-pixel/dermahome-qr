@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 function useInView(ref: React.RefObject<Element | null>) {
   const [inView, setInView] = useState(false);
@@ -23,6 +24,7 @@ function useInView(ref: React.RefObject<Element | null>) {
 export default function CTASection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef);
+  const { t } = useLanguage();
 
   return (
     <section ref={sectionRef} className="py-28 relative overflow-hidden">
@@ -73,15 +75,14 @@ export default function CTASection() {
           style={{ opacity: inView ? 1 : 0, transform: inView ? 'translateY(0)' : 'translateY(24px)' }}
         >
           <h2 className="text-3xl md:text-5xl font-black mb-4 leading-tight">
-            <span className="text-gradient-green">럭셔리 홈케어</span>
-            <span style={{ color: 'var(--t-1)' }}>의 시작을<br />본사에서 경험하세요</span>
+            <span className="text-gradient-green">{t('cta.h2_1')}</span>
+            <span style={{ color: 'var(--t-1)' }}>{t('cta.h2_2')}</span>
           </h2>
           <p
             className="text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed"
             style={{ color: 'var(--t-4)' }}
           >
-            QR 스캔 한 번으로 특별 혜택 시작 —
-            스캔 즉시 혜택이 자동 지급됩니다.
+            {t('cta.desc')}
           </p>
         </div>
 
@@ -96,7 +97,7 @@ export default function CTASection() {
             rel="noopener noreferrer"
           >
             <Button size="lg" className="min-w-[220px]">
-              유니앤코어 공식 사이트
+              {t('cta.btn')}
               <ArrowRight className="w-4 h-4" />
             </Button>
           </a>
@@ -108,10 +109,10 @@ export default function CTASection() {
           style={{ opacity: inView ? 0.6 : 0 }}
         >
           {[
-            '유니앤코어 공식 인증 프로모션',
-            '단 한 번의 인증으로 프리미엄 혜택',
-            '본사 직영 프리미엄 혜택',
-            '글로벌 K-뷰티 혁신 기술',
+            t('cta.trust1'),
+            t('cta.trust2'),
+            t('cta.trust3'),
+            t('cta.trust4'),
           ].map((badge) => (
             <div
               key={badge}

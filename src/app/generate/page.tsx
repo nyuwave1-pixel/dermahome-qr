@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { QrCode, RefreshCw, CheckCircle2, Clock, ArrowLeft, Store, AlertCircle } from 'lucide-react';
 import { createStoreSession, getQRStatus } from '@/services/qrService';
 import Header from '@/components/layout/Header';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 interface Session {
   token: string;
@@ -24,7 +25,7 @@ function useCountdown(expiredAt: string | null) {
       const h = Math.floor(diff / 3_600_000);
       const m = Math.floor((diff % 3_600_000) / 60_000);
       const s = Math.floor((diff % 60_000) / 1_000);
-      setRemaining(`${h > 0 ? `${h}시간 ` : ''}${m}분 ${s}초`);
+      setRemaining(`${h > 0 ? `${h}h ` : ''}${m}m ${s}s`);
     };
     tick();
     const id = setInterval(tick, 1000);
@@ -39,6 +40,7 @@ export default function GeneratePage() {
   const [error, setError] = useState<string | null>(null);
   const prevTokenRef = useRef<string | undefined>(undefined);
   const countdown = useCountdown(session?.expiredAt ?? null);
+  const { t } = useLanguage();
 
   // Poll server every 10s to check if QR was scanned
   useEffect(() => {
@@ -65,7 +67,7 @@ export default function GeneratePage() {
       prevTokenRef.current = result.token;
       setSession({ ...result, status: 'unused' });
     } catch {
-      setError('QR 생성에 실패했습니다. 네트워크 연결을 확인해주세요.');
+      setError('QR generation failed. Please check your network.');
     } finally {
       setLoading(false);
     }
@@ -80,10 +82,10 @@ export default function GeneratePage() {
 
   const statusLabel =
     session?.status === 'unused'
-      ? '대기 중 — 고객 스캔 전'
+      ? t('gen.status_waiting') || '대기 중 — 고객 스캔 전'
       : session?.status === 'used'
-      ? '사용 완료 — QR 폐기됨'
-      : '만료됨 — QR 폐기됨';
+      ? t('gen.status_used') || '사용 완료 — QR 폐기됨'
+      : t('gen.status_expired') || '만료됨 — QR 폐기됨';
 
   return (
     <>
@@ -103,7 +105,7 @@ export default function GeneratePage() {
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--t-5)'; }}
           >
             <ArrowLeft className="w-4 h-4" />
-            홈으로
+            {t('nav.home')}
           </Link>
 
           {/* Header card */}
@@ -123,10 +125,10 @@ export default function GeneratePage() {
               </div>
               <div>
                 <h1 className="text-base font-bold" style={{ color: 'var(--t-1)' }}>
-                  본사 QR 세션 생성
+                  {t('gen.title')}
                 </h1>
                 <p className="text-xs" style={{ color: 'var(--t-5)' }}>
-                  고객용 1회성 더마 시리즈 기기 사용 QR
+                  {t('gen.sub')}
                 </p>
               </div>
             </div>
@@ -154,10 +156,10 @@ export default function GeneratePage() {
                     <QrCode className="w-10 h-10" style={{ color: '#7bae52' }} />
                   </div>
                   <p className="text-sm font-semibold mb-1.5" style={{ color: 'var(--t-1)' }}>
-                    새 QR 세션을 생성하세요
+                    {t('gen.empty')}
                   </p>
-                  <p className="text-xs leading-relaxed" style={{ color: 'var(--t-5)' }}>
-                    생성된 QR을 고객에게 보여주면<br />고객이 스캔해 기기 사용 권한을 받습니다.
+                  <p className="text-xs leading-relaxed whitespace-pre-line" style={{ color: 'var(--t-5)' }}>
+                    {t('gen.empty_desc')}
                   </p>
                 </div>
               )}
@@ -174,7 +176,7 @@ export default function GeneratePage() {
                     />
                   </div>
                   <p className="text-sm" style={{ color: 'var(--t-4)' }}>
-                    QR 생성 중...
+                    QR...
                   </p>
                 </div>
               )}
@@ -211,7 +213,7 @@ export default function GeneratePage() {
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={session.qrImageUrl}
-                          alt="QR 세션 코드"
+                          alt="QR Session Code"
                           width={220}
                           height={220}
                           style={{ display: 'block' }}
@@ -229,10 +231,10 @@ export default function GeneratePage() {
                         <CheckCircle2 className="w-8 h-8" style={{ color: '#38bdf8' }} />
                       </div>
                       <p className="text-base font-bold" style={{ color: 'var(--t-1)' }}>
-                        고객이 성공적으로 스캔했습니다
+                        {t('gen.scanned') || '고객이 성공적으로 스캔했습니다'}
                       </p>
                       <p className="text-xs" style={{ color: 'var(--t-5)' }}>
-                        이 QR은 폐기되었습니다. 다음 고객을 위해 새 QR을 생성하세요.
+                        {t('gen.scanned_desc') || '이 QR은 폐기되었습니다. 다음 고객을 위해 새 QR을 생성하세요.'}
                       </p>
                     </div>
                   )}
@@ -246,7 +248,7 @@ export default function GeneratePage() {
                         <Clock className="w-8 h-8" style={{ color: '#f472b6' }} />
                       </div>
                       <p className="text-base font-bold" style={{ color: 'var(--t-1)' }}>
-                        QR이 만료 · 폐기되었습니다
+                        {t('gen.expired') || 'QR이 만료 · 폐기되었습니다'}
                       </p>
                     </div>
                   )}
@@ -259,10 +261,10 @@ export default function GeneratePage() {
                         style={{ color: 'var(--t-5)' }}
                       >
                         <Clock className="w-3.5 h-3.5" />
-                        유효 시간: {countdown}
+                        {countdown}
                       </div>
                       <div className="text-xs" style={{ color: 'var(--t-7)' }}>
-                        코드: {session.token.slice(0, 18)}…
+                        {session.token.slice(0, 18)}…
                       </div>
                     </div>
                   )}
@@ -294,7 +296,7 @@ export default function GeneratePage() {
                 ) : (
                   <QrCode className="w-4 h-4" />
                 )}
-                {session ? '새 QR 세션 생성' : 'QR 세션 생성하기'}
+                {t('gen.btn')}
               </button>
 
               {session?.status === 'unused' && (
@@ -302,33 +304,10 @@ export default function GeneratePage() {
                   className="text-center text-xs"
                   style={{ color: 'var(--t-6)' }}
                 >
-                  새 QR 생성 시 현재 QR은 즉시 폐기됩니다
+                  {t('gen.regenerate_note') || '새 QR 생성 시 현재 QR은 즉시 폐기됩니다'}
                 </p>
               )}
             </div>
-          </div>
-
-          {/* Instructions */}
-          <div
-            className="mt-5 p-4 rounded-2xl space-y-2.5"
-            style={{ background: 'var(--su-3)', border: '1px solid var(--bd-3)' }}
-          >
-            <p
-              className="text-xs font-semibold uppercase tracking-widest"
-              style={{ color: 'var(--t-6)' }}
-            >
-              사용 방법
-            </p>
-            {[
-              '① 「QR 세션 생성하기」 버튼을 눌러 QR을 생성합니다',
-              '② 화면의 QR을 고객 스마트폰으로 스캔하게 합니다',
-              '③ 고객 스캔 완료 시 기기 사용 권한이 자동 부여됩니다',
-              '④ 사용된 QR은 자동 폐기 — 다음 고객에게 새 QR 생성',
-            ].map((step) => (
-              <p key={step} className="text-xs leading-relaxed" style={{ color: 'var(--t-5)' }}>
-                {step}
-              </p>
-            ))}
           </div>
         </div>
       </main>

@@ -2,6 +2,7 @@
 
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import SideModels from '@/components/layout/SideModels';
 import HeroSection from '@/components/landing/HeroSection';
 import FeaturesSection from '@/components/landing/FeaturesSection';
 import DeviceSection from '@/components/landing/DeviceSection';
@@ -19,6 +20,7 @@ export default function HomePage() {
   return (
     <>
       <Header />
+      <SideModels />
       <main className="flex-1">
         {/* Hero — YouTube BG + marketing headline */}
         <HeroSection />

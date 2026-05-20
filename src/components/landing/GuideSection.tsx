@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Clock, Target, Zap } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 function useInView(ref: React.RefObject<Element | null>) {
   const [inView, setInView] = useState(false);
@@ -455,6 +456,7 @@ export default function GuideSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef);
   const [tab, setTab] = useState<'face' | 'body'>('face');
+  const { t } = useLanguage();
 
   const currentProtocols = tab === 'face' ? faceProtocols : bodyProtocols;
 
@@ -487,15 +489,14 @@ export default function GuideSection() {
             className="inline-block text-xs font-semibold tracking-widest uppercase mb-3"
             style={{ color: '#7bae52' }}
           >
-            Care Protocol
+            {t('guide.tag')}
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: 'var(--t-1)' }}>피부 고민별 </span>
-            <span className="text-gradient-green">케어 프로그램</span>
+            <span style={{ color: 'var(--t-1)' }}>{t('guide.h2_1')}</span>
+            <span className="text-gradient-green">{t('guide.h2_2')}</span>
           </h2>
           <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: 'var(--t-4)' }}>
-            더마10 전문 케어 가이드에서 제공하는 맞춤 케어 프로토콜.
-            3단계 헤드 조합으로 피부 고민을 집중 케어합니다.
+            {t('guide.desc')}
           </p>
         </div>
 
@@ -512,20 +513,20 @@ export default function GuideSection() {
             }}
           >
             {([
-              { id: 'face', label: '얼굴 케어' },
-              { id: 'body', label: '바디 케어' },
-            ] as const).map((t) => (
+              { id: 'face' as const, labelKey: 'guide.tab_face' },
+              { id: 'body' as const, labelKey: 'guide.tab_body' },
+            ]).map((item) => (
               <button
-                key={t.id}
-                onClick={() => setTab(t.id)}
+                key={item.id}
+                onClick={() => setTab(item.id)}
                 className="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
                 style={{
-                  background: tab === t.id ? 'rgba(92,138,60,0.22)' : 'transparent',
-                  color: tab === t.id ? '#9dd470' : 'var(--t-5)',
-                  border: tab === t.id ? '1px solid rgba(92,138,60,0.35)' : '1px solid transparent',
+                  background: tab === item.id ? 'rgba(92,138,60,0.22)' : 'transparent',
+                  color: tab === item.id ? '#9dd470' : 'var(--t-5)',
+                  border: tab === item.id ? '1px solid rgba(92,138,60,0.35)' : '1px solid transparent',
                 }}
               >
-                {t.label}
+                {t(item.labelKey)}
               </button>
             ))}
           </div>
@@ -555,10 +556,8 @@ export default function GuideSection() {
           }}
         >
           <p className="text-sm" style={{ color: 'var(--t-4)' }}>
-            <span className="font-semibold" style={{ color: '#9dd470' }}>전문가 팁</span>
-            {' '}— 각 케어 프로그램은 1회 30분 기준입니다.
-            처음 사용 시 강도를 1단계부터 시작하고, 피부 반응에 따라 단계별로 조절하세요.
-            유니앤코어 본사에서 전문가 케어를 먼저 경험하실 수 있습니다.
+            <span className="font-semibold" style={{ color: '#9dd470' }}>{t('guide.tip_label')}</span>
+            {' '}— {t('guide.tip_text')}
           </p>
         </div>
       </div>

@@ -34,7 +34,8 @@ export default function StoreLocatorSection() {
 
   const HQ_INFO = [
     { icon: MapPin, label: t('store.address_label'), value: t('store.address') },
-    { icon: Phone, label: t('store.phone_label'), value: '02-6952-1234' },
+    { icon: Phone, label: 'TEL', value: '1551-7970' },
+    { icon: Phone, label: 'FAX', value: '02-571-0122' },
     { icon: Clock, label: t('store.hours_label'), value: t('store.hours') },
     { icon: Globe, label: t('store.website_label'), value: 'www.unincore.com', href: 'https://www.unincore.com' },
   ];

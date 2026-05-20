@@ -15,14 +15,15 @@ const MODELS: {
   src: string;
   alt: string;
 }[] = [
-  { sectionId: 'heads',       side: 'right', src: '/images/model_red.png',     alt: 'Model' },
-  { sectionId: 'usage',       side: 'left',  src: '/images/model_gold.png',    alt: 'Model' },
+  { sectionId: 'heads',       side: 'left',  src: '/images/model_gold.png',    alt: 'Model' },
+  { sectionId: 'heads',       side: 'right', src: '/images/model_pink.png',    alt: 'Model' },
+  { sectionId: 'usage',       side: 'left',  src: '/images/model_red.png',     alt: 'Model' },
   { sectionId: 'qr-process',  side: 'right', src: '/images/model_dark.png',    alt: 'Model' },
   { sectionId: 'guide',       side: 'left',  src: '/images/model_coral.png',   alt: 'Model' },
   { sectionId: 'videos',      side: 'right', src: '/images/model_yellow.png',  alt: 'Model' },
   { sectionId: 'stores',      side: 'left',  src: '/images/model_moody.png',   alt: 'Model' },
   { sectionId: 'about',       side: 'right', src: '/images/model_glitter.png', alt: 'Model' },
-  { sectionId: 'cta-section', side: 'right', src: '/images/model_pink.png',    alt: 'Model' },
+  { sectionId: 'cta-section', side: 'right', src: '/images/model_coral.png',   alt: 'Model' },
 ];
 
 export default function SideModels() {

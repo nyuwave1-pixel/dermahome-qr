@@ -61,7 +61,7 @@ export default function QRProcessSection() {
   ];
 
   return (
-    <section ref={sectionRef} className="py-28 relative overflow-hidden">
+    <section ref={sectionRef} id="qr-process" className="py-28 relative overflow-hidden">
       {/* Grid bg */}
       <div
         className="absolute inset-0 pointer-events-none"

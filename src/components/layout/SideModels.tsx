@@ -1,69 +1,89 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 
-const MODELS = [
-  { src: '/images/model_gold.png', alt: 'Model Gold', side: 'left' as const },
-  { src: '/images/model_dark.png', alt: 'Model Dark', side: 'right' as const },
-  { src: '/images/model_pink.png', alt: 'Model Pink', side: 'left' as const },
+/*
+  Each entry ties one model image to a specific page section.
+  - sectionId : the DOM id of the <section> the image should appear next to
+  - side      : 'left' | 'right'
+  - src / alt : image props
+*/
+const MODELS: {
+  sectionId: string;
+  side: 'left' | 'right';
+  src: string;
+  alt: string;
+}[] = [
+  { sectionId: 'usage',       side: 'left',  src: '/images/model_gold.png', alt: 'Model' },
+  { sectionId: 'qr-process',  side: 'right', src: '/images/model_dark.png', alt: 'Model' },
+  { sectionId: 'cta-section', side: 'right', src: '/images/model_pink.png', alt: 'Model' },
 ];
 
 export default function SideModels() {
+  const [rects, setRects] = useState<(DOMRect | null)[]>([null, null, null]);
   const [scrollY, setScrollY] = useState(0);
   const [winH, setWinH] = useState(0);
-  const [docH, setDocH] = useState(0);
 
-  useEffect(() => {
-    const update = () => {
-      setScrollY(window.scrollY);
-      setWinH(window.innerHeight);
-      setDocH(document.documentElement.scrollHeight);
-    };
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-    };
+  /* Measure section positions */
+  const measure = useCallback(() => {
+    setRects(
+      MODELS.map((m) => {
+        const el = document.getElementById(m.sectionId);
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        return new DOMRect(r.x, r.y + window.scrollY, r.width, r.height);
+      }),
+    );
+    setWinH(window.innerHeight);
   }, []);
 
-  if (docH === 0) return null;
+  useEffect(() => {
+    measure();
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', measure, { passive: true });
+    // Re-measure after fonts / images settle
+    const t = setTimeout(measure, 1500);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', measure);
+      clearTimeout(t);
+    };
+  }, [measure]);
 
-  // Total scroll range
-  const maxScroll = docH - winH;
-  const progress = maxScroll > 0 ? scrollY / maxScroll : 0; // 0 → 1
-
-  // Each model gets a section of the scroll
-  // Model 1: appears 5%~35%, Model 2: 30%~65%, Model 3: 60%~95%
-  const ranges = [
-    { start: 0.05, peak: 0.15, end: 0.40 },
-    { start: 0.25, peak: 0.45, end: 0.70 },
-    { start: 0.55, peak: 0.70, end: 0.95 },
-  ];
+  if (winH === 0) return null;
 
   return (
     <div className="hidden 2xl:block pointer-events-none fixed inset-0 z-10">
       {MODELS.map((model, i) => {
-        const { start, peak, end } = ranges[i];
+        const rect = rects[i];
+        if (!rect) return null;
 
-        // Opacity: fade in from start→peak, full at peak, fade out peak→end
-        let opacity = 0;
-        if (progress >= start && progress <= end) {
-          if (progress < peak) {
-            opacity = (progress - start) / (peak - start);
-          } else {
-            opacity = 1 - (progress - peak) / (end - peak);
-          }
-        }
-        opacity = Math.max(0, Math.min(1, opacity)) * 0.55;
+        // Section top / bottom relative to viewport
+        const secTop = rect.top - scrollY;
+        const secBot = rect.top + rect.height - scrollY;
 
-        // Parallax vertical offset
-        const midPoint = (start + end) / 2;
-        const yOffset = (progress - midPoint) * -120;
+        // Only show when the section is actually overlapping the viewport
+        if (secBot < 0 || secTop > winH) return null;
 
-        if (opacity < 0.01) return null;
+        // How much of the section is inside the viewport (0→1)
+        const overlapTop = Math.max(0, secTop);
+        const overlapBot = Math.min(winH, secBot);
+        const overlapRatio = (overlapBot - overlapTop) / winH;
+
+        // Opacity peaks when section is centered in viewport
+        const secCenter = (secTop + secBot) / 2;
+        const distFromCenter = Math.abs(secCenter - winH / 2);
+        const maxDist = winH * 0.8;
+        let opacity = 1 - distFromCenter / maxDist;
+        opacity = Math.max(0, Math.min(1, opacity)) * Math.min(overlapRatio * 3, 1) * 0.6;
+
+        if (opacity < 0.02) return null;
+
+        // Subtle parallax: move image slightly opposite to scroll
+        const normalised = (secCenter - winH / 2) / winH; // −0.5 ↔ +0.5
+        const yOffset = normalised * -60;
 
         const isLeft = model.side === 'left';
 
@@ -80,13 +100,15 @@ export default function SideModels() {
             }}
           >
             <div
-              className="relative w-full overflow-hidden"
+              className="relative w-full overflow-hidden rounded-2xl"
               style={{
                 opacity,
                 transform: `translateY(${yOffset}px)`,
-                transition: 'opacity 0.1s ease-out',
-                maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+                willChange: 'opacity, transform',
+                maskImage:
+                  'linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%)',
+                WebkitMaskImage:
+                  'linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%)',
               }}
             >
               <Image
@@ -96,18 +118,17 @@ export default function SideModels() {
                 height={600}
                 className="w-full h-auto object-cover"
                 style={{
-                  filter: 'grayscale(0.15) brightness(0.85)',
-                  mixBlendMode: 'luminosity',
+                  filter: 'brightness(0.82)',
                 }}
                 priority={false}
               />
-              {/* Gradient overlay to blend with site */}
+              {/* Inner edge fade toward content area */}
               <div
                 className="absolute inset-0"
                 style={{
                   background: isLeft
-                    ? 'linear-gradient(to right, transparent 0%, rgba(var(--bg-raw, 0,0,0), 0.4) 100%)'
-                    : 'linear-gradient(to left, transparent 0%, rgba(var(--bg-raw, 0,0,0), 0.4) 100%)',
+                    ? 'linear-gradient(to right, transparent 50%, rgba(0,0,0,0.5) 100%)'
+                    : 'linear-gradient(to left, transparent 50%, rgba(0,0,0,0.5) 100%)',
                 }}
               />
             </div>

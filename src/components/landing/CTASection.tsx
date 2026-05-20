@@ -27,7 +27,7 @@ export default function CTASection() {
   const { t } = useLanguage();
 
   return (
-    <section ref={sectionRef} className="py-28 relative overflow-hidden">
+    <section ref={sectionRef} id="cta-section" className="py-28 relative overflow-hidden">
       {/* BG glow */}
       <div
         className="absolute inset-0 pointer-events-none"

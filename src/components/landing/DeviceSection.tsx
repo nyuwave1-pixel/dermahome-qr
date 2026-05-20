@@ -41,7 +41,7 @@ export default function DeviceSection() {
   ];
 
   return (
-    <section ref={sectionRef} className="py-28 relative">
+    <section ref={sectionRef} id="device-spec" className="py-28 relative">
       {/* bg gradient */}
       <div
         className="absolute inset-0 pointer-events-none"

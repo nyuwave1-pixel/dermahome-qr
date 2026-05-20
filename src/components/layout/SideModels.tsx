@@ -15,15 +15,25 @@ const MODELS: {
   src: string;
   alt: string;
 }[] = [
-  { sectionId: 'heads',       side: 'left',  src: '/images/model_gold.png',    alt: 'Model' },
-  { sectionId: 'heads',       side: 'right', src: '/images/model_pink.png',    alt: 'Model' },
-  { sectionId: 'usage',       side: 'left',  src: '/images/model_red.png',     alt: 'Model' },
-  { sectionId: 'qr-process',  side: 'right', src: '/images/model_dark.png',    alt: 'Model' },
-  { sectionId: 'guide',       side: 'left',  src: '/images/model_coral.png',   alt: 'Model' },
-  { sectionId: 'videos',      side: 'right', src: '/images/model_yellow.png',  alt: 'Model' },
-  { sectionId: 'stores',      side: 'left',  src: '/images/model_moody.png',   alt: 'Model' },
-  { sectionId: 'about',       side: 'right', src: '/images/model_glitter.png', alt: 'Model' },
-  { sectionId: 'cta-section', side: 'right', src: '/images/model_coral.png',   alt: 'Model' },
+  // 더마10 — 8종 헤드 시스템
+  { sectionId: 'heads',       side: 'left',  src: '/images/model_gold.png',      alt: 'Model' },
+  { sectionId: 'heads',       side: 'right', src: '/images/model_pink.png',      alt: 'Model' },
+  // 더마10 프리미엄 피부 관리 시스템
+  { sectionId: 'device-spec', side: 'left',  src: '/images/model_gold_dark.png', alt: 'Model' },
+  { sectionId: 'device-spec', side: 'right', src: '/images/model_orange.png',    alt: 'Model' },
+  // 더마10 사용 가이드
+  { sectionId: 'usage',       side: 'left',  src: '/images/model_dark.png',      alt: 'Model' },
+  { sectionId: 'usage',       side: 'right', src: '/images/model_floral.png',    alt: 'Model' },
+  // 1회성 QR로 기기 사용 권한 관리
+  { sectionId: 'qr-process',  side: 'left',  src: '/images/model_coral.png',     alt: 'Model' },
+  { sectionId: 'qr-process',  side: 'right', src: '/images/model_yellow.png',    alt: 'Model' },
+  // 케어 가이드
+  { sectionId: 'guide',       side: 'left',  src: '/images/model_red.png',       alt: 'Model' },
+  { sectionId: 'guide',       side: 'right', src: '/images/model_glitter.png',   alt: 'Model' },
+  // 하단 섹션
+  { sectionId: 'videos',      side: 'left',  src: '/images/model_moody.png',     alt: 'Model' },
+  { sectionId: 'stores',      side: 'right', src: '/images/model_gold_dark.png', alt: 'Model' },
+  { sectionId: 'cta-section', side: 'left',  src: '/images/model_coral.png',     alt: 'Model' },
 ];
 
 export default function SideModels() {

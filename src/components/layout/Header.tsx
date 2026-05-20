@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, QrCode, Home, Cpu, Building2, BookOpen, MapPin } from 'lucide-react';
 import ThemeToggle from '@/components/ui/ThemeToggle';
-import LanguageSelector from '@/components/ui/LanguageSelector';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 const navIcons = [Home, Cpu, BookOpen, MapPin, Building2];
@@ -104,7 +103,6 @@ export default function Header() {
 
           {/* Right actions */}
           <div className="hidden lg:flex items-center gap-1.5 shrink-0">
-            <LanguageSelector />
             <ThemeToggle />
             <Link
               href="/generate"
@@ -118,7 +116,6 @@ export default function Header() {
 
           {/* Mobile: language + theme toggle + hamburger */}
           <div className="lg:hidden flex items-center gap-2">
-            <LanguageSelector />
             <ThemeToggle />
             <button
               className="p-2 rounded-xl transition-colors"

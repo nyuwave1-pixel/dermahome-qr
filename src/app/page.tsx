@@ -38,9 +38,7 @@ export default function HomePage() {
         <QRProcessSection />
 
         {/* Care protocols from guide */}
-        <div id="guide">
-          <GuideSection />
-        </div>
+        <GuideSection />
 
         {/* Official YouTube videos */}
         <VideoSection />

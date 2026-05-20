@@ -15,13 +15,18 @@ const MODELS: {
   src: string;
   alt: string;
 }[] = [
-  { sectionId: 'usage',       side: 'left',  src: '/images/model_gold.png', alt: 'Model' },
-  { sectionId: 'qr-process',  side: 'right', src: '/images/model_dark.png', alt: 'Model' },
-  { sectionId: 'cta-section', side: 'right', src: '/images/model_pink.png', alt: 'Model' },
+  { sectionId: 'heads',       side: 'right', src: '/images/model_red.png',     alt: 'Model' },
+  { sectionId: 'usage',       side: 'left',  src: '/images/model_gold.png',    alt: 'Model' },
+  { sectionId: 'qr-process',  side: 'right', src: '/images/model_dark.png',    alt: 'Model' },
+  { sectionId: 'guide',       side: 'left',  src: '/images/model_coral.png',   alt: 'Model' },
+  { sectionId: 'videos',      side: 'right', src: '/images/model_yellow.png',  alt: 'Model' },
+  { sectionId: 'stores',      side: 'left',  src: '/images/model_moody.png',   alt: 'Model' },
+  { sectionId: 'about',       side: 'right', src: '/images/model_glitter.png', alt: 'Model' },
+  { sectionId: 'cta-section', side: 'right', src: '/images/model_pink.png',    alt: 'Model' },
 ];
 
 export default function SideModels() {
-  const [rects, setRects] = useState<(DOMRect | null)[]>([null, null, null]);
+  const [rects, setRects] = useState<(DOMRect | null)[]>(MODELS.map(() => null));
   const [scrollY, setScrollY] = useState(0);
   const [winH, setWinH] = useState(0);
 

@@ -9,6 +9,17 @@ import Image from 'next/image';
   - side      : 'left' | 'right'
   - src / alt : image props
 */
+/* ── Product images (replace model portraits) ─────────────────────────
+   product_01.png : Hydrating Skin Barrier Serum Mist 120ml
+   product_02.png : Hydrating Skin Barrier Serum Mist 50ml
+   product_03.png : Micro Bubble Cleansing Foam 120ml
+───────────────────────────────────────────────────────────────────── */
+const PRODUCTS = [
+  { src: '/images/product_01.png', alt: 'UNI&CORE Hydrating Skin Barrier Serum Mist 120ml' },
+  { src: '/images/product_02.png', alt: 'UNI&CORE Hydrating Skin Barrier Serum Mist 50ml' },
+  { src: '/images/product_03.png', alt: 'UNI&CORE Micro Bubble Cleansing Foam' },
+];
+
 const MODELS: {
   sectionId: string;
   side: 'left' | 'right';
@@ -16,24 +27,20 @@ const MODELS: {
   alt: string;
 }[] = [
   // 더마10 — 8종 헤드 시스템
-  { sectionId: 'heads',       side: 'left',  src: '/images/model_gold.png',      alt: 'Model' },
-  { sectionId: 'heads',       side: 'right', src: '/images/model_pink.png',      alt: 'Model' },
+  { sectionId: 'heads',       side: 'left',  ...PRODUCTS[0] },
+  { sectionId: 'heads',       side: 'right', ...PRODUCTS[1] },
   // 더마10 프리미엄 피부 관리 시스템
-  { sectionId: 'device-spec', side: 'left',  src: '/images/model_gold_dark.png', alt: 'Model' },
-  { sectionId: 'device-spec', side: 'right', src: '/images/model_orange.png',    alt: 'Model' },
+  { sectionId: 'device-spec', side: 'left',  ...PRODUCTS[2] },
+  { sectionId: 'device-spec', side: 'right', ...PRODUCTS[0] },
   // 더마10 사용 가이드
-  { sectionId: 'usage',       side: 'left',  src: '/images/model_dark.png',      alt: 'Model' },
-  { sectionId: 'usage',       side: 'right', src: '/images/model_floral.png',    alt: 'Model' },
+  { sectionId: 'usage',       side: 'left',  ...PRODUCTS[1] },
+  { sectionId: 'usage',       side: 'right', ...PRODUCTS[2] },
   // 1회성 QR로 기기 사용 권한 관리
-  { sectionId: 'qr-process',  side: 'left',  src: '/images/model_coral.png',     alt: 'Model' },
-  { sectionId: 'qr-process',  side: 'right', src: '/images/model_yellow.png',    alt: 'Model' },
+  { sectionId: 'qr-process',  side: 'left',  ...PRODUCTS[0] },
+  { sectionId: 'qr-process',  side: 'right', ...PRODUCTS[1] },
   // 케어 가이드
-  { sectionId: 'guide',       side: 'left',  src: '/images/model_red.png',       alt: 'Model' },
-  { sectionId: 'guide',       side: 'right', src: '/images/model_glitter.png',   alt: 'Model' },
-  // 하단 섹션
-  { sectionId: 'videos',      side: 'left',  src: '/images/model_moody.png',     alt: 'Model' },
-  { sectionId: 'stores',      side: 'right', src: '/images/model_gold_dark.png', alt: 'Model' },
-  { sectionId: 'cta-section', side: 'left',  src: '/images/model_coral.png',     alt: 'Model' },
+  { sectionId: 'guide',       side: 'left',  ...PRODUCTS[2] },
+  { sectionId: 'guide',       side: 'right', ...PRODUCTS[0] },
 ];
 
 export default function SideModels() {
@@ -131,10 +138,12 @@ export default function SideModels() {
                 src={model.src}
                 alt={model.alt}
                 width={400}
-                height={600}
-                className="w-full h-auto object-cover"
+                height={500}
+                className="w-full h-auto object-contain"
                 style={{
-                  filter: 'brightness(0.82)',
+                  padding: '12px',
+                  background: 'rgba(255,255,255,0.06)',
+                  borderRadius: '16px',
                 }}
                 priority={false}
               />
@@ -143,8 +152,8 @@ export default function SideModels() {
                 className="absolute inset-0"
                 style={{
                   background: isLeft
-                    ? 'linear-gradient(to right, transparent 50%, rgba(0,0,0,0.5) 100%)'
-                    : 'linear-gradient(to left, transparent 50%, rgba(0,0,0,0.5) 100%)',
+                    ? 'linear-gradient(to right, transparent 60%, rgba(0,0,0,0.15) 100%)'
+                    : 'linear-gradient(to left, transparent 60%, rgba(0,0,0,0.15) 100%)',
                 }}
               />
             </div>

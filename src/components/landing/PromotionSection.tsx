@@ -3,26 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { TrendingUp, MapPin, Globe, Package } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
-
-function useInView(ref: React.RefObject<Element | null>) {
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold: 0.1 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [ref]);
-  return inView;
-}
+import { useInView } from '@/hooks/useInView';
 
 export default function PromotionSection() {
   const { t } = useLanguage();
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sectionRef);
+  const { ref: sectionRef, inView } = useInView(0.1);
 
   const stats = [
     {
@@ -56,7 +41,7 @@ export default function PromotionSection() {
   ];
 
   return (
-    <section ref={sectionRef} className="py-28 relative overflow-hidden">
+    <section ref={sectionRef as React.RefObject<HTMLElement>} className="py-28 relative overflow-hidden">
 
       {/* Background */}
       <div

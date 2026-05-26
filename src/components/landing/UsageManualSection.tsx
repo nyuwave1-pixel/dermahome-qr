@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { ChevronRight } from 'lucide-react';
+import { useInView } from '@/hooks/useInView';
 
 /* ─── Types ──────────────────────────────────────────────────── */
 type Step = { head: string; product: string; time: string; purpose: string };
@@ -234,22 +235,6 @@ const categories: Category[] = [
   },
 ];
 
-/* ─── Helpers ────────────────────────────────────────────────── */
-function useInView(ref: React.RefObject<Element | null>) {
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold: 0.04 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [ref]);
-  return inView;
-}
-
 /* ─── Step badge ─────────────────────────────────────────────── */
 function StepBadge({ n, label }: { n: number; label: string }) {
   const c = STEP_COLORS[label] ?? '#9dd470';
@@ -428,15 +413,14 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
 
 /* ─── Main component ─────────────────────────────────────────── */
 export default function UsageManualSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sectionRef);
+  const { ref: sectionRef, inView } = useInView(0.04);
   const [activeCat, setActiveCat] = useState('face');
   const [openRoutine, setOpenRoutine] = useState<string | null>('brightening');
 
   const cat = categories.find(c => c.id === activeCat)!;
 
   return (
-    <section ref={sectionRef} id="usage" className="py-28 relative overflow-hidden">
+    <section ref={sectionRef as React.RefObject<HTMLElement>} id="usage" className="py-28 relative overflow-hidden">
       {/* BG */}
       <div
         className="absolute inset-0 pointer-events-none"

@@ -1,23 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { useLanguage } from '@/i18n/LanguageContext';
-
-function useInView(ref: React.RefObject<Element | null>) {
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold: 0.1 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [ref]);
-  return inView;
-}
+import { useInView } from '@/hooks/useInView';
 
 const galleryImages = [
   { src: '/images/derma10.jpg', alt: '더마10 정면', labelKey: 'device.gallery_front' as const },
@@ -27,8 +13,7 @@ const galleryImages = [
 ];
 
 export default function DeviceSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sectionRef);
+  const { ref: sectionRef, inView } = useInView(0.1);
   const [activeImg, setActiveImg] = useState(0);
   const { t } = useLanguage();
 
@@ -41,7 +26,7 @@ export default function DeviceSection() {
   ];
 
   return (
-    <section ref={sectionRef} id="device-spec" className="py-28 relative">
+    <section ref={sectionRef as React.RefObject<HTMLElement>} id="device-spec" className="py-28 relative">
       {/* bg gradient */}
       <div
         className="absolute inset-0 pointer-events-none"

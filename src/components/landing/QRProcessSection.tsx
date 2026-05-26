@@ -1,28 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Store, QrCode, ShieldCheck, RefreshCw } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
-
-function useInView(ref: React.RefObject<Element | null>) {
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold: 0.1 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [ref]);
-  return inView;
-}
+import { useInView } from '@/hooks/useInView';
 
 export default function QRProcessSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sectionRef);
+  const { ref: sectionRef, inView } = useInView(0.1);
   const { t } = useLanguage();
 
   const steps = [
@@ -61,7 +45,7 @@ export default function QRProcessSection() {
   ];
 
   return (
-    <section ref={sectionRef} id="qr-process" className="py-28 relative overflow-hidden">
+    <section ref={sectionRef as React.RefObject<HTMLElement>} id="qr-process" className="py-28 relative overflow-hidden">
       {/* Grid bg */}
       <div
         className="absolute inset-0 pointer-events-none"

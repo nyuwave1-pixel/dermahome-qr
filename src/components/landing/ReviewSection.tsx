@@ -3,21 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Star, TrendingUp } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
-
-function useInView(ref: React.RefObject<Element | null>) {
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold: 0.08 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [ref]);
-  return inView;
-}
+import { useInView } from '@/hooks/useInView';
 
 interface Review {
   name: string;
@@ -124,12 +110,11 @@ function MetricBar({ label, before, after, color }: { label: string; before: num
 }
 
 export default function ReviewSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sectionRef);
+  const { ref: sectionRef, inView } = useInView(0.08);
   const { t } = useLanguage();
 
   return (
-    <section ref={sectionRef} className="py-28 relative overflow-hidden">
+    <section ref={sectionRef as React.RefObject<HTMLElement>} className="py-28 relative overflow-hidden">
       {/* BG */}
       <div
         className="absolute inset-0 pointer-events-none"

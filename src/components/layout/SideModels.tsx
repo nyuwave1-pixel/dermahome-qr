@@ -63,7 +63,17 @@ export default function SideModels() {
 
   useEffect(() => {
     measure();
-    const onScroll = () => setScrollY(window.scrollY);
+
+    // rAF-throttled scroll handler — caps at ~60fps
+    let rafId: number | null = null;
+    const onScroll = () => {
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        setScrollY(window.scrollY);
+        rafId = null;
+      });
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', measure, { passive: true });
     // Re-measure after fonts / images settle
@@ -72,6 +82,7 @@ export default function SideModels() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', measure);
       clearTimeout(t);
+      if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, [measure]);
 

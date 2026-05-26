@@ -5,29 +5,14 @@ import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { useLanguage } from '@/i18n/LanguageContext';
-
-function useInView(ref: React.RefObject<Element | null>) {
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold: 0.1 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [ref]);
-  return inView;
-}
+import { useInView } from '@/hooks/useInView';
 
 export default function CTASection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sectionRef);
+  const { ref: sectionRef, inView } = useInView(0.1);
   const { t } = useLanguage();
 
   return (
-    <section ref={sectionRef} id="cta-section" className="py-28 relative overflow-hidden">
+    <section ref={sectionRef as React.RefObject<HTMLElement>} id="cta-section" className="py-28 relative overflow-hidden">
       {/* BG glow */}
       <div
         className="absolute inset-0 pointer-events-none"

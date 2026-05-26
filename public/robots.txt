@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Admin routes — block crawlers
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://unicore-dermahome-qr.netlify.app/sitemap.xml

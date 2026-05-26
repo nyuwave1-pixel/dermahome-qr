@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
+import { useInView } from '@/hooks/useInView';
 
 /* ─── Head data ──────────────────────────────────────────────── */
 const heads = [
@@ -103,27 +104,10 @@ const heads = [
   },
 ];
 
-function useInView(ref: React.RefObject<Element | null>) {
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold: 0.05 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [ref]);
-  return inView;
-}
-
 export default function FeaturesSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sectionRef);
+  const { ref: sectionRef, inView } = useInView(0.05);
   const [active, setActive] = useState(0);
   const [animating, setAnimating] = useState(false);
-
   const head = heads[active];
 
   function switchHead(i: number) {
@@ -136,7 +120,7 @@ export default function FeaturesSection() {
   }
 
   return (
-    <section ref={sectionRef} id="heads" className="py-28 relative overflow-hidden">
+    <section ref={sectionRef as React.RefObject<HTMLElement>} id="heads" className="py-28 relative overflow-hidden">
 
       {/* Dynamic bg glow */}
       <div

@@ -7,8 +7,8 @@ export interface LocaleInfo {
 }
 
 export const LOCALES: LocaleInfo[] = [
-  { code: 'ko', label: '한국어', flag: '🇰🇷' },
   { code: 'en', label: 'English', flag: '🇺🇸' },
+  { code: 'ko', label: '한국어', flag: '🇰🇷' },
   { code: 'ja', label: '日本語', flag: '🇯🇵' },
   { code: 'zh', label: '中文', flag: '🇨🇳' },
   { code: 'es', label: 'Español', flag: '🇪🇸' },

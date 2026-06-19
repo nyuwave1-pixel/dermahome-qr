@@ -8,11 +8,11 @@ const SITE_URL = 'https://unicore-dermahome-qr.netlify.app';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'DermaHome 10 | UNI&CORE — 프리미엄 피부 관리 시스템',
+    default: 'Derma Series | UNI&CORE — Premium Skin Care System',
     template: '%s | DermaHome',
   },
-  description: '유니앤코어 더마10 — 8종 헤드 올인원 피부 미용 기기. QR 정품 인증 및 스마트 피부 관리 서비스.',
-  keywords: ['더마10', 'DermaHome', '유니앤코어', 'UNICORE', 'QR인증', '피부관리', '미용기기', '피부미용기기'],
+  description: 'UNI&CORE Derma Series — 8-head all-in-one skin care device. QR authentication and smart skin care service.',
+  keywords: ['Derma Series', 'DermaHome', 'UNI&CORE', 'UNICORE', 'QR Auth', 'Skin Care', 'Beauty Device', 'K-Beauty'],
   authors: [{ name: 'UNI&CORE', url: SITE_URL }],
   creator: 'UNI&CORE',
   publisher: 'UNI&CORE',
@@ -23,17 +23,17 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'ko_KR',
+    locale: 'en_US',
     url: SITE_URL,
     siteName: 'UNI&CORE DermaHome',
-    title: 'DermaHome 10 | UNI&CORE — 프리미엄 피부 관리 시스템',
-    description: '8종 헤드 올인원 피부 미용 기기. QR 정품 인증으로 스마트 피부 관리를 경험하세요.',
-    images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'UNI&CORE DermaHome 10' }],
+    title: 'Derma Series | UNI&CORE — Premium Skin Care System',
+    description: '8-head all-in-one skin care device. Experience smart skin care with QR authentication.',
+    images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'UNI&CORE Derma Series' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DermaHome 10 | UNI&CORE',
-    description: '8종 헤드 올인원 피부 미용 기기. QR 정품 인증 시스템.',
+    title: 'Derma Series | UNI&CORE',
+    description: '8-head all-in-one premium skin care device. QR authentication system.',
     images: ['/images/og-image.png'],
   },
   alternates: {
@@ -58,7 +58,7 @@ const jsonLd = {
   '@type': 'Product',
   name: 'DermaHome 10',
   brand: { '@type': 'Brand', name: 'UNI&CORE' },
-  description: '8종 헤드 올인원 피부 미용 기기. RF, 초음파, 이온토포레시스 등 8가지 피부 케어 기술.',
+  description: '8-head all-in-one skin care device. RF, Ultrasonic, Iontophoresis and 8 skin care technologies.',
   url: 'https://unicore-dermahome-qr.netlify.app',
   image: 'https://unicore-dermahome-qr.netlify.app/images/derma10.jpg',
   offers: { '@type': 'Offer', availability: 'https://schema.org/InStoreOnly', priceCurrency: 'KRW' },
@@ -81,7 +81,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ko" className="h-full">
+    <html lang="en" className="h-full" suppressHydrationWarning>
       {/* Flash-prevention: must execute synchronously before paint */}
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

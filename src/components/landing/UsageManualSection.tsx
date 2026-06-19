@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 /* ─── Types ──────────────────────────────────────────────────── */
 type Step = { head: string; product: string; time: string; purpose: string };
@@ -18,10 +19,16 @@ type Routine = {
 type Category = { id: string; label: string; color: string; routines: Routine[] };
 
 /* ─── Data ───────────────────────────────────────────────────── */
-const STEP_COLORS: Record<string, string> = {
-  'RF 고주파': '#e879f9',
-  '울트라소닉': '#38bdf8',
-  '이온토포레시스': '#818cf8',
+const HEAD_COLORS: Record<string, string> = {
+  rf: '#e879f9',
+  us: '#38bdf8',
+  ion: '#818cf8',
+};
+
+const HEAD_ID_MAP: Record<string, string> = {
+  'RF 고주파': 'rf',
+  '울트라소닉': 'us',
+  '이온토포레시스': 'ion',
 };
 
 const categories: Category[] = [
@@ -236,8 +243,8 @@ const categories: Category[] = [
 ];
 
 /* ─── Step badge ─────────────────────────────────────────────── */
-function StepBadge({ n, label }: { n: number; label: string }) {
-  const c = STEP_COLORS[label] ?? '#9dd470';
+function StepBadge({ n, label, headId }: { n: number; label: string; headId?: string }) {
+  const c = (headId && HEAD_COLORS[headId]) ? HEAD_COLORS[headId] : '#9dd470';
   return (
     <div className="flex items-center gap-2 shrink-0">
       <div
@@ -257,8 +264,9 @@ function StepBadge({ n, label }: { n: number; label: string }) {
 }
 
 /* ─── Routine card ───────────────────────────────────────────── */
-function RoutineCard({ routine, catColor, isOpen, onToggle }: {
+function RoutineCard({ routine, catColor, isOpen, onToggle, protocolLabel, dirLabel }: {
   routine: Routine; catColor: string; isOpen: boolean; onToggle: () => void;
+  protocolLabel: string; dirLabel: string;
 }) {
   return (
     <div
@@ -317,11 +325,12 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
               className="text-[10px] font-bold tracking-widest uppercase mb-3"
               style={{ color: 'var(--t-7)' }}
             >
-              케어 프로토콜
+              {protocolLabel}
             </div>
             <div className="flex flex-col gap-2">
               {routine.steps.map((step, i) => {
-                const c = STEP_COLORS[step.head] ?? catColor;
+                const hid = HEAD_ID_MAP[step.head];
+                const c = (hid && HEAD_COLORS[hid]) ? HEAD_COLORS[hid] : catColor;
                 return (
                   <div
                     key={i}
@@ -329,7 +338,7 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
                     style={{ background: `${c}07`, border: `1px solid ${c}18` }}
                   >
                     <div className="flex items-start gap-3 mb-2 flex-wrap">
-                      <StepBadge n={i + 1} label={step.head} />
+                      <StepBadge n={i + 1} label={step.head} headId={hid} />
                       <div className="flex items-center gap-2 ml-auto shrink-0">
                         <span
                           className="text-[10px] px-2 py-0.5 rounded font-medium"
@@ -363,7 +372,7 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
               className="text-[10px] font-bold tracking-widest uppercase mb-3"
               style={{ color: 'var(--t-7)' }}
             >
-              부위별 방향 가이드
+              {dirLabel}
             </div>
             <div
               className="rounded-xl overflow-hidden"
@@ -414,8 +423,15 @@ function RoutineCard({ routine, catColor, isOpen, onToggle }: {
 /* ─── Main component ─────────────────────────────────────────── */
 export default function UsageManualSection() {
   const { ref: sectionRef, inView } = useInView(0.04);
+  const { t } = useLanguage();
   const [activeCat, setActiveCat] = useState('face');
   const [openRoutine, setOpenRoutine] = useState<string | null>('brightening');
+
+  const catLabels: Record<string, string> = {
+    face: t('m.cat_face'),
+    hair: t('m.cat_hair'),
+    body: t('m.cat_body'),
+  };
 
   const cat = categories.find(c => c.id === activeCat)!;
 
@@ -440,18 +456,17 @@ export default function UsageManualSection() {
             className="inline-block text-xs font-semibold tracking-widest uppercase mb-3"
             style={{ color: '#7bae52' }}
           >
-            Usage Manual
+            {t('m.tag')}
           </span>
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            <span style={{ color: 'var(--t-1)' }}>더마10 </span>
-            <span className="text-gradient-green">사용 가이드</span>
+            <span style={{ color: 'var(--t-1)' }}>{t('m.h2_1')} </span>
+            <span className="text-gradient-green">{t('m.h2_2')}</span>
           </h2>
           <p
             className="max-w-lg mx-auto text-sm leading-relaxed"
             style={{ color: 'var(--t-4)' }}
           >
-            공식 트레이닝 매뉴얼 기반 케어 프로토콜.
-            RF 고주파 · 울트라소닉 · 이온토포레시스 3단계 조합으로 최대 효과를 경험하세요.
+            {t('m.desc')}
           </p>
         </div>
 
@@ -471,7 +486,7 @@ export default function UsageManualSection() {
                 color: activeCat === c.id ? c.color : 'var(--t-5)',
               }}
             >
-              {c.label}
+              {catLabels[c.id] || c.label}
               <span
                 className="text-[10px] font-semibold px-1.5 py-0.5 rounded"
                 style={{
@@ -497,6 +512,8 @@ export default function UsageManualSection() {
               catColor={cat.color}
               isOpen={openRoutine === routine.id}
               onToggle={() => setOpenRoutine(openRoutine === routine.id ? null : routine.id)}
+              protocolLabel={t('m.protocol')}
+              dirLabel={t('m.dir_guide')}
             />
           ))}
         </div>
@@ -515,17 +532,21 @@ export default function UsageManualSection() {
             className="text-[10px] font-bold tracking-widest uppercase"
             style={{ color: 'var(--t-7)' }}
           >
-            헤드 색상 범례
+            {t('m.legend')}
           </span>
-          {Object.entries(STEP_COLORS).map(([label, color]) => (
-            <div key={label} className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full" style={{ background: color }} />
+          {([
+            { id: 'rf', label: t('m.head_rf') },
+            { id: 'us', label: t('m.head_us') },
+            { id: 'ion', label: t('m.head_ion') },
+          ] as const).map(({ id, label }) => (
+            <div key={id} className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full" style={{ background: HEAD_COLORS[id] }} />
               <span className="text-xs font-medium" style={{ color: 'var(--t-4)' }}>{label}</span>
             </div>
           ))}
           <div className="flex items-center gap-1.5 ml-auto">
             <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#9dd470' }} />
-            <span className="text-xs font-medium" style={{ color: 'var(--t-4)' }}>기타 헤드</span>
+            <span className="text-xs font-medium" style={{ color: 'var(--t-4)' }}>{t('m.legend_other')}</span>
           </div>
         </div>
       </div>

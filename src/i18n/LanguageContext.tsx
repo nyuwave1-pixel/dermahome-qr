@@ -1,8 +1,11 @@
 'use client';
 
-import { createContext, useContext, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useCallback, useState, useEffect, ReactNode } from 'react';
 import { Locale } from './types';
 import translations from './translations';
+
+const STORAGE_KEY = 'dermahome-locale';
+const DEFAULT_LOCALE: Locale = 'en';
 
 interface LanguageContextValue {
   locale: Locale;
@@ -11,22 +14,46 @@ interface LanguageContextValue {
 }
 
 const LanguageContext = createContext<LanguageContextValue>({
-  locale: 'ko',
+  locale: DEFAULT_LOCALE,
   setLocale: () => {},
   t: (key) => key,
 });
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const locale: Locale = 'ko';
+function getInitialLocale(): Locale {
+  if (typeof window === 'undefined') return DEFAULT_LOCALE;
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved && saved in translations) return saved as Locale;
+  return DEFAULT_LOCALE;
+}
 
-  const setLocale = useCallback(() => {}, []);
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [locale, setLocaleState] = useState<Locale>(DEFAULT_LOCALE);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setLocaleState(getInitialLocale());
+    setMounted(true);
+  }, []);
+
+  const setLocale = useCallback((l: Locale) => {
+    setLocaleState(l);
+    localStorage.setItem(STORAGE_KEY, l);
+  }, []);
 
   const t = useCallback(
     (key: string): string => {
-      return translations.ko[key] ?? key;
+      return translations[locale]?.[key] ?? translations[DEFAULT_LOCALE]?.[key] ?? key;
     },
-    [],
+    [locale],
   );
+
+  if (!mounted) {
+    return (
+      <LanguageContext.Provider value={{ locale: DEFAULT_LOCALE, setLocale, t: (key) => translations[DEFAULT_LOCALE]?.[key] ?? key }}>
+        {children}
+      </LanguageContext.Provider>
+    );
+  }
 
   return (
     <LanguageContext.Provider value={{ locale, setLocale, t }}>
